@@ -115,6 +115,7 @@
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
 
+      // Adwords
       gtag('config', 'AW-1049050912');
     </script>
     {% if hasConversionTag %}
@@ -137,7 +138,9 @@
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
 
-    gtag('config', 'AW-16598463992');
+    // Google Analytics 4 (linked to the same Adwords account)
+    // https://analytics.google.com/analytics/web/?authuser=2#/a259140972p356365656/admin/streams/table/4673150980
+    gtag('config', 'G-T5KZX7CXGM');
   </script>
   <body class="d-flex flex-column h-100 bg-transparent bg-viewport text-gray-900 relative bootstrap-theme v3-theme {%if page.is_homepage %}homepage{% endif %} {{ page.page_class_name }} page-{{ request.template | replace: '_', '-' }} js">
 
