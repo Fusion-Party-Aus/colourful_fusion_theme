@@ -22,7 +22,7 @@ html, body {
 
 h1, h2, h3, h4, h5, p {
     /* Avoid things accidentally covering up our text */
-    z-index: var(--z-body) + 2;
+    z-index: calc(var(--z-body) + 2);
 }
 
 .massive {
@@ -169,13 +169,18 @@ figcaption {
     color: var(--bs-secondary-color);
 }
 
-.no-decorate {
+.minor-decoration, .no-decorate {
     color: inherit;
     text-decoration: inherit;
 }
 
-.no-decorate:hover {
+.minor-decoration:hover {
     text-decoration: underline;
+}
+
+.no-decorate:hover {
+    color: inherit;
+    text-decoration: inherit;
 }
 
 nav {
@@ -578,6 +583,18 @@ h5.h-underline {
     background-position: center; /* Center the background image */
 }
 
+.bg-plasma-3 {
+    background-image: url('https://fusionparty.space/images/plasma-3.webp');
+    background-size: cover; /* Cover the entire area of the element */
+    background-position: center; /* Center the background image */
+}
+
+.bg-plasma-4 {
+    background-image: url('https://fusionparty.space/images/water-plasma.webp');
+    background-size: cover; /* Cover the entire area of the element */
+    background-position: center; /* Center the background image */
+}
+
 .bg-underwater {
     background-image: url('https://fusionparty.space/images/underwater_blue.webp');
     background-size: cover;
@@ -884,6 +901,37 @@ input.form-control {
 /* todo: turbulence: https://codepen.io/cobra_winfrey/pen/eYOXOdB */
 
 /* todo: charm UI https://codepen.io/TWilson/pen/jOdWqbZ */
+
+.spreadable-container {
+    height: max(200px, 0.5vw);
+    width: 100%;
+    object-fit: cover;
+}
+
+.spreadable {
+    /* The container is only meant to take up from 3/12 (25%) to 8/12 columns (66%). So 3 images as 41% width */
+    width:37%;
+    margin: 0 auto;
+    transition: all .4s ease;
+    left: -18%;
+    top: 33%;
+    position: absolute;
+    transform: rotate(-20deg);
+    z-index: calc(var(--z-body) - 1);
+}
+.spreadable img {
+    height: inherit;
+    max-height: 30vw;
+}
+
+.spreadable-container .spreadable:nth-child(2) {
+    left: 9%;
+    transform: rotate(-15deg);
+}
+.spreadable-container .spreadable:nth-child(3) {
+    left: 12%;
+    transform: rotate(-11deg);
+}
 
 /* This works with glowing buttons */
 .animation-sync div:nth-child(1) a::before {
