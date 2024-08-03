@@ -917,7 +917,7 @@ input.form-control {
     top: 33%;
     position: absolute;
     transform: rotate(-20deg);
-    z-index: calc(var(--z-body) - 1);
+    z-index: calc(var(--z-body) + 1);  /* In front of ballot, but behind headings */
 }
 .spreadable img {
     height: inherit;
