@@ -531,8 +531,17 @@ h2.inter {
     transition: width var(--underlining-duration) ease-in;
 }
 
+
 .h-underline-animate::after {
     width: 100%; /* Full underline */
+}
+
+@media (max-width: 767px) {
+    .h-underline::after {
+        /* For mobile, we'll have to start off already underlined, so Google doesn't think we have a long time to
+        Largest Contentful Paint */
+        width: 100%;
+    }
 }
 
 .transition-delay::after {
