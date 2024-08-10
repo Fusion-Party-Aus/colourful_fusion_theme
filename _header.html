@@ -25,6 +25,7 @@
           {% assign nameParts = att.file_name | split: 'cloudfront_' %}
           {% if nameParts.size >= 2 %}
             {% assign heroImage = 'https://fusionparty.space/images/' | append: nameParts[1] %}
+            {% assign shortImage = heroImage |  replace: '.webp', '_200.webp' %}
           {% endif %}
           {% comment %}
             Please use useful names for your images!
@@ -39,10 +40,18 @@
       {% endif %}
     {% endfor %}
     {% if heroImage.size > 0 %}
-      <img class="mt-0 mt-lg-2" src="{{ heroImage }}" alt="{{ altText }}"/>
+      {% comment %}
+      During calibration, it was found that at ≤ 725px, the image would be 200px high.
+      {% endcomment %}
+        <img class="mt-0 mt-lg-2"
+             src="{{ heroImage }}"
+             srcset="{{ shortImage }} 725w,
+                     {{ heroImage }} 2176w"
+             sizes="(max-width: 725px) 725px, 2176px"
+             alt="{{ altText }}">
     {%  else %}
         {%  if splashImage.size > 0 %}
-        <img class="mt-0 mt-lg-2" src="{{ heroImage }}" alt="{{ altText }}"/>
+        <img class="mt-0 mt-lg-2" src="{{ splashImage }}" alt="{{ altText }}"/>
         {%  endif %}
     {% endif %}
     {% if page.headline.size > 0 %}
