@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" id="bg-canvas" class="bg-gray-mist h-100">
   {% assign hasBallotsTag = false %}
+  {% assign hasBlobTag = false %}
   {% assign h_color = 'pink' %}
   {% assign hasClimateRescueTag = false %}
   {% assign hasConversionTag = false %}
@@ -20,6 +21,8 @@
     {% case tag.name %}
       {% when "ballots" %}
         {% assign hasBallotsTag = true %}
+      {% when "blob" %}
+        {% assign hasBlobTag = true %}
       {% when "climate-rescue" %}
         {% assign hasClimateRescueTag = true %}
       {% when "conversion" %}
@@ -69,9 +72,11 @@
     <link href="theme.scss" rel="stylesheet" />
     <!-- By importing our own CSS last, it gives it more precedence -->
     <link rel="stylesheet" href="styles.css">
+    {% if hasBlobTag %}
     <link rel="stylesheet" href="https://fusionparty.space/styles/minified/blob.af5f889d.min.css"
           crossorigin="anonymous"
           referrerpolicy="no-referrer">
+    {% endif %}
     <link rel="stylesheet" href="https://fusionparty.space/styles/minified/glowing-button.4b8629d4.min.css"
           crossorigin="anonymous"
           referrerpolicy="no-referrer">
