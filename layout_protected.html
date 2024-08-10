@@ -7,6 +7,7 @@
   {% assign hasConversionTag = false %}
   {% assign hasEventsTag = false %}
   {% assign omitContents = false %}
+  {% assign hasGlowingTag = false %}
   {% assign hasKwesTag = false %}
   {% assign hasPhoneTag = false %}
   {% assign hasPoliciesTag = false %}
@@ -31,6 +32,8 @@
         {% assign hasEventsTag = true %}
       {% when "omit-contents" %}
         {% assign omitContents = true %}
+      {% when "glow" %}
+        {% assign hasGlowingTag = true %}
       {% when "kwes" %}
         {% assign hasKwesTag = true %}
       {% when "phone" %}
@@ -78,9 +81,11 @@
           crossorigin="anonymous"
           referrerpolicy="no-referrer">
     {% endif %}
+    {% if hasGlowingTag %}
     <link rel="stylesheet" href="https://fusionparty.space/styles/minified/glowing-button.4b8629d4.min.css"
           crossorigin="anonymous"
           referrerpolicy="no-referrer">
+    {% endif %}
     {% if hasRingsTag %}
     <link rel="stylesheet" href="https://fusionparty.space/styles/minified/rings.f73479bf.min.css"
           crossorigin="anonymous"
