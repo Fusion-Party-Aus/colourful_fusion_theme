@@ -10,12 +10,10 @@
 
 $facebook: #3b5998;
 $twitter: #4099ff;
-$whatsapp: #25d366;
 $theme-colors: map-merge(
   (
     'facebook': $facebook,
     'twitter': $twitter,
-    'whatsapp': $whatsapp,
   ),
   $theme-colors
 );
@@ -48,16 +46,6 @@ $theme-colors: map-merge(
 
 @import 'buttons';
 
-.whatsapp-share-button {
-  display: inline-block;
-  background-image: url('/assets/whatsapp-share-btn.png');
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: 67px 20px;
-  width: 67px;
-  height: 20px;
-  text-indent: -99999em;
-}
 
 @import 'transitions';
 @import 'dropdown';
@@ -101,13 +89,6 @@ $theme-colors: map-merge(
 @import 'modal';
 @import 'tooltip';
 @import 'popover';
-@import 'carousel';
-
-.carousel-item .container {
-  left: 0;
-  top: 50%;
-  transform: translate(0, -50%);
-}
 
 @import 'spinners';
 @import 'utilities';
@@ -260,12 +241,6 @@ img.icon-cc {
   width: 40px;
   height: 24px;
   margin-right: 1em;
-  &[data-type="apple_pay"] {
-    background-image: url("/assets/icons/ic_applepay.svg");
-  }
-  &[data-type="google_pay"] {
-    background-image: url("/assets/icons/ic_googlepay.svg");
-  }
 }
 
 #submitted-payment-method,
