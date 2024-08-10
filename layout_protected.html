@@ -118,40 +118,23 @@
     <!-- start of content for header -->
     {{ content_for_header }}
     <!-- end of content for header -->
-    <!-- Google tag (gtag.js), managed by Drew -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-1049050912"></script>
+    <!-- Google tag (gtag.js), managed by Owen -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-T5KZX7CXGM"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
 
-      // Adwords
-      gtag('config', 'AW-1049050912');
+      // Google Analytics 4 (linked to the same Adwords account that Drew configured)
+      // https://analytics.google.com/analytics/web/?authuser=2#/a259140972p356365656/admin/streams/table/4673150980
+      gtag('config', 'G-T5KZX7CXGM');
     </script>
-    {% if hasConversionTag %}
-      <!-- Event snippet for Website traffic conversion page -->
-      <script>
-        console.log('Conversion tag is present');
-      </script>
-      <script>
-        gtag('event', 'conversion', {'send_to': 'AW-1049050912/JkcZCO6rn70DEKD-nPQD'});
-      </script>
-    {% endif %}
 
     <script type="text/javascript">
       NB.appConfig.userIsLoggedIn = {{ request.logged_in? }};
     </script>
 
   </head>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-
-    // Google Analytics 4 (linked to the same Adwords account)
-    // https://analytics.google.com/analytics/web/?authuser=2#/a259140972p356365656/admin/streams/table/4673150980
-    gtag('config', 'G-T5KZX7CXGM');
-  </script>
   <body class="d-flex flex-column h-100 bg-transparent bg-viewport text-gray-900 relative bootstrap-theme v3-theme {%if page.is_homepage %}homepage{% endif %} {{ page.page_class_name }} page-{{ request.template | replace: '_', '-' }} js">
 
     {% unless page.type_name contains "Donation" %}
