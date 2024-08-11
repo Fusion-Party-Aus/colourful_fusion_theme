@@ -1,5 +1,12 @@
+{% assign h_color = 'pink' %}
+{% for tag in page.tags %}
+    {% if tag.name contains "_h-" %}
+      {% assign h_color = tag.name | replace: '_h-', '' %}
+      {% break %}
+    {% endif %}
+{% endfor %}
 <header class="mb-3">
-  <h3 class="mb-1"><a href="{{ event.url }}">{{ event.name }}</a></h3>
+  <h3 class="mb-1 h-underline h-{{ h_color }}"><a href="{{ event.url }}" class="minor-decoration">{{ event.name }}</a></h3>
 
   <p class="small text-muted">{{ event.event.local_start_at | date: '%A, %B %d, %Y at %I:%M %p' }}
     {% if event.event.is_multi_day? %}
@@ -37,6 +44,6 @@
   {% if event.event.is_ticket_required? %}
     <div class="mt-3"><a class="btn btn-primary" href="{{ event.url }}">Buy tickets</a></div>
   {% elsif event.event.accept_rsvps? %}
-    <div class="mt-3"><a class="btn btn-primary" href="{{ event.url }}">RSVP</a></div>
+    <div class="mt-3"><a class="btn btn-info rounded bg-{% if h_aquamarine %}opal{% else %}{{ h_color }}{% endif %}" href="{{ event.url }}">RSVP</a></div>
   {% endif %}
 {% endif %}
