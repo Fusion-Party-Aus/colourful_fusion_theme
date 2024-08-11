@@ -684,6 +684,9 @@ button.bg-opal:hover {
 button.bg-purple, button.bg-purple:hover {
     border-color: #780a9d;
 }
+a.bg-purple, a.bg-purple:hover {
+    border-color: #780a9d;
+}
 
 .bg-gray-mist {
   /* This is the top-left of bg-pink-mist */
