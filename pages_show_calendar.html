@@ -1,10 +1,5 @@
 <div id="content">
-  {% if page.calendar.content.size > 0 %}
-    <div id="intro" class="intro">
-      {{ page.calendar.content }}
-    </div>
-  {% endif %}
-
+  Keep us close and plan ahead by adding our <a href="https://calendar.google.com/calendar/embed?src=c_e825d218f8195a9b6e84624946098eb6f90ad9f2dff363e67c036aa4a5e35529%40group.calendar.google.com&ctz=Australia%2FSydney">Fusion Member and Public Events calendar.</a>
   {% if page.calendar.is_proximity? %}
     <div class="mb-4">
       <div class="card">
@@ -133,4 +128,11 @@
     {% endif %}
 
   {% endif %}
+
+  {% if page.calendar.content.size > 0 %}
+    <div id="intro" class="intro">
+      {{ page.calendar.content }}
+    </div>
+  {% endif %}
+
 </div>
