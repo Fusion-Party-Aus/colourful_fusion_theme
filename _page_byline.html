@@ -1,3 +1,18 @@
+{% assign hasAuthorization = false %}
+{% for tag in page.tags %}
+    {% if tag.name == "authorized" %}
+      {% assign hasAuthorization = true %}
+      {% break %}
+    {% endif %}
+{% endfor %}
 <div class="byline text-muted small">
-  Posted by {{ page.author.published_name_linked }} on {{ page.published_at | date: '%d %B %Y' }}
+  {% if hasAuthorization %}
+    {% comment %}
+    NationBuilder variables for the page are discussed at https://nationbuilder.com/page_variables.
+    We're adhering to the authorisation requirements of https://www.vec.vic.gov.au/candidates-and-parties/become-a-state-election-candidate/authorisation
+    {% endcomment %}
+    Authorised by {{ page.author.published_name_linked }}, {{ page.author.mailing_address.one_line }}
+  {% else %}
+    Posted by {{ page.author.published_name_linked }} on {{ page.published_at | date: '%d %B %Y' }}
+  {% endif %}
 </div>
