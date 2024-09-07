@@ -47,6 +47,25 @@ For changing the colour of the page title, you'll need to add it as a tag with a
 more detail later):
 ![A tag with _h-purple](./docs/_h_tag.png)
 
+### Header Imagery
+The policy pages have headers with background imagery. Notice that it's rendered as a srcset with two images, eg:
+* https://fusionparty.space/images/kangaroo_future_scenery_200.webp  (200 pixels high)
+* https://fusionparty.space/images/kangaroo_future_scenery.webp (2176 × 544)
+In the srcset, the browser is being told to use the `_200` image for screen widths up to 725px − this was calibrated 
+based on the site's responsive CSS and the fact that all these images have an aspect ratio of 4:1.
+
+If you'd like to use a header image for a new page, then please keep in mind the aspect ratio and the requirement to
+upload the two images [Cloudflare R2](https://dash.cloudflare.com/ea5bd9ef975707ea2e4d11229641a447/r2/default/buckets/fusion-assets).
+
+![](./docs/future_focused.png)
+
+On the NationBuilder page 
+[Future Focused](https://futureparty.nationbuilder.com/admin/sites/2044/pages/3424/attachments), there's a file with the
+name `hero_cloudfront_kangaroo_future_scenery.webp` − this is interpreted by our template to mean that we would like to
+use an image `kangaroo_future_scenery.webp` in the header as a hero image, and that there is an equivalent image in
+Cloudfront. Sure we could've served the image from NationBuilder, but by using Cloudfront, it's under Owen's control and
+we can serve images from data centres all over Australia. Most (all?) of the requests to NationBuilder have to bounce
+across the Pacific Ocean, to San Francisco.
 
 ### Importing Extra CSS
 For any rare visualisations, these are probably being performed by CSS files which need to be explicitly added to a page
