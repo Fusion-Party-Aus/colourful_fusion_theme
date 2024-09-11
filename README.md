@@ -55,7 +55,7 @@ In the srcset, the browser is being told to use the `_200` image for screen widt
 based on the site's responsive CSS and the fact that all these images have an aspect ratio of 4:1.
 
 If you'd like to use a header image for a new page, then please keep in mind the aspect ratio and the requirement to
-upload the two images [Cloudflare R2](https://dash.cloudflare.com/ea5bd9ef975707ea2e4d11229641a447/r2/default/buckets/fusion-assets).
+upload the two images to [Cloudflare R2](https://dash.cloudflare.com/ea5bd9ef975707ea2e4d11229641a447/r2/default/buckets/fusion-assets).
 
 ![](./docs/future_focused.png)
 
