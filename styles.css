@@ -1,5 +1,6 @@
 :root {
     --fusion-aquamarine: #5effd8;
+    --aquamarine-transparent: rgba(138, 238, 216, 0.24);
     --fusion-pink: #ff7fff;
     --fusion-blue: #5facff;
     --fusion-purple: #c34df1;
@@ -601,6 +602,40 @@ h5.h-underline {
     background-size: cover;
     background-position: center;
 }
+.bg-coral {
+    background-image: url('https://fusionparty.space/images/coral_background_2.webp');
+    background-size: cover;
+    background-position: center;
+    overflow: hidden;
+}
+/* Add padding to the gallery */
+.gallery {
+    max-height: 30vh;
+    max-width: 1500px;
+}
+
+
+.gallery-height {
+    max-height: 28vh;
+}
+
+/* Ensure consistent height behavior */
+.gallery-wrapper {
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%; /* Maintain equal heights for images */
+    padding-bottom: 15px; /* Ensure space at the bottom */
+}
+
+/* Ensure the images fill the container */
+.gallery-wrapper img {
+    object-fit: cover; /* Ensure image covers the container */
+    width: 100%;
+    height: 100%; /* Force the image to take up the full height */
+}
+
 
 .bg-aquamarine {
     background-color: rgba(138, 238, 216, 0.73);
@@ -611,7 +646,7 @@ button.bg-aquamarine:hover {
 }
 
 .bg-aquamarine-transparent {
-    background-color: rgba(138, 238, 216, 0.24);
+    background-color: var(--aquamarine-transparent);
     margin: 0;
     padding: 0;
     box-shadow: 0 4px 15px 0 rgba(31, 38, 135, 0.1);
@@ -707,6 +742,12 @@ input.bg-white {
 
 input.form-control {
     height: calc(3.5rem + calc(var(--bs-border-width) * 2));
+}
+
+blockquote {
+    background-color: var(--aquamarine-transparent);
+    padding: 0.5rem 0.5rem 0.5rem 1rem;
+    border-radius: 0.25rem;
 }
 
 .page-pages-show-donation-v2-wide .donation-v2-amounts > div {

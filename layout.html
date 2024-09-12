@@ -9,10 +9,12 @@
   {% assign omitContents = false %}
   {% assign hasGlowingTag = false %}
   {% assign hasKwesTag = false %}
+  {% assign hasPeopleTag = false %}
   {% assign hasPhoneTag = false %}
   {% assign hasPoliciesTag = false %}
   {% assign stripes = false %}
   {% assign hasRingsTag = false %}
+  {% assign hasValuesTag = false %}
   {% assign isVideoLanding = false %}
   {% assign wide = false %}
   {% for tag in page.tags %}
@@ -36,6 +38,8 @@
         {% assign hasGlowingTag = true %}
       {% when "kwes" %}
         {% assign hasKwesTag = true %}
+      {% when "_people" %}
+        {% assign hasPeopleTag = true %}
       {% when "phone" %}
         {% assign hasPhoneTag = true %}
       {% when "policies" %}
@@ -44,6 +48,8 @@
         {% assign hasRingsTag = true %}
       {% when "stripes" %}
         {% assign stripes = true %}
+      {% when "_values" %}
+        {% assign hasValuesTag = true %}
       {% when "video-landing" %}
         {% assign isVideoLanding = true %}
       {% when "wide" %}
@@ -153,7 +159,7 @@
           {% endif %}
         {% endif %}
         {% if isVideoLanding %}
-          {% include "content", sidebar: request.is_sidebar?, isVideoLanding: isVideoLanding, hasBallotsTag: hasBallotsTag, hasClimateRescueTag: hasClimateRescueTag, hasPoliciesTag: hasPoliciesTag, hasEventsTag: hasEventsTag, omitContents: omitContents, hasKwesTag: hasKwesTag, hasPhoneTag: hasPhoneTag, h_color: h_color %}
+          {% include "content", sidebar: request.is_sidebar?, isVideoLanding: isVideoLanding, hasBallotsTag: hasBallotsTag, hasClimateRescueTag: hasClimateRescueTag, hasPeopleTag: hasPeopleTag, hasPoliciesTag: hasPoliciesTag, hasEventsTag: hasEventsTag, omitContents: omitContents, hasKwesTag: hasKwesTag, hasPhoneTag: hasPhoneTag, hasValuesTag: hasValuesTag, h_color: h_color %}
           <script src="https://fusionparty.space/scripts/minified/video_injection.dba64f2f.min.js"></script>
         {% else %}
           <div class="row {% if omitContents %}ml-3 ml-md-4 mt-3 mt-lg-4{% endif %}">
@@ -170,7 +176,7 @@
                 {% include "features" %}
               {% endif %}
               <main id="content" role="main" data-spy="scroll" data-target="#toc">
-                {% include "content", sidebar: request.is_sidebar?, wide: wide %}
+                {% include "content", sidebar: request.is_sidebar?, wide: wide, hasValuesTag: hasValuesTag, hasPeopleTag: hasPeopleTag, h_color: h_color %}
               </main>
             </div>
             <div class="d-none d-lg-block col-lg-2">
