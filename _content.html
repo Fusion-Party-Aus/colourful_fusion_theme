@@ -1,3 +1,11 @@
+{% if hasValuesTag %}
+<div class="{% unless isVideoLanding %}container {% if wide %}w-1600{% endif %} {% endunless %}content-{{ request.template  | replace: '_', '-' }}">
+  {% include "party_values" %}
+</div>
+{% endif %}
+{% if hasPeopleTag %}
+  {% include "people_banner" %}
+{% endif %}
 <div class="{% unless isVideoLanding %}container {% if wide %}w-1600{% endif %} {% endunless %}content-{{ request.template  | replace: '_', '-' }}">
   {% yield %}
 </div>
