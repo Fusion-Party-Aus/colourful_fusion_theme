@@ -142,7 +142,9 @@
       {% endif %}
       {% include "nav" %}
       <div class="bg-charm"></div>
-      {# There seem to be some mismatched divs below. The footer is getting placed inside the w-100 div #}
+      {% comment %}
+      There seem to be some mismatched divs below. The footer is getting placed inside the w-100 div
+      {% endcomment %}
       <div class="w-100 {% unless isVideoLanding %}pb-4{% endunless %}">
         {% if isVideoLanding %}
           <div class="container">
