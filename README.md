@@ -47,6 +47,11 @@ For changing the colour of the page title, you'll need to add it as a tag with a
 more detail later):
 ![A tag with _h-purple](./docs/_h_tag.png)
 
+### Body Imagery
+Images in the body can use classes `w-100` and `w-50`. Make sure you remove any explicit width and height styles that NationBuilder might've imposed, otherwise the aspect ratio can get messed up.
+
+> ![](./docs/w-100.png)
+
 ### Header Imagery
 The policy pages have headers with background imagery. Notice that it's rendered as a srcset with two images, eg:
 * https://fusionparty.space/images/kangaroo_future_scenery_200.webp  (725 × 200 px)
@@ -107,6 +112,7 @@ grep --perl-regexp " = false %}" *.html | grep --only-matching --perl-regexp "\{
 ```
 So at the time of writing, the available UI tags which you might use are:
 * blob − is there an image on the page which will be surrounded by a slowly moving blob frame?
+
   ![](./docs/blob_nuclear.png)
   * See also that you can add the `wobble` class to a div before the `img`, giving it this wobbling gradient background:
   ```html
