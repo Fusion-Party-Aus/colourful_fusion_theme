@@ -92,7 +92,7 @@ $(document).ready(
                 dropdownUnorderedList.removeAttribute('data-bs-popper');
             }
             const sleep = (delay_ms) => {
-              return new Promise(resolve => setTimeout(resolve, delay_ms));
+                return new Promise(resolve => setTimeout(resolve, delay_ms));
             }
             const delayedHiding = async () => {
                 // Some other process was interfering with our clicks, so we need to revise it like this.
@@ -156,3 +156,55 @@ $(document).ready(
         $('a[href^="#"]:not([href="#"])').on('click', handleFragmentLinkClick);
     }
 );
+
+$(document).ready(function () {
+    document.querySelectorAll('.panel-title button').forEach(function (link) {
+        link.addEventListener('click', function (event) {
+            event.preventDefault();
+
+            const targetHeading = link.closest('.panel-heading');
+            const collapseAll = !!targetHeading && targetHeading.parentElement.classList.contains('active');
+
+            // Hide all content sections
+            const topPanelRow = link.closest('.panel-row');
+            if (topPanelRow) {
+                if (collapseAll) {
+                    topPanelRow.classList.remove('opened');
+                } else {
+                    topPanelRow.classList.add('opened');
+                }
+                Array.from(topPanelRow.children).forEach(function (child) {
+                    // The parent has a col as a child, then a panel-heading
+                    child.classList.remove('active');
+                });
+            } else {
+                console.error('Unable to find the parent row for this click');
+            }
+            if (targetHeading) {
+                if (!collapseAll) {
+                    targetHeading.parentElement.classList.add('active');
+                }
+            } else {
+                console.error('Unable to find the closest heading for this click');
+            }
+
+            // Show the selected content section
+            const targetId = link.getAttribute('data-target');
+            const target = document.querySelector(targetId);
+            if (!target) {
+                console.error(`Unable to find element with ID ${targetId}`);
+            }
+            const targetPanelContent = target.closest('.panel-content');
+            if (targetPanelContent) {
+                Array.from(targetPanelContent.children).forEach(function (child) {
+                    child.classList.remove('show');
+                });
+            } else {
+                console.error('Unable to find the target row for this click');
+            }
+            if (!collapseAll) {
+                target.classList.add('show');
+            }
+        });
+    });
+});

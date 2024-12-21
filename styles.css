@@ -11,6 +11,10 @@
     --z-nav: 10;  /*  Always above any body content, but not modals */
     --container-max-width: 800px;
     --near-top: 300px;  /* When should the nav bar always be visible? 5rem. */
+    /* The panels are like accordions, except that they're slightly disconnected. */
+    --panel-background-color: #f1f1f1;
+    --panel-small-border-radius: 2px;
+    --panel-large-border-radius: 8px;
 }
 
 body {
@@ -636,7 +640,6 @@ h5.h-underline {
     height: 100%; /* Force the image to take up the full height */
 }
 
-
 .bg-aquamarine {
     background-color: rgba(138, 238, 216, 0.73);
 }
@@ -867,11 +870,6 @@ blockquote {
     background-color: #ff7fff;
 }
 
-/*.page-pages-show-donation-v2-wide .submit-button {
-    background-color: #1A73E8;
-    border-color: #1A73E8;
-}*/
-
 
 
 @keyframes jumbo {
@@ -943,10 +941,6 @@ blockquote {
     animation: spin 45s linear infinite reverse;
 }
 
-/* todo: turbulence: https://codepen.io/cobra_winfrey/pen/eYOXOdB */
-
-/* todo: charm UI https://codepen.io/TWilson/pen/jOdWqbZ */
-
 .spreadable-container {
     height: max(200px, 0.5vw);
     width: 100%;
@@ -989,4 +983,98 @@ blockquote {
 
 .animation-sync div:nth-child(3) a::before {
   animation-delay: 0s;
+}
+
+
+.panel-row {
+    margin-left: 0;
+    margin-right: 0;
+    column-gap: 10px;
+}
+.panel-heading {
+    background-color: var(--panel-background-color);
+    border: 1px solid #e4e5e7;
+    padding: 0;
+    text-align: center;
+    transition: background-color 0.3s, color 0.3s;
+    cursor: pointer;
+}
+
+.panel-title {
+    margin-bottom: 0;
+}
+
+.panel-heading button {
+    border: none;
+    display: block;
+    padding: 15px 15px 25px 15px;
+    color: #808080;
+    text-decoration: none;
+    width: 100%;
+}
+
+.panel-heading button:focus {
+    outline: none
+}
+
+.panel-heading, .panel-title, .panel-title button {
+    border-radius: var(--panel-large-border-radius) var(--panel-large-border-radius) var(--panel-large-border-radius); --var(--panel-large-border-radius);
+    transition: border-radius 0.1s ease-in;
+}
+
+.opened {
+    .panel-heading, .panel-title, .panel-title button {
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+    }
+}
+
+.panel-heading:hover {
+    border-color: white;
+}
+
+.panel-heading button:hover {
+    color: white;
+    background-color: #c5cdd5;
+    border-bottom: none; /* Remove bottom border to visually connect to content */
+}
+
+.panel-heading button:after {
+    /* Remove any existing icon styles */
+    content: "";
+}
+
+/* Style for the panel content */
+.panel-collapse {
+    border: 1px solid #f8f8f8;
+    border-top: none; /* Remove top border to connect with tab */
+    padding: 15px;
+    background-color: var(--panel-background-color);
+}
+
+/* Active tab styling */
+.active .panel-heading {
+    background-color: #efefef;
+    color: #ffffff;
+    box-shadow: 4px -2px 15px 0 rgba(31, 38, 135, 0.1);
+    border-bottom: none;
+}
+
+.active .panel-heading button {
+    color: black;
+}
+
+.panel-content {
+    width: 100%;
+    background-color: whitesmoke;
+    box-shadow: 4px -2px 15px 0 rgba(31, 38, 135, 0.1);
+}
+
+/* Layout adjustments for tabs */
+#accordion .col {
+    padding: 0 5px;
+}
+
+.row[role="tablist"] {
+    margin-bottom: -1px; /* Prevents margin between tab row and content */
 }
