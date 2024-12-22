@@ -998,16 +998,20 @@ blockquote {
     text-align: center;
     transition: background-color 0.3s, color 0.3s;
     cursor: pointer;
+    height: 100%;
 }
 
 .panel-title {
     margin-bottom: 0;
+    height: 100%;
 }
 
 .panel-heading button {
     border: none;
     display: block;
-    padding: 15px 15px 25px 15px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    height: 100%;
     color: #808080;
     text-decoration: none;
     width: 100%;
