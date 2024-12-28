@@ -177,12 +177,32 @@ $(document).ready(function () {
                     // The parent has a col as a child, then a panel-heading
                     child.classList.remove('active');
                 });
+                Array.from(topPanelRow.querySelectorAll('button')).forEach(function (child) {
+                    if (collapseAll) {
+                        // Reinstate original look
+                        child.classList.remove('panel-faded');
+                    } else {
+                        // Fade all panels (this class is removed in a moment for the active tab)
+                        child.classList.add('panel-faded');
+                    }
+                    console.log('Removing underline from a child');
+                    Array.from(child.children).forEach(function (grandChild) {
+                        grandChild.classList.remove('h-underline', 'h-underline-animate');
+                    })
+                });
             } else {
                 console.error('Unable to find the parent row for this click');
             }
             if (targetHeading) {
                 if (!collapseAll) {
                     targetHeading.parentElement.classList.add('active');
+                    console.log('Adding underline to a class');
+                    targetHeading.querySelectorAll('button').forEach(function (child) {
+                        child.classList.remove('panel-faded');
+                        Array.from(child.children).forEach(function (grandChild) {
+                            grandChild.classList.add('h-underline', 'h-underline-animate');
+                        })
+                    });
                 }
             } else {
                 console.error('Unable to find the closest heading for this click');

@@ -8,9 +8,9 @@
     --underlining-duration: 0.55s;
     --font-border-width: 4px;
     --z-body: 3;
-    --z-nav: 10;  /*  Always above any body content, but not modals */
+    --z-nav: 10; /*  Always above any body content, but not modals */
     --container-max-width: 800px;
-    --near-top: 300px;  /* When should the nav bar always be visible? 5rem. */
+    --near-top: 300px; /* When should the nav bar always be visible? 5rem. */
     /* The panels are like accordions, except that they're slightly disconnected. */
     --panel-background-color: #f1f1f1;
     --panel-small-border-radius: 2px;
@@ -31,8 +31,9 @@ h1, h2, h3, h4, h5, p {
 }
 
 .massive {
-    font-size:2.5rem;
+    font-size: 2.5rem;
 }
+
 /* These were taken from Bootstrap 5 utilities */
 .fs-1 {
     font-size: calc(1.375rem + 1.5vw) !important;
@@ -135,25 +136,21 @@ ol, ul {
     border-width: 1px;
     border-top-width: 0;
     border-color: rgba(224, 224, 224, 0.5); /* Light border for the glass edges */
-    box-shadow: inset 0 4px 4px rgba(176, 175, 175, 0.6), /* Inner top light */
-                inset 0 -4px 4px rgba(0, 0, 0, 0.1), /* Inner bottom shadow */
-                0 8px 16px rgba(0, 0, 0, 0.1); /* Drop shadow for depth */
+    box-shadow: inset 0 4px 4px rgba(176, 175, 175, 0.6), /* Inner top light */ inset 0 -4px 4px rgba(0, 0, 0, 0.1), /* Inner bottom shadow */ 0 8px 16px rgba(0, 0, 0, 0.1); /* Drop shadow for depth */
 }
 
 .bg-glass-opaque {
     background-color: rgba(211, 248, 244, 0.9);
     border-color: rgba(224, 224, 224, 0.7); /* Light border for the glass edges */
-    box-shadow: inset 0 4px 4px rgba(176, 175, 175, 0.8), /* Inner top light */
-                inset 0 -4px 4px rgba(0, 0, 0, 0.3), /* Inner bottom shadow */
-                0 8px 16px rgba(0, 0, 0, 0.3); /* Drop shadow for depth */
+    box-shadow: inset 0 4px 4px rgba(176, 175, 175, 0.8), /* Inner top light */ inset 0 -4px 4px rgba(0, 0, 0, 0.3), /* Inner bottom shadow */ 0 8px 16px rgba(0, 0, 0, 0.3); /* Drop shadow for depth */
 }
 
 .bg-pink-glass {
-  background: linear-gradient(135deg, rgba(193, 169, 197, 0.53), rgba(221, 157, 232, 0.53));
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  box-shadow: 0 2px 35px 0 rgba(31, 38, 135, 0.27);
+    background: linear-gradient(135deg, rgba(193, 169, 197, 0.53), rgba(221, 157, 232, 0.53));
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    box-shadow: 0 2px 35px 0 rgba(31, 38, 135, 0.27);
 }
 
 figcaption {
@@ -192,6 +189,7 @@ nav {
     z-index: var(--z-nav);
     border-radius: 2px;
 }
+
 nav.navbar {
     padding-left: 0;
     padding-right: 0;
@@ -201,9 +199,11 @@ nav.navbar {
     border-color 3s ease,
     box-shadow 3s ease;
 }
+
 .nav-link {
-    color: rgba(0,0,0,0.65) !important;
+    color: rgba(0, 0, 0, 0.65) !important;
 }
+
 .hide-nav-bar {
     transform: translateY(-120%);
 }
@@ -227,11 +227,13 @@ nav li:hover {
 }
 
 .dropdown {
-  position: relative;
+    position: relative;
 }
+
 .dropdown-menu {
     background-color: rgba(211, 248, 244, 0.97);
 }
+
 .dropdown-menu li {
     border-radius: 4px;
 }
@@ -240,21 +242,27 @@ nav li:hover {
     background-color: rgba(228, 248, 245, 0.83);
     border-radius: 4px;
 }
+
 ul.dropdown-menu {
     margin-top: 0.125rem;
 }
+
 .dropdown-menu, .dropdown-menu li {
-    z-index: var(--z-body) + 5;
+    z-index: var(--z-body) +5;
 }
+
 .dropdown-menu-end {
     right: 5px;
 }
+
 .dropdown-divider, hr.divider {
     border-color: var(--fusion-purple);
 }
+
 .dropdown-divider:hover {
     box-shadow: none;
 }
+
 .divider:hover, hr.divider {
     box-shadow: none;
 }
@@ -304,26 +312,16 @@ footer ul a:hover {
 }
 
 @keyframes neon-pink-glow {
-  from {
-    filter: drop-shadow(0 0 10px #fff)
-            drop-shadow(0 0 20px #fff)
-            drop-shadow(0 0 30px #fff)
-            drop-shadow(0 0 40px #F897E9EA)
-            /*drop-shadow(0 0 70px #F897E9EA)
+    from {
+        filter: drop-shadow(0 0 10px #fff) drop-shadow(0 0 20px #fff) drop-shadow(0 0 30px #fff) drop-shadow(0 0 40px #F897E9EA) /*drop-shadow(0 0 70px #F897E9EA)
             drop-shadow(0 0 80px #F897E9EA)
             drop-shadow(0 0 100px #F897E9EA)
             drop-shadow(0 0 150px #F897E9EA);*/
-  }
-  to {
-    filter: drop-shadow(0 0 5px #F897E9EA)
-            drop-shadow(0 0 10px #F897E9EA)
-            drop-shadow(0 0 15px #fff)
-            drop-shadow(0 0 20px #F897E9EA)
-            drop-shadow(0 0 35px #F897E9EA)
-            drop-shadow(0 0 40px #F897E9EA)
-            /*drop-shadow(0 0 50px #F897E9EA)
+    }
+    to {
+        filter: drop-shadow(0 0 5px #F897E9EA) drop-shadow(0 0 10px #F897E9EA) drop-shadow(0 0 15px #fff) drop-shadow(0 0 20px #F897E9EA) drop-shadow(0 0 35px #F897E9EA) drop-shadow(0 0 40px #F897E9EA) /*drop-shadow(0 0 50px #F897E9EA)
             drop-shadow(0 0 75px #F897E9EA);*/
-  }
+    }
 }
 
 header {
@@ -379,9 +377,9 @@ header .fs-scale-extra-long {
 
 h1.nicokaku {
     text-shadow: 2px 0 var(--font-border-width) rgba(176, 175, 175, 0.8),
-                 -2px 0 var(--font-border-width) rgba(176, 175, 175, 0.8),
-                 0 2px var(--font-border-width) rgba(176, 175, 175, 0.8),
-                 0 -2px var(--font-border-width) rgba(176, 175, 175, 0.8);
+    -2px 0 var(--font-border-width) rgba(176, 175, 175, 0.8),
+    0 2px var(--font-border-width) rgba(176, 175, 175, 0.8),
+    0 -2px var(--font-border-width) rgba(176, 175, 175, 0.8);
 }
 
 /* These media sizes are based on https://getbootstrap.com/docs/5.0/layout/breakpoints/ */
@@ -402,6 +400,7 @@ h1.nicokaku {
         font-size: 7rem;
     }
 }
+
 header.container-fluid {
     /* Space under the horizontal, site nav */
     padding-top: 5rem;
@@ -409,7 +408,7 @@ header.container-fluid {
 
 .sidebar {
     position: sticky;
-    top: 4.5rem;  /* Enough room for nav */
+    top: 4.5rem; /* Enough room for nav */
     height: calc(100vh - 4.5rem);
     overflow-y: hidden;
 }
@@ -432,8 +431,8 @@ header.container-fluid {
     /* Above this width, an ugly, thick black border surrounds the thumbnail */
     max-width: calc(min(85vw, 639px));
     box-shadow: 0 4px 14px rgba(176, 175, 175, 0.6),
-                0 -4px 14px rgba(0, 0, 0, 0.1),
-                0 8px 16px rgba(0, 0, 0, 0.1);
+    0 -4px 14px rgba(0, 0, 0, 0.1),
+    0 8px 16px rgba(0, 0, 0, 0.1);
 }
 
 .video iframe {
@@ -477,11 +476,11 @@ header.container-fluid {
 }
 
 .inter {
-  font-family: "Inter", sans-serif;
-  font-optical-sizing: auto;
-  font-weight: 400;
-  font-style: normal;
-  font-variation-settings: "slnt" 0;
+    font-family: "Inter", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    font-variation-settings: "slnt" 0;
 }
 
 h2.inter {
@@ -529,7 +528,7 @@ h2.inter {
 .h-underline::after {
     content: '';
     display: block;
-    width: 0;  /* Start invisible */
+    width: 0; /* Start invisible */
     background-color: currentColor; /* Use the color of the text */
     position: absolute;
     left: 0;
@@ -542,7 +541,7 @@ h2.inter {
 }
 
 .transition-delay::after {
-    transition-delay: calc(var(--underlining-duration)/2);
+    transition-delay: calc(var(--underlining-duration) / 2);
 }
 
 h2 {
@@ -561,6 +560,7 @@ h1::after, h2::after, h3:after, h4:after {
     height: 5px; /* Thickness of the underline */
     border-radius: 4px;
 }
+
 h1::after {
     height: 7px;
 }
@@ -606,12 +606,14 @@ h5.h-underline {
     background-size: cover;
     background-position: center;
 }
+
 .bg-coral {
     background-image: url('https://fusionparty.space/images/coral_background_2.webp');
     background-size: cover;
     background-position: center;
     overflow: hidden;
 }
+
 /* Add padding to the gallery */
 .gallery {
     max-height: 30vh;
@@ -660,7 +662,7 @@ button.bg-aquamarine:hover {
 }
 
 .bg-gray-transparent {
-    background-color: rgba(167,173,172,0.73);
+    background-color: rgba(167, 173, 172, 0.73);
     color: white;
 }
 
@@ -669,8 +671,8 @@ button.bg-aquamarine:hover {
 }
 
 button.bg-opal:hover {
-  /* This is the background-color for btn-info in Bootstrap 5 */
-  background-color: #31d2f2 !important;
+    /* This is the background-color for btn-info in Bootstrap 5 */
+    background-color: #31d2f2 !important;
 }
 
 .h-pink::after {
@@ -704,7 +706,7 @@ button.bg-opal:hover {
 
 .bg-purple:hover {
     background-color: #a20dd7;
-    color:white;
+    color: white;
 }
 
 .bg-pink {
@@ -722,16 +724,17 @@ button.bg-opal:hover {
 button.bg-purple, button.bg-purple:hover {
     border-color: #780a9d;
 }
+
 a.bg-purple, a.bg-purple:hover {
     border-color: #780a9d;
 }
 
 .bg-gray-mist {
-  /* This is the top-left of bg-pink-mist */
-  background-image: url('https://fusionparty.space/images/gray_mist.webp');
-  background-size: cover; /* Cover the entire area of the element */
-  background-position: center; /* Center the background image */
-  background-attachment: fixed;  /* Fixed to the viewport rather than the HTML page, so it doesn't look stretched. */
+    /* This is the top-left of bg-pink-mist */
+    background-image: url('https://fusionparty.space/images/gray_mist.webp');
+    background-size: cover; /* Cover the entire area of the element */
+    background-position: center; /* Center the background image */
+    background-attachment: fixed; /* Fixed to the viewport rather than the HTML page, so it doesn't look stretched. */
 }
 
 .bg-transparent {
@@ -792,7 +795,7 @@ blockquote {
     margin-right: 0;
 }
 
-.custom-control-input:checked ~ .custom-control-label::before  {
+.custom-control-input:checked ~ .custom-control-label::before {
     background-color: #a5a5a5;
     color: inherit;
     border-color: #a5a5a5;
@@ -833,43 +836,41 @@ blockquote {
 
 /* See glowing-button.css */
 .page-pages-show-donation-v2-wide .donation-v2-amounts input[type="radio"]:checked + label {
-  border: none;
-  outline: none;
-  cursor: pointer;
-  position: relative;
-  z-index: 0;
-  user-select: none;
-  -webkit-user-select: none;
-  touch-action: manipulation;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    position: relative;
+    z-index: 0;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
 }
 
 .page-pages-show-donation-v2-wide .donation-v2-amounts input[type="radio"]:checked + label:before {
-  content: "";
-  background: linear-gradient(
-    90deg,
-    #fff,
-    transparent,
-		 transparent,
-		#fff
-
-  );
-  position: absolute;
-  top: -2px;
-  left: -2px;
-  background-size: 400%;
-  z-index: -1;
-  filter: blur(8px);
-  width: calc(100% + 4px);
-  height: calc(100% + 4px);
-  animation: glowing-button-animation 20s linear infinite;
-  transition: opacity 0.3s ease-in-out;
-  border-radius: 10px;
+    content: "";
+    background: linear-gradient(
+            90deg,
+            #fff,
+            transparent,
+            transparent,
+            #fff
+    );
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    background-size: 400%;
+    z-index: -1;
+    filter: blur(8px);
+    width: calc(100% + 4px);
+    height: calc(100% + 4px);
+    animation: glowing-button-animation 20s linear infinite;
+    transition: opacity 0.3s ease-in-out;
+    border-radius: 10px;
 }
 
 .page-pages-show-donation-v2-wide .progress-bar {
     background-color: #ff7fff;
 }
-
 
 
 @keyframes jumbo {
@@ -883,28 +884,28 @@ blockquote {
 
 .bg-charm {
     --stripes: repeating-linear-gradient(
-        100deg,
-        #fff 0%,
-        #fff 7%,
-        transparent 10%,
-        transparent 12%,
-        #fff 16%
+            100deg,
+            #fff 0%,
+            #fff 7%,
+            transparent 10%,
+            transparent 12%,
+            #fff 16%
     );
     --stripesDark: repeating-linear-gradient(
-        100deg,
-        #000 0%,
-        #000 7%,
-        transparent 10%,
-        transparent 12%,
-        #000 16%
+            100deg,
+            #000 0%,
+            #000 7%,
+            transparent 10%,
+            transparent 12%,
+            #000 16%
     );
     --rainbow: repeating-linear-gradient(
-        100deg,
-		#c8dcf6 10%,
-		#efd1ff 15%,
-		#a9c6ec 20%,
-		#85e3ee 25%,
-		#bfddff 30%
+            100deg,
+            #c8dcf6 10%,
+            #efd1ff 15%,
+            #a9c6ec 20%,
+            #85e3ee 25%,
+            #bfddff 30%
     );
     background-image: var(--stripes), var(--rainbow);
     background-size: 300%, 200%;
@@ -917,9 +918,9 @@ blockquote {
     position: absolute;
     display: block;
     pointer-events: none;
-	width: 100%;
-	height: 30vh;
-	z-index: var(--z-body) -1;
+    width: 100%;
+    height: 30vh;
+    z-index: var(--z-body) -1;
 }
 
 .bg-charm::after {
@@ -934,7 +935,9 @@ blockquote {
 }
 
 @keyframes spin {
-  100% {transform: rotate(1turn); }
+    100% {
+        transform: rotate(1turn);
+    }
 }
 
 .spin {
@@ -949,15 +952,16 @@ blockquote {
 
 .spreadable {
     /* The container is only meant to take up from 3/12 (25%) to 8/12 columns (66%). So 3 images as 41% width */
-    width:37%;
+    width: 37%;
     margin: 0 auto;
     transition: all .4s ease;
     left: -18%;
     top: 33%;
     position: absolute;
     transform: rotate(-20deg);
-    z-index: calc(var(--z-body) + 1);  /* In front of ballot, but behind headings */
+    z-index: calc(var(--z-body) + 1); /* In front of ballot, but behind headings */
 }
+
 .spreadable img {
     height: inherit;
     max-height: 30vw;
@@ -967,6 +971,7 @@ blockquote {
     left: 9%;
     transform: rotate(-15deg);
 }
+
 .spreadable-container .spreadable:nth-child(3) {
     left: 12%;
     transform: rotate(-11deg);
@@ -974,23 +979,29 @@ blockquote {
 
 /* This works with glowing buttons */
 .animation-sync div:nth-child(1) a::before {
-  animation-delay: 3s;
+    animation-delay: 3s;
 }
 
 .animation-sync div:nth-child(2) a::before {
-  animation-delay: 2s;
+    animation-delay: 2s;
 }
 
 .animation-sync div:nth-child(3) a::before {
-  animation-delay: 0s;
+    animation-delay: 0s;
 }
 
 
 .panel-row {
     margin-left: 0;
     margin-right: 0;
-    column-gap: 10px;
+    column-gap: 0;
 }
+
+.panel-row .col {
+    padding-left: 0;
+    padding-right: 0;
+}
+
 .panel-heading {
     background-color: var(--panel-background-color);
     border: 1px solid #e4e5e7;
@@ -1007,27 +1018,54 @@ blockquote {
 }
 
 .panel-heading button {
+    position: relative;
+    background: none;
     border: none;
-    display: block;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
     padding-top: 20px;
     padding-bottom: 20px;
     height: 100%;
-    color: #808080;
+    color: #646464;
     text-decoration: none;
     width: 100%;
+}
+
+.panel-heading button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(to top, #e1e1e1, transparent);
+    opacity: 0;
+    transition: opacity 1s ease;
+    z-index: calc(var(--z-body) + 1); /* Behind the headings */
+}
+
+.panel-heading button.panel-faded::before {
+    opacity: 1;
 }
 
 .panel-heading button:focus {
     outline: none
 }
 
-.panel-heading, .panel-title, .panel-title button {
-    border-radius: var(--panel-large-border-radius) var(--panel-large-border-radius) var(--panel-large-border-radius); --var(--panel-large-border-radius);
+.panel-heading, .panel-title, .panel-title button, .panel-title button::before {
+    border-radius: var(--panel-large-border-radius) var(--panel-large-border-radius) var(--panel-large-border-radius);
+--var(--panel-large-border-radius);
     transition: border-radius 0.1s ease-in;
 }
 
+.panel-title h3 {
+    font-size: 1rem;
+}
+
 .opened {
-    .panel-heading, .panel-title, .panel-title button {
+    .panel-heading, .panel-title, .panel-title button, .panel-heading button::before {
         border-bottom-left-radius: 0;
         border-bottom-right-radius: 0;
     }
@@ -1064,8 +1102,13 @@ blockquote {
     border-bottom: none;
 }
 
-.active .panel-heading button {
+.opened .panel-heading button {
     color: black;
+    transition: color 1s ease-in;
+}
+
+.opened .active .panel-heading button {
+    transition: color 0s linear;
 }
 
 .panel-content {
