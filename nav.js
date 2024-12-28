@@ -185,7 +185,6 @@ $(document).ready(function () {
                         // Fade all panels (this class is removed in a moment for the active tab)
                         child.classList.add('panel-faded');
                     }
-                    console.log('Removing underline from a child');
                     Array.from(child.children).forEach(function (grandChild) {
                         grandChild.classList.remove('h-underline', 'h-underline-animate');
                     })
@@ -196,7 +195,6 @@ $(document).ready(function () {
             if (targetHeading) {
                 if (!collapseAll) {
                     targetHeading.parentElement.classList.add('active');
-                    console.log('Adding underline to a class');
                     targetHeading.querySelectorAll('button').forEach(function (child) {
                         child.classList.remove('panel-faded');
                         Array.from(child.children).forEach(function (grandChild) {
