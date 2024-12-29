@@ -428,8 +428,13 @@ h1.nicokaku {
         display: grid;
         /* Unfortunately we need an explicit number of columns here */
         grid-template-columns: repeat(2, minmax(100px, 1fr));
-        gap: 0.5rem;
+        gap: 0;
         list-style-type: none;
+    }
+
+    .grid-list li {
+        padding-top: 3.5px;
+        padding-bottom: 3.5px;
     }
 
     .grid-list .dropdown-item {
