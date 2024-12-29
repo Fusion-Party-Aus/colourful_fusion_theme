@@ -238,8 +238,27 @@ nav li:hover {
     background-color: rgba(211, 248, 244, 0.97);
 }
 
+.dropdown-menu ul {
+    list-style: none;
+}
+
 .dropdown-menu li {
     border-radius: 4px;
+}
+
+.dropdown-item {
+    padding-right: 4px;
+}
+
+.dropdown-item ul {
+    width: max-content;
+    max-width: 100%;
+    font-size: 0.75rem;
+    pointer-events: none;  /* Don't hover separately. The parent is already an <a> */
+}
+
+.dropdown-item li {
+    margin-right: 0;
 }
 
 .dropdown-item:hover {
@@ -397,11 +416,43 @@ h1.nicokaku {
     header h1 {
         font-size: 6rem;
     }
+
+    .wide-dropdown {
+        position: absolute;
+        left: 0;
+        width: max-content;
+        min-width: 100%;
+    }
+
+    ul.grid-list {
+        display: grid;
+        /* Unfortunately we need an explicit number of columns here */
+        grid-template-columns: repeat(2, minmax(100px, 1fr));
+        gap: 0.5rem;
+        list-style-type: none;
+    }
+
+    .grid-list .dropdown-item {
+        white-space: normal;  /* Allow wrapping */
+        max-width: 213px;  /* Calibrated for Fair + Inclusive Society */
+    }
 }
 
 @media (min-width: 992px) {
     header h1 {
         font-size: 7rem;
+    }
+
+    ul.grid-list {
+        /* Unfortunately we need an explicit number of columns here */
+        grid-template-columns: repeat(3, minmax(100px, 1fr));
+    }
+}
+
+@media (min-width: 1400px) {
+    ul.grid-list {
+        /* Unfortunately we need an explicit number of columns here */
+        grid-template-columns: repeat(4, minmax(100px, 1fr));
     }
 }
 
