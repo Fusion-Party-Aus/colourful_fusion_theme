@@ -1,12 +1,15 @@
 {% comment %}
 This custom code is being kept updated in GitHub. The code in GitHub will be treated as the source of truth, so do not
-edit the template without also updating GitHub:
-https://github.com/Fusion-Party-Aus/colourful_fusion_theme/blob/master/pages_show_candidates.html
+edit the template without also updating GitHub.
 
 This code is intended for the /candidates page.
 {% endcomment %}
 {% assign electorateTags = "nsw,qld,sa,vic,wa,act,tas,lower,upper" | split: "," %}
 <div id="content">
+  {% comment %}
+  Drew, put your HTML here!
+  {% endcomment %}
+  <p>Want to see yourself here? It's not too late to nominate 🙋</p>
   {% if page.blog.is_posting_public? %}
     <div class="card bg-light mb-4">
       <div class="card-body">
