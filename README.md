@@ -75,6 +75,10 @@ Cloudfront. Sure we could've served the image from NationBuilder, but by using C
 we can serve images from data centres all over Australia. Most (all?) of the requests to NationBuilder have to bounce
 across the Pacific Ocean, to San Francisco.
 
+### Candidate Pages
+Notice that the page /candidates features filters for states and lower house / upper house − these rely on tags on the
+page for each candidate: `nsw`, `qld`, `sa`, `vic`, `wa`, `lower`, `upper`.
+
 ### Importing Extra CSS
 For any rare visualisations, these are probably being performed by CSS files which need to be explicitly added to a page
 through the use of tags
