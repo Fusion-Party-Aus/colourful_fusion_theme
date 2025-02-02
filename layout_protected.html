@@ -6,6 +6,7 @@
   {% assign hasClimateRescueTag = false %}
   {% assign hasConversionTag = false %}
   {% assign hasEventsTag = false %}
+  {% assign hasIsotopeFilteringTag = false %}
   {% assign omitContents = false %}
   {% assign hasGlowingTag = false %}
   {% assign hasKwesTag = false %}
@@ -30,6 +31,8 @@
         {% assign hasConversionTag = true %}
       {% when "events" %}
         {% assign hasEventsTag = true %}
+      {% when "isotope-filtering" %}
+        {% assign hasIsotopeFilteringTag = true %}
       {% when "omit-contents" %}
         {% assign omitContents = true %}
       {% when "glow" %}
@@ -225,6 +228,13 @@
     {% if hasEventsTag %}
       <!-- The source for spreading-cards.js is at https://github.com/Fusion-Party-Aus/fusion_website/tree/master/scripts -->
       <script defer src="https://fusionparty.space/scripts/minified/spreading-cards.9bcff2b9.min.js"></script>
+    {% endif %}
+    {% if hasIsotopeFilteringTag %}
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js"
+              integrity="sha512-Zq2BOxyhvnRFXu0+WE6ojpZLOU2jdnqbrM1hmVdGzyeCa1DgM3X5Q4A/Is9xA1IkbUeDd7755dNNI/PzSf2Pew=="
+              crossorigin="anonymous" referrerpolicy="no-referrer">
+      </script>
+      <script src="isotope_filtering.js"></script>
     {% endif %}
     {% if page.tags contains "stripes" %}
       <script defer src="climateVideoInjection.js"></script>
