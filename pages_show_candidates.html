@@ -87,7 +87,6 @@ This code is intended for the /candidates page.
               <a href="{{ post.url }}" class="text-reset">{{ post.headline }}</a></h3>
 
             <p class="small text-muted">
-              Posted by {{ post.author.published_name_linked }} &middot; {{ post.published_at | date: '%B %d, %Y %l:%M %p' }}
               {% if post.show_stream? and post.public_activities_count > 0 %}
                 &middot;
                 <a href="{{ post.url }}#addreaction">
