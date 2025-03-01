@@ -23,6 +23,16 @@ important than the ease of editing the content.
 
 So, with that in mind, here are some of the ways to update a page to make it shine:
 
+### Adding Pages
+When adding any page, ensure that you're updating NationBuilder's "SEO" and "Social media" settings, as these
+define the [Open Graph](https://ogp.me/) attributes for previewing the pages elsewhere (including previews for search 
+results and social-media posts).
+
+Fusion's account for [Google Search Console](https://search.google.com/) is managed by Owen. There, we can keep track of
+what users are search for, before arriving at our page. It should be more than just "Fusion Party"! 🙀
+
+![](./docs/SEO_section.png)
+
 ### Headings
 Notice that the headings are animated. This is done by adding class `h-underline` and a colour (eg `h-pink`)
 explicitly in the editor (you'll need to click "Source code" to get to this.)
@@ -48,7 +58,7 @@ more detail later):
 ![A tag with _h-purple](./docs/_h_tag.png)
 
 ### Body Imagery
-Images in the body can use classes `w-100` and `w-50`. Make sure you remove any explicit width and height styles that NationBuilder might've imposed, otherwise the aspect ratio can get messed up.
+Images in the body can use classes `w-100` and `w-50`. **Make sure you remove any explicit width and height styles that NationBuilder might've imposed**, otherwise the aspect ratio can get messed up.
 
 > ![](./docs/w-100.png)
 
@@ -78,6 +88,17 @@ across the Pacific Ocean, to San Francisco.
 ### Candidate Pages
 Notice that the page /candidates features filters for states and lower house / upper house − these rely on tags on the
 page for each candidate: `nsw`, `qld`, `sa`, `vic`, `wa`, `lower`, `upper`.
+
+Besides the earlier instructions in _Adding Pages_, note that candidate pages require a thumbnail to be defined in 
+[this template](https://github.com/Fusion-Party-Aus/colourful_fusion_theme/blame/master/pages_show_candidates.html#L94).
+
+This limitation is because the `blog_post` object 
+[lacks access to attachments](https://nationbuilder.com/blog_post_page_variables) such as images, and although the
+blog-post content probably includes an `<img>` that we can identify with string processing, NationBuilder remembers that
+this string is essentially off-limits and won't let us use it on our page as eg an img's `src` − it ends up always
+escaping the string.
+
+So the most practical way around this is to hard-code a correspondence of candidate names to thumbnail images.
 
 ### Importing Extra CSS
 For any rare visualisations, these are probably being performed by CSS files which need to be explicitly added to a page
