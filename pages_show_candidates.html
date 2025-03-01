@@ -94,43 +94,21 @@ This code is intended for the /candidates page.
               console.log(`Candidate {{ candidate_name }} has no thumbnail defined − the template at https://futureparty.nationbuilder.com/admin/sites/2044/pages/4215/template needs to be updated`);
             </script>
         {% endcase %}
-
-        <!--li class="isogrid-item wa lower row w-100 thumbnail-blog-preview" id="{{ link_id }}">
-          <div class="mb-2 col-6 col-md-8 order-1 order-md-5">
+        <li class="isogrid-item {{ tag_classes }} py-2 py-md-0 row w-100 thumbnail-blog-preview" id="{{ link_id }}">
+          <div class="col-6 col-md-8 order-1 order-md-5 my-md-2">
                 <a href="{{ post.url }}">
                   <img class="rounded w-100" title="{{ post.headline }}" class="w-100 li-img" src={{ img_src }} alt="{{ candidate_name }}">
                 </a>
             </div>
-            <div class="my-2 col-6 col-md-12 order-5 order-md-1">
+            <div class="col-6 col-md-12 order-5 order-md-1 my-md-2">
                 <a href="{{ post.url }}" class="uncolored">
                     <h3 class="mb-1 h-underline h-pink h-underline-animate">
                       {{ post.headline }}
                     </h3>
                 </a>
-                <span class="badge badge-secondary mt-2 ml-md-3">WA</span>
+                {% assign visible_tag = tag_classes | replace: "lower", "" | replace: "upper", "" | strip %}
+                <span class="badge badge-secondary mt-2 ml-md-3">{{ visible_tag }}</span>
             </div>
-        </li-->
-        <li data-img-src="{{ img_src }}" class="isogrid-item{% unless forloop.last == true %} mb-4 pb-4 border-bottom{% endunless %}{{ tag_classes }}" id="blog-post-page-{{ post.id }}">
-          <header class="mb-3">
-            <h3 class="mb-1 h-underline h-{{ h_color }}">
-              <a href="{{ post.url }}" class="text-reset">{{ post.headline }}</a></h3>
-
-            <p class="small text-muted">
-              {% if post.show_stream? and post.public_activities_count > 0 %}
-                &middot;
-                <a href="{{ post.url }}#addreaction">
-                  {{ post.public_activities_count }} reaction{% if post.public_activities_count > 1 %}s{% endif %}
-                </a>
-              {% endif %}
-            </p>
-          </header>
-
-          <div class="mb-2">
-            {{ post.blog_post.content }}
-            {% if post.blog_post.is_extended? %}
-              <p class="mt-2"><a href="{{ post.url }}" class="btn btn-info rounded bg-{% if h_aquamarine %}opal{% else %}{{ h_color }}{% endif %} p-2">Read more</a></p>
-            {% endif %}
-          </div>
         </li>
       {% endfor %}
     </ul>
