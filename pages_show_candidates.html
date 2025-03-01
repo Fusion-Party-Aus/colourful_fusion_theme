@@ -81,28 +81,34 @@ This code is intended for the /candidates page.
               {% endif %}
             {% endif %}
         {% endfor %}
-        <li class="isogrid-item{% unless forloop.last == true %} mb-4 pb-4 border-bottom{% endunless %}{{ tag_classes }}" id="blog-post-page-{{ post.id }}">
-          <header class="mb-3">
-            <h3 class="mb-1 h-underline h-{{ h_color }}">
-              <a href="{{ post.url }}" class="text-reset">{{ post.headline }}</a></h3>
-
-            <p class="small text-muted">
-              Posted by {{ post.author.published_name_linked }} &middot; {{ post.published_at | date: '%B %d, %Y %l:%M %p' }}
-              {% if post.show_stream? and post.public_activities_count > 0 %}
-                &middot;
-                <a href="{{ post.url }}#addreaction">
-                  {{ post.public_activities_count }} reaction{% if post.public_activities_count > 1 %}s{% endif %}
+        {% assign link_id = post.url | replace_first: "/", "" %}
+        {% assign candidate_name = post.headline | split: " for " | slice: 0 | first | strip %}
+        {% assign img_src = "" %}
+        {% case candidate_name %}
+          {% when "Owen Miller" %}
+            {% assign img_src = "https://assets.nationbuilder.com/futureparty/pages/4216/attachments/original/1724677087/g_20240803_142539_cropped_2.png?1724677087" %}
+          {% when "Tian Carrie-Wilson" %}
+            {% assign img_src = "https://assets.nationbuilder.com/futureparty/pages/5436/attachments/original/1740793071/thumbnail_Tian.jpg?1740793071" %}
+          {% else %}
+            <script>
+              console.log(`Candidate {{ candidate_name }} has no thumbnail defined − the template at https://futureparty.nationbuilder.com/admin/sites/2044/pages/4215/template needs to be updated`);
+            </script>
+        {% endcase %}
+        <li class="isogrid-item {{ tag_classes }} py-2 py-md-0 row w-100 thumbnail-blog-preview" id="{{ link_id }}">
+          <div class="col-6 col-md-8 order-1 order-md-5 my-md-2">
+                <a href="{{ post.url }}">
+                  <img class="rounded w-100" title="{{ post.headline }}" class="w-100 li-img" src={{ img_src }} alt="{{ candidate_name }}">
                 </a>
-              {% endif %}
-            </p>
-          </header>
-
-          <div class="mb-2">
-            {{ post.blog_post.content }}
-            {% if post.blog_post.is_extended? %}
-              <p class="mt-2"><a href="{{ post.url }}" class="btn btn-info rounded bg-{% if h_aquamarine %}opal{% else %}{{ h_color }}{% endif %} p-2">Read more</a></p>
-            {% endif %}
-          </div>
+            </div>
+            <div class="col-6 col-md-12 order-5 order-md-1 my-md-2">
+                <a href="{{ post.url }}" class="uncolored">
+                    <h3 class="mb-1 h-underline h-pink h-underline-animate">
+                      {{ post.headline }}
+                    </h3>
+                </a>
+                {% assign visible_tag = tag_classes | replace: "lower", "" | replace: "upper", "" | strip %}
+                <span class="badge badge-secondary mt-2 ml-md-3">{{ visible_tag }}</span>
+            </div>
         </li>
       {% endfor %}
     </ul>

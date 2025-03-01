@@ -295,6 +295,11 @@ ul.dropdown-menu {
     width: auto;
 }
 
+li.thumbnail-blog-preview {
+    border-radius: 4px;
+    border-bottom: 2px solid #c8ced2;
+}
+
 @media (min-width: 576px) {
     footer ul {
         list-style: none;
@@ -787,6 +792,13 @@ button.bg-purple, button.bg-purple:hover {
 
 a.bg-purple, a.bg-purple:hover {
     border-color: #780a9d;
+}
+
+a.uncolored {
+    color: inherit;
+    :hover {
+        text-decoration: underline;
+    }
 }
 
 .bg-gray-mist {
