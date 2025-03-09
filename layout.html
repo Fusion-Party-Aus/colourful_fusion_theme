@@ -175,11 +175,11 @@
             If we're omitting the table of contents, we need a bit more horizontal margin to avoid the edge of the page.
             {% endcomment %}
             {% unless omitContents %}
-            <div class="d-none d-md-block col-0 col-md-3 col-lg-2 sidebar">
+            <div class="d-none d-md-block col-0 col-md-3 col-xl-2 sidebar">
                 <nav id="toc" data-toggle="toc"></nav>
             </div>
             {% endunless %}
-            <div class="col-12 {% unless wide %}col-md-9 col-lg-8{% endunless %}">
+            <div class="col-12 {% unless wide %}col-md-9 col-xl-8{% endunless %}">
               {% if page.features_count > 0 %}
                 {% include "features" %}
               {% endif %}
@@ -187,7 +187,7 @@
                 {% include "content", sidebar: request.is_sidebar?, wide: wide, hasValuesTag: hasValuesTag, hasPeopleTag: hasPeopleTag, h_color: h_color %}
               </main>
             </div>
-            <div class="d-none d-lg-block col-lg-2">
+            <div class="d-none d-xl-block col-xl-2">
               <!-- If we wanted to bring back the sidebar, this is where it would go -->
             </div>
           </div>
