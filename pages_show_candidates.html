@@ -4,7 +4,8 @@ edit the template without also updating GitHub.
 
 This code is intended for the /candidates page.
 {% endcomment %}
-{% assign electorateTags = "nsw,qld,sa,vic,wa,act,tas,lower,upper" | split: "," %}
+{% assign electorate_tags = "nsw,qld,sa,vic,wa,act,tas,lower,upper" | split: "," %}
+{% assign branch_tags = "fusion,democracy_first" | split: "," %}
 <div id="content">
   {% comment %}
   Drew, put your HTML here!
@@ -69,6 +70,7 @@ This code is intended for the /candidates page.
         {% assign h_color = 'aquamarine' %}
         {% assign h_aquamarine = true %}
         {% assign tag_classes = "" %}
+        {% assign branch_tag = ""%}
         {% for tag in post.tags %}
             {% if tag.name contains "_h-" %}
                 {% assign h_color = tag.name | replace: '_h-', '' %}
@@ -76,8 +78,11 @@ This code is intended for the /candidates page.
                   {% assign h_aquamarine = false %}
                 {% endunless %}
             {% else %}
-              {% if electorateTags contains tag.name %}
+              {% if electorate_tags contains tag.name %}
                 {% assign tag_classes = tag_classes | append: " " | append: tag.name %}
+              {% endif %}
+              {% if branch_tags contains tag.name %}
+                {% assign branch_tag = tag.name %}
               {% endif %}
             {% endif %}
         {% endfor %}
@@ -100,14 +105,21 @@ This code is intended for the /candidates page.
                   <img class="rounded w-100" title="{{ post.headline }}" class="w-100 li-img" src={{ img_src }} alt="{{ candidate_name }}">
                 </a>
             </div>
-            <div class="col-6 col-md-12 order-5 order-md-1 my-md-2">
+            <div class="col-6 col-md-12 order-5 order-md-1 my-md-2 badge-row">
                 <a href="{{ post.url }}" class="uncolored">
                     <h3 class="mb-1 h-underline h-pink h-underline-animate">
                       {{ post.headline }}
                     </h3>
                 </a>
                 {% assign visible_tag = tag_classes | replace: "lower", "" | replace: "upper", "" | strip %}
-                <span class="badge badge-secondary mt-2 ml-md-3">{{ visible_tag }}</span>
+                <span class="badge badge-secondary ml-md-3">{{ visible_tag }}</span>
+                {% unless branch_tag == "" %}
+                  {% if branch_tag == "fusion" %}
+                    <span class="badge ml-1"><img src="https://fusionparty.space/images/solo_colour.svg" alt="Fusion logo"/></span>
+                  {% else if "democracy_first %}
+                    <span class="badge ml-1"><img src="https://assets.nationbuilder.com/futureparty/pages/4215/attachments/original/1741591964/DF_Logo.svg?1741591964" alt="Democracy First logo mark"/></span>
+                  {% endif %}
+                {% endunless %}
             </div>
         </li>
       {% endfor %}

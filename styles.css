@@ -828,6 +828,16 @@ blockquote {
     border-radius: 0.25rem;
 }
 
+.badge-row {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+}
+
+.badge img {
+    max-height: 2rem;
+}
+
 .page-pages-show-donation-v2-wide .donation-v2-amounts > div {
     position: relative;
 }
