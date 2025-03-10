@@ -5,7 +5,7 @@ edit the template without also updating GitHub.
 This code is intended for the /candidates page.
 {% endcomment %}
 {% assign electorate_tags = "nsw,qld,sa,vic,wa,act,tas,lower,upper" | split: "," %}
-{% assign branch_tags = "fusion,democracy_first" | split: "," %}
+{% assign branch_tags = "fusion,democracy-first" | split: "," %}
 <div id="content">
   {% comment %}
   Drew, put your HTML here!
@@ -116,7 +116,7 @@ This code is intended for the /candidates page.
                 {% unless branch_tag == "" %}
                   {% if branch_tag == "fusion" %}
                     <span class="badge ml-1"><img src="https://fusionparty.space/images/solo_colour.svg" alt="Fusion logo"/></span>
-                  {% else if "democracy_first %}
+                  {% else if "democracy-first %}
                     <span class="badge ml-1"><img src="https://assets.nationbuilder.com/futureparty/pages/4215/attachments/original/1741591964/DF_Logo.svg?1741591964" alt="Democracy First logo mark"/></span>
                   {% endif %}
                 {% endunless %}
