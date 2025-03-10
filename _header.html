@@ -17,6 +17,7 @@
     {% assign altText = 'Forest portal' %}
     {% for att in page.attachments %}
       {% if att.file_name contains "hero_" %}
+          <!-- {{ att.file_name }} contains hero-->
           {% assign hasBackground = true %}
           {% comment %}
             Images are served faster from Cloudfront than from NationBuilder. The NationBuilder path will be like
