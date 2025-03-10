@@ -1,64 +1,67 @@
 <!DOCTYPE html>
-<html lang="en" id="bg-canvas" class="bg-gray-mist h-100">
-  {% assign hasBallotsTag = false %}
-  {% assign hasBlobTag = false %}
-  {% assign h_color = 'pink' %}
-  {% assign hasClimateRescueTag = false %}
-  {% assign hasConversionTag = false %}
-  {% assign hasEventsTag = false %}
-  {% assign hasIsotopeFilteringTag = false %}
-  {% assign omitContents = false %}
-  {% assign hasGlowingTag = false %}
-  {% assign hasKwesTag = false %}
-  {% assign hasPeopleTag = false %}
-  {% assign hasPhoneTag = false %}
-  {% assign hasPoliciesTag = false %}
-  {% assign stripes = false %}
-  {% assign hasRingsTag = false %}
-  {% assign hasValuesTag = false %}
-  {% assign isVideoLanding = false %}
-  {% assign wide = false %}
-  {% for tag in page.tags %}
-    {% if tag.name contains "_h-" %}
-      {% assign h_color = tag.name | replace: '_h-', '' %}
-    {% endif %}
-    {% case tag.name %}
-      {% when "ballots" %}
-        {% assign hasBallotsTag = true %}
-      {% when "blob" %}
-        {% assign hasBlobTag = true %}
-      {% when "climate-rescue" %}
-        {% assign hasClimateRescueTag = true %}
-      {% when "conversion" %}
-        {% assign hasConversionTag = true %}
-      {% when "events" %}
-        {% assign hasEventsTag = true %}
-      {% when "isotope-filtering" %}
-        {% assign hasIsotopeFilteringTag = true %}
-      {% when "omit-contents" %}
-        {% assign omitContents = true %}
-      {% when "glow" %}
-        {% assign hasGlowingTag = true %}
-      {% when "kwes" %}
-        {% assign hasKwesTag = true %}
-      {% when "_people" %}
-        {% assign hasPeopleTag = true %}
-      {% when "phone" %}
-        {% assign hasPhoneTag = true %}
-      {% when "policies" %}
-        {% assign hasPoliciesTag = true %}
-      {% when "rings" %}
-        {% assign hasRingsTag = true %}
-      {% when "stripes" %}
-        {% assign stripes = true %}
-      {% when "_values" %}
-        {% assign hasValuesTag = true %}
-      {% when "video-landing" %}
-        {% assign isVideoLanding = true %}
-      {% when "wide" %}
-        {% assign wide = true %}
-    {% endcase %}
-  {% endfor %}
+{% assign hasBallotsTag = false %}
+{% assign hasBlobTag = false %}
+{% assign h_color = 'pink' %}
+{% assign hasClimateRescueTag = false %}
+{% assign hasConversionTag = false %}
+{% assign hasDemocracyFirstTag = false %}
+{% assign hasEventsTag = false %}
+{% assign hasIsotopeFilteringTag = false %}
+{% assign omitContents = false %}
+{% assign hasGlowingTag = false %}
+{% assign hasKwesTag = false %}
+{% assign hasPeopleTag = false %}
+{% assign hasPhoneTag = false %}
+{% assign hasPoliciesTag = false %}
+{% assign stripes = false %}
+{% assign hasRingsTag = false %}
+{% assign hasValuesTag = false %}
+{% assign isVideoLanding = false %}
+{% assign wide = false %}
+{% for tag in page.tags %}
+  {% if tag.name contains "_h-" %}
+    {% assign h_color = tag.name | replace: '_h-', '' %}
+  {% endif %}
+  {% case tag.name %}
+    {% when "ballots" %}
+      {% assign hasBallotsTag = true %}
+    {% when "blob" %}
+      {% assign hasBlobTag = true %}
+    {% when "climate-rescue" %}
+      {% assign hasClimateRescueTag = true %}
+    {% when "conversion" %}
+      {% assign hasConversionTag = true %}
+    {% when "democracy-first" %}
+      {% assign hasDemocracyFirstTag = true %}
+    {% when "events" %}
+      {% assign hasEventsTag = true %}
+    {% when "isotope-filtering" %}
+      {% assign hasIsotopeFilteringTag = true %}
+    {% when "omit-contents" %}
+      {% assign omitContents = true %}
+    {% when "glow" %}
+      {% assign hasGlowingTag = true %}
+    {% when "kwes" %}
+      {% assign hasKwesTag = true %}
+    {% when "_people" %}
+      {% assign hasPeopleTag = true %}
+    {% when "phone" %}
+      {% assign hasPhoneTag = true %}
+    {% when "policies" %}
+      {% assign hasPoliciesTag = true %}
+    {% when "rings" %}
+      {% assign hasRingsTag = true %}
+    {% when "stripes" %}
+      {% assign stripes = true %}
+    {% when "_values" %}
+      {% assign hasValuesTag = true %}
+    {% when "video-landing" %}
+      {% assign isVideoLanding = true %}
+    {% when "wide" %}
+      {% assign wide = true %}
+  {% endcase %}
+{% endfor %}
+<html lang="en" id="bg-canvas" class="{% unless hasDemocracyFirstTag %}bg-gray-mist{% endunless %} h-100">
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -104,6 +107,9 @@
     <script src="https://www.google.com/recaptcha/api.js?render=6LcWQvUpAAAAAAKRTxiPPVZuN9VTOSN0vz41zv_0"></script>
     {% endif %}
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap&text=ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-−%27" rel="stylesheet">
+    {% if hasDemocracyFirstTag %}
+    <link href="https://fonts.googleapis.com/css?family=Poppins%3A100%2C100italic%2C200%2C200italic%2C300%2C300italic%2C400%2C400italic%2C500%2C500italic%2C600%2C600italic%2C700%2C700italic%2C800%2C800italic%2C900%2C900italic%7CRoboto%3A100%2C100italic%2C200%2C200italic%2C300%2C300italic%2C400%2C400italic%2C500%2C500italic%2C600%2C600italic%2C700%2C700italic%2C800%2C800italic%2C900%2C900italic%7CRoboto+Slab%3A100%2C100italic%2C200%2C200italic%2C300%2C300italic%2C400%2C400italic%2C500%2C500italic%2C600%2C600italic%2C700%2C700italic%2C800%2C800italic%2C900%2C900italic&display=auto&ver=6.7.1"
+    {% endif %}
     <!-- https://afeld.github.io/bootstrap-toc/ -->
     <link
             rel="stylesheet"
@@ -146,7 +152,7 @@
         </div>
       {% endif %}
       {% include "nav" %}
-      <div class="bg-charm"></div>
+      <div {% unless hasDemocracyFirstTag %}class="bg-charm"{% endunless %}></div>
       {% comment %}
       There seem to be some mismatched divs below. The footer is getting placed inside the w-100 div
       {% endcomment %}
