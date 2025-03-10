@@ -151,7 +151,7 @@
             <i style="--ring-color:#5effd8ff;"></i>
         </div>
       {% endif %}
-      {% include "nav" %}
+      {% include "nav", hasDemocracyFirstTag: hasDemocracyFirstTag %}
       <div {% unless hasDemocracyFirstTag %}class="bg-charm"{% endunless %}></div>
       {% comment %}
       There seem to be some mismatched divs below. The footer is getting placed inside the w-100 div
@@ -163,12 +163,12 @@
           </div>
         {% else %}
           {% if wide %}
-            <div class="container w-1600 mb-2">
-              {% include "header", h_color: h_color, wide: wide %}
+            <div class="container w-1600 mb-2 p-0">
+              {% include "header", h_color: h_color, wide: wide, hasDemocracyFirstTag: hasDemocracyFirstTag %}
             </div>
           {% else %}
             <div class="row d-block">
-              {% include "header", h_color: h_color %}
+              {% include "header", h_color: h_color, hasDemocracyFirstTag: hasDemocracyFirstTag %}
             </div>
           {% endif %}
         {% endif %}

@@ -56,7 +56,7 @@
         {%  endif %}
     {% endif %}
     {% if page.headline.size > 0 %}
-        <div class="header-content d-flex align-items-center">
+        <div class="header-content d-flex flex-row align-items-center">
             {% assign phrases = page.headline | split: ' ' %}
             {% comment %}
             We'll find the closest space to the middle, and use the two halves as separate spans
@@ -152,7 +152,7 @@
                     {% endcomment %}
                 {%  endif %}
             {%  endif %}
-            <h1 data-toc-skip class="{% if hasBackground %}bg-gray-transparent{% endif %} align-items-left h-underline h-{{ h_color }} {% if isNicokaku %}nicokaku{% else %}inter{% endif %} {% if hasBackground %}fw-700{% else %}fw-600{% endif %}
+            <h1 data-toc-skip class="{% if hasBackground %}bg-gray-transparent{% endif %} align-items-left {% unless hasDemocracyFirstTag %}h-underline h-{{ h_color }}{% endunless %} {% if isNicokaku %}nicokaku{% else %}inter{% endif %} {% if hasBackground %}fw-700{% else %}fw-600{% endif %}
                 ml-3 ml-sm-4 ml-md-5 mt-3 mt-lg-4 p-1 {% if is_very_long %}{% if is_extra_long %}fs-scale-extra-long{% else %}fs-scale-3-lines{% endif %}{% else %}{% unless wide %}fs-scale{% endunless %}{% endif %}">
                 {% if is_extra_long %}
                     {{ page.headline }}
@@ -186,6 +186,9 @@
                     {% endif %}
                 {% endif %}
             </h1>
+            {% if hasDemocracyFirstTag %}
+                <span class="badge ml-1 mt-3 mt-lg-4 py-1"><img src="https://assets.nationbuilder.com/futureparty/pages/4215/attachments/original/1741591964/DF_Logo.svg?1741591964" alt="Democracy First logo mark"/></span>
+            {% endif %}
         </div>
     {% endif %}
     </div>
