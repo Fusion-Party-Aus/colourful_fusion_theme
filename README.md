@@ -62,6 +62,9 @@ Images in the body can use classes `w-100` and `w-50`. **Make sure you remove an
 
 > ![](./docs/w-100.png)
 
+Whenever you upload an image to NationBuilder, it will create explicit width and height values that only fit on your
+screen, not on mobile.
+
 ### Header Imagery
 The policy pages have headers with background imagery. Notice that it's rendered as a srcset with two images, eg:
 * https://fusionparty.space/images/kangaroo_future_scenery_200.webp  (725 × 200 px)
