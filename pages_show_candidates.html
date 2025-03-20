@@ -95,9 +95,17 @@ This code is intended for the /candidates page.
           {% when "Tian Carrie-Wilson" %}
             {% assign img_src = "https://assets.nationbuilder.com/futureparty/pages/5436/attachments/original/1740793071/thumbnail_Tian.jpg?1740793071" %}
           {% else %}
-            <script>
-              console.log(`Candidate {{ candidate_name }} has no thumbnail defined − the template at https://futureparty.nationbuilder.com/admin/sites/2044/pages/4215/template needs to be updated`);
-            </script>
+            {% for attachment in post.attachments limit:10 %}
+      				{% if attachment.file_name contains "preview" %}
+      					{% assign img_src = attachment.url %}
+      					{% break %}
+      				{% endif %}
+            {% endfor %}
+      			{% if img_src == "" %}
+              <script>
+                console.log(`Candidate {{ candidate_name }} has no thumbnail defined − the template at https://futureparty.nationbuilder.com/admin/sites/2044/pages/4215/template needs to be updated or you can upload an image with the word preview in the filename`);
+              </script>
+      			{% endif %}
         {% endcase %}
         <li class="isogrid-item {{ tag_classes }} py-2 py-md-0 row w-100 thumbnail-blog-preview" id="{{ link_id }}">
           <div class="col-6 col-md-8 order-1 order-md-5 my-md-2">
