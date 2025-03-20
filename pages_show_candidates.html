@@ -115,7 +115,7 @@ This code is intended for the /candidates page.
             </div>
             <div class="col-6 col-md-12 order-5 order-md-1 my-md-2 badge-row">
                 <a href="{{ post.url }}" class="uncolored">
-                    <h3 class="mb-1 h-underline h-pink h-underline-animate">
+                    <h3 class="mb-1 h-underline h-{{ h_color }} h-underline-animate">
                       {{ post.headline }}
                     </h3>
                 </a>
@@ -125,7 +125,7 @@ This code is intended for the /candidates page.
                   {% if branch_tag == "fusion" %}
                     <span class="badge ml-1"><img src="https://fusionparty.space/images/solo_colour.svg" alt="Fusion logo"/></span>
                   {% else if "democracy-first %}
-                    <span class="badge ml-1"><img src="https://assets.nationbuilder.com/futureparty/pages/4215/attachments/original/1741591964/DF_Logo.svg?1741591964" alt="Democracy First logo mark"/></span>
+                    <span class="badge ml-1"><img src="https://assets.nationbuilder.com/futureparty/pages/4215/attachments/original/1741591964/DF_Logo.svg?1741591964" alt="Democracy First logo"/></span>
                   {% endif %}
                 {% endunless %}
             </div>
