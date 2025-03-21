@@ -61,7 +61,7 @@
       {% assign wide = true %}
   {% endcase %}
 {% endfor %}
-<html lang="en" id="bg-canvas" class="{% unless hasDemocracyFirstTag %}bg-gray-mist{% endunless %} h-100">
+<html lang="en" id="bg-canvas" class="bg-gray-mist h-100">
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -107,9 +107,6 @@
     <script src="https://www.google.com/recaptcha/api.js?render=6LcWQvUpAAAAAAKRTxiPPVZuN9VTOSN0vz41zv_0"></script>
     {% endif %}
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap&text=ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-−%27" rel="stylesheet">
-    {% if hasDemocracyFirstTag %}
-    <link href="https://fonts.googleapis.com/css?family=Poppins%3A100%2C100italic%2C200%2C200italic%2C300%2C300italic%2C400%2C400italic%2C500%2C500italic%2C600%2C600italic%2C700%2C700italic%2C800%2C800italic%2C900%2C900italic%7CRoboto%3A100%2C100italic%2C200%2C200italic%2C300%2C300italic%2C400%2C400italic%2C500%2C500italic%2C600%2C600italic%2C700%2C700italic%2C800%2C800italic%2C900%2C900italic%7CRoboto+Slab%3A100%2C100italic%2C200%2C200italic%2C300%2C300italic%2C400%2C400italic%2C500%2C500italic%2C600%2C600italic%2C700%2C700italic%2C800%2C800italic%2C900%2C900italic&display=auto&ver=6.7.1" rel="stylesheet"/>
-    {% endif %}
     <!-- https://afeld.github.io/bootstrap-toc/ -->
     <link
             rel="stylesheet"
@@ -139,7 +136,7 @@
     </script>
 
   </head>
-  <body class="d-flex flex-column h-100 bg-transparent bg-viewport text-gray-900 relative bootstrap-theme v3-theme {% if hasDemocracyFirstTag %}democracy-first {% endif %}{%if page.is_homepage %}homepage{% endif %} {{ page.page_class_name }} page-{{ request.template | replace: '_', '-' }} js">
+  <body class="d-flex flex-column h-100 bg-transparent bg-viewport text-gray-900 relative bootstrap-theme v3-theme {%if page.is_homepage %}homepage{% endif %} {{ page.page_class_name }} page-{{ request.template | replace: '_', '-' }} js">
     {% unless page.type_name contains "Donation" %}
       {% if hasRingsTag %}
         <!-- SVG Circle -->
@@ -151,8 +148,8 @@
             <i style="--ring-color:#5effd8ff;"></i>
         </div>
       {% endif %}
-      {% include "nav", hasDemocracyFirstTag: hasDemocracyFirstTag %}
-      <div {% unless hasDemocracyFirstTag %}class="bg-charm"{% endunless %}></div>
+      {% include "nav" %}
+      <div class="bg-charm"></div>
       {% comment %}
       There seem to be some mismatched divs below. The footer is getting placed inside the w-100 div
       {% endcomment %}
