@@ -124,7 +124,7 @@ This code is intended for the /candidates page.
                     {% comment %}
                     On mobile, the badges will be under the h3, then on md, they'll transition to be next to it.
                     {% endcomment %}
-                    {% assign visible_tag = tag_classes | replace: "lower", "" | replace: "upper", "" | strip %}
+                    {% assign visible_tag = tag_classes | replace: "lower", "" | replace: "upper", "" | strip | upcase %}
                     <span class="badge badge-secondary ml-md-3">{{ visible_tag }}</span>
                     {% unless branch_tag == "" %}
                       {% if branch_tag == "fusion" %}

@@ -833,6 +833,12 @@ blockquote {
     display: flex;
 }
 
+.badge {
+    /* Nationbuilder was making these small and heavy */
+    font-size: inherit;
+    font-weight: inherit;
+}
+
 .badge img {
     object-fit: contain;
     max-height: 2rem;
