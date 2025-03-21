@@ -835,6 +835,7 @@ blockquote {
 }
 
 .badge img {
+    object-fit: contain;
     max-height: 2rem;
 }
 
