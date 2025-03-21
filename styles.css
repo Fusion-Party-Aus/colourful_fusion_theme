@@ -828,10 +828,9 @@ blockquote {
     border-radius: 0.25rem;
 }
 
-.badge-row {
-    align-items: center;
+.badged-heading {
+    justify-content: flex-start;
     display: flex;
-    flex-direction: row;
 }
 
 .badge img {

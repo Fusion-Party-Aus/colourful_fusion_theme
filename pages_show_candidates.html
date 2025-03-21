@@ -113,21 +113,28 @@ This code is intended for the /candidates page.
                   <img class="rounded w-100" title="{{ post.headline }}" class="w-100 li-img" src={{ img_src }} alt="{{ candidate_name }}">
                 </a>
             </div>
-            <div class="col-6 col-md-12 order-5 order-md-1 my-md-2 badge-row">
+            <div class="col-6 col-md-12 order-5 order-md-1 my-md-2 badged-heading flex-column flex-md-row">
                 <a href="{{ post.url }}" class="uncolored">
                     <h3 class="mb-1 h-underline h-{{ h_color }} h-underline-animate">
                       {{ post.headline }}
                     </h3>
                 </a>
-                {% assign visible_tag = tag_classes | replace: "lower", "" | replace: "upper", "" | strip %}
-                <span class="badge badge-secondary ml-md-3">{{ visible_tag }}</span>
-                {% unless branch_tag == "" %}
-                  {% if branch_tag == "fusion" %}
-                    <span class="badge ml-1"><img src="https://fusionparty.space/images/solo_colour.svg" alt="Fusion logo"/></span>
-                  {% else if "democracy-first %}
-                    <span class="badge ml-1"><img src="https://assets.nationbuilder.com/futureparty/pages/4215/attachments/original/1741591964/DF_Logo.svg?1741591964" alt="Democracy First logo"/></span>
-                  {% endif %}
-                {% endunless %}
+                {% if tag_classes %}
+                  <div class="badges">
+                    {% comment %}
+                    On mobile, the badges will be under the h3, then on md, they'll transition to be next to it.
+                    {% endcomment %}
+                    {% assign visible_tag = tag_classes | replace: "lower", "" | replace: "upper", "" | strip %}
+                    <span class="badge badge-secondary ml-md-3">{{ visible_tag }}</span>
+                    {% unless branch_tag == "" %}
+                      {% if branch_tag == "fusion" %}
+                        <span class="badge ml-1"><img src="https://fusionparty.space/images/solo_colour.svg" alt="Fusion logo"/></span>
+                      {% else if "democracy-first %}
+                        <span class="badge ml-1"><img src="https://assets.nationbuilder.com/futureparty/pages/4215/attachments/original/1741591964/DF_Logo.svg?1741591964" alt="Democracy First logo"/></span>
+                      {% endif %}
+                    {% endunless %}
+                  </div>
+                {% endif %}
             </div>
         </li>
       {% endfor %}
