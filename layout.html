@@ -5,6 +5,7 @@
 {% assign hasClimateRescueTag = false %}
 {% assign hasConversionTag = false %}
 {% assign hasDemocracyFirstTag = false %}
+{% assign hasElectoratesTag = false %}
 {% assign hasEventsTag = false %}
 {% assign hasIsotopeFilteringTag = false %}
 {% assign omitContents = false %}
@@ -33,6 +34,8 @@
       {% assign hasConversionTag = true %}
     {% when "democracy-first" %}
       {% assign hasDemocracyFirstTag = true %}
+    {% when "electorates" %}
+      {% assign hasElectoratesTag = true %}
     {% when "events" %}
       {% assign hasEventsTag = true %}
     {% when "isotope-filtering" %}
@@ -96,6 +99,11 @@
     <link rel="stylesheet" href="https://fusionparty.space/styles/minified/ballots.65fc4ec6.min.css"
           crossorigin="anonymous"
           referrerpolicy="no-referrer">
+    {% endif %}
+    {% if hasElectoratesTag %}
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+     	integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+     	crossorigin=""/>
     {% endif %}
     {% if hasEventsTag %}
     <link rel="stylesheet" href="https://fusionparty.space/styles/minified/laptop.1364c7ed.min.css"
@@ -237,6 +245,14 @@
         integrity="sha512-u1L7Dp3BKUP3gijgSRoMTNxmDl/5o+XOHupwwa7jsI1rMzHrllSLKsGOfqjYl8vrEG+8ghnRPNA/SCltmJCZpQ=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script defer src="https://fusionparty.space/scripts/minified/tilting.a4cf59ee.min.js"></script>
+    {% endif %}
+    {% if hasElectoratesTag %}
+     <script defer src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+             integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+             crossorigin="">
+     </script>
+    <!-- https://github.com/hayeswise/Leaflet.PointInPolygon -->
+    <script defer src="https://cdn.rawgit.com/hayeswise/Leaflet.PointInPolygon/v1.0.0/wise-leaflet-pip.js"></script>
     {% endif %}
     {% if hasEventsTag %}
       <script defer src="https://fusionparty.space/scripts/minified/spreading-cards.9bcff2b9.min.js"></script>
