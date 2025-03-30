@@ -10,11 +10,15 @@ This code is intended for the /candidates page.
   {% comment %}
   Drew, put your HTML here!
   {% endcomment %}
-  <h2 class="h-underline h-pink">Endorsed Candidates</h2>
-  <p>Check out our currently nominated candidates for upcoming elections!<br>
-  <a rel="noopener" href="https://check.aec.gov.au/" target="_blank">Visit the Australian Electoral Commission website</a><span>&nbsp;</span>to check your electorate.</p>
-    <p>Want to know what the party's voting rules are? Or what mutual obligations the party has with its candidates?<br>
-  - <a rel="noopener" href=https://www.fusionparty.org.au/candidate_expectations>Read more about Candidate Expectations here!</a></p>
+  <h2 class="h-underline h-pink">Find Your Candidates</h2>
+  <p>
+    <a rel="noopener" href="https://check.aec.gov.au/" target="_blank">Visit the Australian Electoral Commission website</a><span>&nbsp;</span>to check your electorate, or use the map:
+  </p>
+  <div>
+    <div class="mb-0" style="max-height: 400px; height:calc(min(350px, 90vh));" id="osm-map">
+    </div>
+    <button class="btn btn-secondary p-2 pl-0 m-2" style="position: relative; top:-3.5rem; z-index:1008" id="find-me">Find me</button>
+  </div>
   <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
     <div class="btn-group mr-2 mt-2 filters-btn-group" role="group" data-filter-group="state" aria-label="State Selection">
       <button class="btn btn-secondary active" data-filter="">All</button>
@@ -108,7 +112,7 @@ This code is intended for the /candidates page.
       			{% endif %}
         {% endcase %}
         <li class="isogrid-item {{ tag_classes }} py-2 py-md-0 row w-100 thumbnail-blog-preview" id="{{ link_id }}">
-          <div class="col-6 col-md-8 order-1 order-md-5 my-md-2" {% if is_lower %}id="{{ electorate_name }}"{% endif %}>
+          <div class="col-6 col-md-8 order-1 order-md-5 my-md-2" style="scroll-margin-top:100px;" {% if is_lower %}id="{{ electorate_name }}"{% endif %}>
                 <a href="{{ post.url }}">
                   <img class="rounded w-100" title="{{ post.headline }}" class="w-100 li-img" src={{ img_src }} alt="{{ candidate_name }}">
                 </a>

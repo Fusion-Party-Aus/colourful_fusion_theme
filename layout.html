@@ -246,14 +246,6 @@
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script defer src="https://fusionparty.space/scripts/minified/tilting.a4cf59ee.min.js"></script>
     {% endif %}
-    {% if hasElectoratesTag %}
-     <script defer src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-             integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
-             crossorigin="">
-     </script>
-    <!-- https://github.com/hayeswise/Leaflet.PointInPolygon -->
-    <script defer src="https://cdn.rawgit.com/hayeswise/Leaflet.PointInPolygon/v1.0.0/wise-leaflet-pip.js"></script>
-    {% endif %}
     {% if hasEventsTag %}
       <script defer src="https://fusionparty.space/scripts/minified/spreading-cards.9bcff2b9.min.js"></script>
     {% endif %}
@@ -273,5 +265,14 @@
     {% endif %}
     <script src="bs-custom-file-input.min.js"></script>
     <script src="theme.js"></script>
+    {% if hasElectoratesTag %}
+     <script defer src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+             integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+             crossorigin="">
+     </script>
+    <!-- https://github.com/hayeswise/Leaflet.PointInPolygon -->
+    <script defer src="https://cdn.rawgit.com/hayeswise/Leaflet.PointInPolygon/v1.0.0/wise-leaflet-pip.js"></script>
+    <script defer src="maps.js"></script>
+    {% endif %}
   </body>
 </html>

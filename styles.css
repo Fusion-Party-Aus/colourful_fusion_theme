@@ -28,6 +28,7 @@ html, body {
 h1, h2, h3, h4, h5, p {
     /* Avoid things accidentally covering up our text */
     z-index: calc(var(--z-body) + 2);
+    scroll-margin-top: 70px;
 }
 
 .massive {
