@@ -13,8 +13,7 @@ This code is intended for the /candidates page.
   <h2 class="h-underline h-pink">Endorsed Candidates</h2>
   <p>Check out our currently nominated candidates for upcoming elections!<br>
   <a rel="noopener" href="https://check.aec.gov.au/" target="_blank">Visit the Australian Electoral Commission website</a><span>&nbsp;</span>to check your electorate.</p>
-  <p>Want to see yourself here? It's not too late to nominate 🙋 - <a rel="noopener" href=https://forms.gle/T6WnXEpYSDBrSTGz6>Express your interest here!</a></p>
-  <p>Want to know what the party's voting rules are? Or what mutual obligations the party has with its candidates?<br>
+    <p>Want to know what the party's voting rules are? Or what mutual obligations the party has with its candidates?<br>
   - <a rel="noopener" href=https://www.fusionparty.org.au/candidate_expectations>Read more about Candidate Expectations here!</a></p>
   <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
     <div class="btn-group mr-2 mt-2 filters-btn-group" role="group" data-filter-group="state" aria-label="State Selection">
@@ -90,11 +89,7 @@ This code is intended for the /candidates page.
         {% assign candidate_name = post.headline | split: " for " | slice: 0 | first | strip %}
         {% assign img_src = "" %}
         {% case candidate_name %}
-          {% when "Owen Miller" %}
-            {% assign img_src = "https://assets.nationbuilder.com/futureparty/pages/4216/attachments/original/1724677087/g_20240803_142539_cropped_2.png?1724677087" %}
-          {% when "Tian Carrie-Wilson" %}
-            {% assign img_src = "https://assets.nationbuilder.com/futureparty/pages/5436/attachments/original/1740793071/thumbnail_Tian.jpg?1740793071" %}
-          {% else %}
+      		{% else %}
             {% for attachment in post.attachments limit:10 %}
       				{% if attachment.file_name contains "preview" %}
       					{% assign img_src = attachment.url %}
