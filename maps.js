@@ -54,15 +54,6 @@ function init() {
                     }
                 }
             });
-            if (relevantElectorate) {
-                const targetElement = document.getElementById(relevantElectorate);
-                if (targetElement) {
-                    targetElement.scrollIntoView({ behavior: 'smooth' });
-                }
-                else {
-                    console.log(`Unable to find a candidate for ${relevantElectorate}`);
-                }
-            }
             return relevantElectorate;
         }
         // Load and render all features immediately
