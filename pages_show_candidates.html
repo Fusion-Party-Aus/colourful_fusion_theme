@@ -69,7 +69,8 @@ This code is intended for the /candidates page.
         {% assign h_color = 'aquamarine' %}
         {% assign h_aquamarine = true %}
         {% assign tag_classes = "" %}
-        {% assign branch_tag = ""%}
+        {% assign branch_tag = "" %}
+        {% assign is_lower = false %}
         {% for tag in post.tags %}
             {% if tag.name contains "_h-" %}
                 {% assign h_color = tag.name | replace: '_h-', '' %}
@@ -79,6 +80,9 @@ This code is intended for the /candidates page.
             {% else %}
               {% if electorate_tags contains tag.name %}
                 {% assign tag_classes = tag_classes | append: " " | append: tag.name %}
+                {% if tag.name == 'lower' %}
+                  {% assign is_lower = true %}
+                {% endif %}
               {% endif %}
               {% if branch_tags contains tag.name %}
                 {% assign branch_tag = tag.name %}
@@ -87,6 +91,7 @@ This code is intended for the /candidates page.
         {% endfor %}
         {% assign link_id = post.url | replace_first: "/", "" %}
         {% assign candidate_name = post.headline | split: " for " | slice: 0 | first | strip %}
+        {% assign electorate_name = post.headline | split: " for " | slice: 1 | first | strip | downcase | replace: " ", "_" %}
         {% assign img_src = "" %}
         {% case candidate_name %}
       		{% else %}
@@ -103,7 +108,7 @@ This code is intended for the /candidates page.
       			{% endif %}
         {% endcase %}
         <li class="isogrid-item {{ tag_classes }} py-2 py-md-0 row w-100 thumbnail-blog-preview" id="{{ link_id }}">
-          <div class="col-6 col-md-8 order-1 order-md-5 my-md-2">
+          <div class="col-6 col-md-8 order-1 order-md-5 my-md-2" {% if is_lower %}id="{{ electorate_name }}"{% endif %}>
                 <a href="{{ post.url }}">
                   <img class="rounded w-100" title="{{ post.headline }}" class="w-100 li-img" src={{ img_src }} alt="{{ candidate_name }}">
                 </a>
