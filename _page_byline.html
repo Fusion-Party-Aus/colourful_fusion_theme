@@ -8,8 +8,7 @@
 <div class="byline text-muted small">
   {% if hasAuthorization %}
     {% comment %}
-    NationBuilder variables for the page are discussed at https://nationbuilder.com/page_variables.
-    We're adhering to the authorisation requirements of https://www.vec.vic.gov.au/candidates-and-parties/become-a-state-election-candidate/authorisation
+    We will hide the author from this page. The auth is only meant to be included in the footer.
     {% endcomment %}
     Authorised by {{ page.author.published_name_linked }}, {{ page.author.mailing_address.one_line }}
   {% else %}
