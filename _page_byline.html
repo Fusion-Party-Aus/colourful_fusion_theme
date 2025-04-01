@@ -10,7 +10,6 @@
     {% comment %}
     We will hide the author from this page. The auth is only meant to be included in the footer.
     {% endcomment %}
-    Authorised by {{ page.author.published_name_linked }}, {{ page.author.mailing_address.one_line }}
   {% else %}
     Posted by {{ page.author.published_name_linked }} on {{ page.published_at | date: '%d %B %Y' }}
   {% endif %}
