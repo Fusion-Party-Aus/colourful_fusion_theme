@@ -28,7 +28,20 @@ const getMarkerOptions = (targetElectorate, normalizedName, name) => {
             })
         }
     }
-}
+};
+
+const STATES = ["nsw", "qld", "sa", "vic", "wa", "nt", "tas"];
+
+const clickStateForTarget = (targetElement) => {
+    const parentClasses = targetElement.parentElement.classList.value.split(" ");
+    const stateClass = parentClasses.find(className => STATES.includes(className));
+    if (stateClass) {
+        const stateButton = document.querySelector(`button[data-filter=".${stateClass}"]`);
+        if (stateButton) {
+            stateButton.click();
+        }
+    }
+};
 
 function init() {
     return __awaiter(this, void 0, void 0, function* () {
@@ -98,7 +111,11 @@ function init() {
                                 event.preventDefault(); // Prevent default link behavior
                                 const targetElement = document.getElementById(normalizedName);
                                 if (targetElement) {
-                                    targetElement.scrollIntoView({ behavior: 'smooth' });
+                                    clickStateForTarget(targetElement);
+                                    // Wait for isotope filtering to finish readjusting the page.
+                                    setTimeout(() => {
+                                        targetElement.scrollIntoView({ behavior: 'smooth' });
+                                    }, 405);  // milliseconds
                                 }
                             });
                         });
