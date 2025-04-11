@@ -1,479 +1,493 @@
 <!-- FB Pixel tracking action -->
 <script>fbq('track', 'InitiateCheckout');</script>
+<style>.container{
+  --container-max-width: 1600px;
+  }</style>
 
-<div class="container">
-    <div id="content" class="container w-1600">
-        <div class="row">
-            <div class="col">
-                <div class="container py-3 m-1">
-                    {% if page.headline.size > 0 %}
-                    <h1 class="pb-2 mt-3 mb-3 h-underline h-pink inter fw-600">{{ page.headline
-                        }}</h1>
-                    {% endif %}
-                </div>
+<div class="row">
+  {% assign show_candidate_blog_post = false %}
+  {% assign progress_bar_class = "bg-" | append: h_color %}
+  {% comment %}Liquid does not support && operator hence why it has to be nested if checks{% endcomment %}
+	{%if page.has_parent %}
+  	{%if page.parent.type_name == "Blog Post" %}
+  		{% assign show_candidate_blog_post = true %}
+  	{% endif %}
+  {% endif %}
 
+	{%if show_candidate_blog_post %}
+		<div class="col-lg-8 col-md-12">
+		{{page.parent.blog_post.content}}
+
+		{{page.parent.blog_post.content_flip}}
+	</div>
+	<div class="col-lg-4 col-md-12">
+  {%else%}
+    <div class="d-s-none col-12">
+    	{{ page.donation_v2.content }}
+    </div>
+    <div class="col-12">
+	{%endif%}
+
+
+      <div class="row">
+
+        <div class="col form-wrap">
+
+          {%if show_candidate_blog_post %}
+          <div class="d-block">   
+            {% if page.donation_v2.has_amount_goal? %}
+            <div class="mb-3">
+              {% include "progress"
+              percent: page.donation_v2.percent_of_amount_goal,
+              count: page.donations_count,
+              amount: page.donations_amount_format,
+              goal: page.donation_v2.amount_goal_format,
+              label: "raised",
+							bg_classes: "bg-dark",
+              bar_classes: progress_bar_class,
+              %}
             </div>
-        </div>
-        <div class="row {% unless site.has_background_image? %}justify-content-center{% endunless %}">
+            {% endif %}
 
-            <div class="col-12 col-lg-7 p-0">
+          {%else%}
+            <div class="d-lg-block">
+          {%endif%}
+           
+          {%if show_candidate_blog_post %}
+          </div>
+          {%endif%}
+              
+          <div class="d-md-block d-lg-block d-xl-block">
+            {% form_for donation %}
+            <div class="form bg-aquamarine-transparent rounded px-3 py-2 mx-1">
 
-                <div class="container w-1600">
-                    <div class="row w-100">
+              <div class="form-errors">{% error_messages_for donation %}</div>
 
-                        <div class="col form-wrap">
+              {% if page.donation_v2.has_merchant_account? == false %}
+              <p class="text-danger"><strong>No payment processor:</strong> This page will not work
+                until you add a payment processor</p>
+              {% elsif page.donation_v2.merchant_account.is_test_mode? %}
+              <p class="text-danger"><strong>Testing mode:</strong> Transactions will not be
+                processed. Use <u><a href="https://stripe.com/docs/testing#cards" class="red">testing
+                cards</a></u> only.</p>
+              {% endif %}
 
-                            {% if page.donation_v2.has_amount_goal? %}
-                            <div class="mb-3">
-                                {% include "progress"
-                                percent: page.donation_v2.percent_of_amount_goal,
-                                count: page.donations_count,
-                                amount: page.donations_amount_format,
-                                goal: page.donation_v2.amount_goal_format,
-                                label: "raised"
-                                %}
-                            </div>
-                            {% elsif page.donation_v2.has_donor_goal? %}
-                            <div class="mb-3">
-                                {% include "progress"
-                                percent: page.donation_v2.percent_of_donor_goal,
-                                count: page.donations_count,
-                                goal: page.donation_v2.donor_goal,
-                                label: "donors"
-                                %}
-                            </div>
-                            {% endif %}
+              {% if request.current_order %}
+              <div class="card my-4">
+                <div class="card-body">
+                  <h3>Your order</h3>
+                  <ul class="ticket-list">
+                    {% for item in request.current_order.items %}
+                    <li>
+                      {% if item.num_time_periods and item.time_period_type %}
+                      {{ item.quantity }} {{ item.name }} @ {{ item.amount }} - billed
+                      automatically every {{ item.num_time_periods }} {{item.time_period_type
+                      }}
+                      {% else %}
+                      {{ item.quantity }} {{ item.name }} @ {{ item.amount }}
+                      {% endif %}
+                    </li>
+                    {% endfor %}
+                  </ul>
+                </div>
+                <div class="card-footer">
+                  <a class="clear-order" href="{{ page.donation_v2.clear_order_url }}">Clear
+                    order</a>
+                </div>
+              </div>
+              {% else %}
+              <fieldset>
+                {%if show_candidate_blog_post %}
+                	<h2 class="h-underline h-pink">Support my campaign</h2>
+                {% else %}
+                	<h2 class="h-underline h-pink">Support the party</h2>
+                {%endif %}
+                <div class="form-row">
+                  {% if page.donation_v2.amount_in_cents != 0 %}
+                  <div class="form-group col">
+                    <p class="h2 single-amount mb-0">{{ page.donation_v2.amount_formatted }}</p>
+                  </div>
+                  {% else %}
+                  <div class="form-group col">
+                    <div class="donation-v2-amounts">
+                      {{ page.donation_v2.form_amount_options }}
+                    </div>
+                  </div>
+                  {% endif %}
+                </div>
+                {% if page.donation_v2.accepts_variable_amounts? or
+                page.donation_v2.donation_frequency == "any" %}
+                <div class="form-row align-items-center donation-v2-options {% if page.donation_v2.accepts_variable_amounts? == false %}single-amount-any-frequency{% endif %}">
+                  {% if page.donation_v2.accepts_variable_amounts? %}
+                  <div class="form-group col-md-6">
+                    {{ page.donation_v2.amount_other }}
+                  </div>
+                  {% endif %}
+                  {% if page.donation_v2.donation_frequency == "any" %}
+                  <div class="form-group {% if page.donation_v2.accepts_variable_amounts? == true %}col-md-6{%else%}col{% endif %}">
+                    <div class="donation-v2-occurence-radio radio-inline clearfix">
+                      {{ page.donation_v2.monthly_recurring_radio_buttons }}
+                    </div>
+                  </div>
+                  {% endif %}
+                  {% if page.donation_v2.donation_frequency == "monthly" %}
+                  <div class="form-group col-md-6 card-monthly">
+                    <span class="text-secondary">Paid monthly</span>
+                  </div>
+                  {% elsif page.donation_v2.donation_frequency == "annual" %}
+                  <div class="form-group col-md-6 card-monthly">
+                    <span class="text-secondary">Paid annually</span>
+                  </div>
+                  {% endif %}
+                </div>
+                {% endif %}
+                <div><small>
+                  Donations up to <a
+                                     href="https://www.ato.gov.au/Non-profit/Gifts-and-fundraising/In-detail/Fundraising/Claiming-political-contributions-and-gifts/"
+                                     target="_blank">$1,500 per year are tax deductible</a>.
+                  If you are considering making a larger donation, please contact our <a
+                                                                                         href="mailto:treasurer@fusionparty.org.au">treasurer@fusionparty.org.au</a>
+                  first.</small></div>
+              </fieldset>
+              {% endif %}
 
-                            {% form_for donation %}
-                            <div class="form bg-aquamarine-transparent rounded px-3 py-2 mx-1">
+              <hr class="divider">
 
-                                <div class="form-errors">{% error_messages_for donation %}</div>
+              <fieldset>
+                <h2 class="h-underline h-pink transition-delay">Your information</h2>
+                <div class="form-group">
+                  <label for="donation_email">Email</label>
+                  {% email_field "email", class:"form-control" %}
+                </div>
+                {% unless page.show_consent_form? %}
+                <div class="form-group">
+                  <div class="custom-control custom-checkbox">
+                    {% check_box "email_opt_in", class:"custom-control-input" %}
+                    <label class="custom-control-label" for="donation_email_opt_in">Send email
+                      updates</label>
+                  </div>
+                </div>
+                {% endunless %}
+                <div class="form-row">
+                  <div class="form-group col-md-6">
+                    <label for="donation_first_name">First Name</label>
+                    {% text_field "first_name", class:"form-control" %}
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label for="donation_last_name">Last Name</label>
+                    {% text_field "last_name", class:"form-control" %}
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="donation_billing_address_country_code">Country</label>
+                  {% select_field "billing_address.country_code", page.donation_v2.countries,
+                  "code", "name", class:"form-control" %}
+                </div>
+                <div class="form-group">
+                  <label for="donation_billing_address_address1">Billing Address</label>
+                  {% text_field "billing_address.address1", class:"form-control" %}
+                  {% text_field "billing_address.address2", class:"form-control mt-2 text" %}
+                  {% text_field "billing_address.address3", class:"form-control mt-2 text
+                  not-us-or-canada hide" %}
+                </div>
+                <div class="form-row">
+                  <div class="form-group col-md-8">
+                    <label for="donation_billing_address_city">City</label>
+                    {% text_field "billing_address.city", class:"form-control" %}
+                  </div>
+                  <div class="form-group col-md-4 us-or-canada us-only hide">
+                    <label for="donation_state">State</label>
+                    {% select_field "billing_address.state", page.donation_v2.us_states, "code",
+                    "name", class:"form-control" %}
+                  </div>
+                  <div class="form-group col-md-4 us-or-canada canada-only hide">
+                    <label for="donation_billing_address_state">State</label>
+                    {% text_field "billing_address.state", class:"form-control" %}
+                  </div>
+                  <div class="form-group col-md-4">
+                    <label for="donation_billing_address_zip">Postal code</label>
+                    {% text_field "billing_address.zip", class:"form-control" %}
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="donation_billing_address_phone_number">Phone</label>
+                  {% phone_field "billing_address.phone_number", class:"form-control" %}
+                </div>
+                {% if page.donation_v2.merchant_account.is_employer_and_occupation_required? %}
+                <div class="form-row">
+                  <div class="form-group col-md-6">
+                    <label for="donation_employer">Employer</label>
+                    {% text_field "employer", class:"form-control", required:"required" %}
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label for="donation_occupation">Occupation</label>
+                    {% text_field "occupation", class:"form-control", required:"required" %}
+                  </div>
+                </div>
+                {% if page.donation_v2.merchant_account.is_employer_address_required? %}
+                <div class="form-group">
+                  <label for="donation_work_address_country">Employer Country</label>
+                  {% select_field "work_address.country_code", page.donation_v2.countries, "code",
+                  "name", class:"select", required:"required" %}
+                </div>
+                <div class="form-group">
+                  <label for="donation_work_address_address1">Employer Address</label>
+                  {% text_field "work_address.address1", class:"form-control", required:"required"
+                  %}
+                  {% text_field "work_address.address2", class:"form-control mt-2" %}
+                  {% text_field "work_address.address3", class:"form-control mt-2
+                  work-not-us-or-canada hide" %}
+                </div>
+                <div class="form-group">
+                  <label for="donation_work_address_city">Employer City</label>
+                  {% text_field "work_address.city", class:"form-control", required:"required" %}
+                </div>
+                <div class="form-row">
+                  <div class="form-group col-md-6 work-us-or-canada">
+                    <label for="donation_work_address_state">State</label>
+                    {% text_field "work_address.state", class:"form-control",
+                    required:"required" %}
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label for="donation_work_address_zip">Postal code</label>
+                    {% text_field "work_address.zip", class:"form-control", required:"required"
+                    %}
+                  </div>
+                </div>
+                {% elsif page.donation_v2.merchant_account.is_employer_city_required? %}
+                <div class="form-group">
+                  <label for="donation_work_address_country">Employer Country</label>
+                  {% select_field "work_address.country_code", page.donation_v2.countries, "code",
+                  "name", class:"select", required:"required" %}
+                </div>
+                <div class="form-row">
+                  <div class="form-group col-md-4">
+                    <label for="donation_work_address_city">Employer City</label>
+                    {% text_field "work_address.city", class:"form-control", required:"required"
+                    %}
+                  </div>
+                  <div class="form-group col-md-5 work-us-or-canada hide">
+                    <label for="donation_work_address_state">State</label>
+                    {% text_field "work_address.state", class:"form-control",
+                    required:"required" %}
+                  </div>
+                  <div class="form-group col-md-3">
+                    <label for="donation_work_address_zip">Postal code</label>
+                    {% text_field "work_address.zip", class:"form-control", required:"required"
+                    %}
+                  </div>
+                </div>
+                {% endif %}
+                <div class="form-group">
+                  <p class="text-secondary">Law requires we ask for your employer and occupation.
+                    If you don't have an employer or are retired, put N/A, and if you are
+                    self-employed put "self-employed" in employer and describe your
+                    occupation.</p>
+                </div>
+                {% endif %}
 
-                                {% if page.donation_v2.has_merchant_account? == false %}
-                                <p class="text-danger"><strong>No payment processor:</strong> This page will not work
-                                    until you add a payment processor</p>
-                                {% elsif page.donation_v2.merchant_account.is_test_mode? %}
-                                <p class="text-danger"><strong>Testing mode:</strong> Transactions will not be
-                                    processed. Use <u><a href="https://stripe.com/docs/testing#cards" class="red">testing
-                                        cards</a></u> only.</p>
-                                {% endif %}
+                {% if page.donation_v2.merchant_account.is_corporate_contribution_required? %}
+                <div class="form-group">
+                  <div class="custom-control custom-checkbox">
+                    {% check_box "is_corporate_contribution", class:"custom-control-input
+                    checkbox" %}
+                    <label class="custom-control-label checkbox"
+                           for="donation_is_corporate_contribution">This is a contribution from
+                      a business.</label>
+                  </div>
+                </div>
+                {% endif %}
 
-                                {% if request.current_order %}
-                                <div class="card my-4">
-                                    <div class="card-body">
-                                        <h3>Your order</h3>
-                                        <ul class="ticket-list">
-                                            {% for item in request.current_order.items %}
-                                            <li>
-                                                {% if item.num_time_periods and item.time_period_type %}
-                                                {{ item.quantity }} {{ item.name }} @ {{ item.amount }} - billed
-                                                automatically every {{ item.num_time_periods }} {{item.time_period_type
-                                                }}
-                                                {% else %}
-                                                {{ item.quantity }} {{ item.name }} @ {{ item.amount }}
-                                                {% endif %}
-                                            </li>
-                                            {% endfor %}
-                                        </ul>
-                                    </div>
-                                    <div class="card-footer">
-                                        <a class="clear-order" href="{{ page.donation_v2.clear_order_url }}">Clear
-                                            order</a>
-                                    </div>
-                                </div>
-                                {% else %}
-                                <fieldset>
-                                    <h2 class="h-underline h-pink">Amount</h2>
-                                    <div class="form-row">
-                                        {% if page.donation_v2.amount_in_cents != 0 %}
-                                        <div class="form-group col">
-                                            <p class="h2 single-amount mb-0">{{ page.donation_v2.amount_formatted }}</p>
-                                        </div>
-                                        {% else %}
-                                        <div class="form-group col">
-                                            <div class="donation-v2-amounts">
-                                                {{ page.donation_v2.form_amount_options }}
-                                            </div>
-                                        </div>
-                                        {% endif %}
-                                    </div>
-                                    {% if page.donation_v2.accepts_variable_amounts? or
-                                    page.donation_v2.donation_frequency == "any" %}
-                                    <div class="form-row align-items-center donation-v2-options {% if page.donation_v2.accepts_variable_amounts? == false %}single-amount-any-frequency{% endif %}">
-                                        {% if page.donation_v2.accepts_variable_amounts? %}
-                                        <div class="form-group col-md-6">
-                                            {{ page.donation_v2.amount_other }}
-                                        </div>
-                                        {% endif %}
-                                        {% if page.donation_v2.donation_frequency == "any" %}
-                                        <div class="form-group {% if page.donation_v2.accepts_variable_amounts? == true %}col-md-6{%else%}col{% endif %}">
-                                            <div class="donation-v2-occurence-radio radio-inline clearfix">
-                                                {{ page.donation_v2.monthly_recurring_radio_buttons }}
-                                            </div>
-                                        </div>
-                                        {% endif %}
-                                        {% if page.donation_v2.donation_frequency == "monthly" %}
-                                        <div class="form-group col-md-6 card-monthly">
-                                            <span class="text-secondary">Paid monthly</span>
-                                        </div>
-                                        {% elsif page.donation_v2.donation_frequency == "annual" %}
-                                        <div class="form-group col-md-6 card-monthly">
-                                            <span class="text-secondary">Paid annually</span>
-                                        </div>
-                                        {% endif %}
-                                    </div>
-                                    {% endif %}
-                                    <div><small>
-                                        Donations up to <a
-                                            href="https://www.ato.gov.au/Non-profit/Gifts-and-fundraising/In-detail/Fundraising/Claiming-political-contributions-and-gifts/"
-                                            target="_blank">$1,500 per year are tax deductible</a>.
-                                        If you are considering making a larger donation, please contact our <a
-                                            href="mailto:treasurer@fusionparty.org.au">treasurer@fusionparty.org.au</a>
-                                        first.</small></div>
-                                </fieldset>
-                                {% endif %}
+                {% for cf in custom_fields.donation %}
+                {% assign custom_field = cf[1] %}
+                {% assign custom_field_id = 'custom_values.' | append: custom_field.slug %}
 
-                                <hr class="divider">
+                <div class="form-group">
+                  {% if custom_field.is_text? %}
+                  <label for="donation_custom_values_{{ custom_field.slug }}_custom">{{
+                    custom_field.name }}</label>
+                  {% text_field custom_field_id, class:"form-control" %}
+                  {% elsif custom_field.is_number? %}
+                  <label for="donation_custom_values_{{ custom_field.slug }}_custom">{{
+                    custom_field.name }}</label>
+                  {% number_field custom_field_id, class:"form-control" %}
+                  {% elsif custom_field.is_boolean? %}
+                  <div class="custom-control custom-checkbox">
+                    {% check_box custom_field_id, class:"custom-control-input checkbox" %}
+                    <label class="custom-control-label checkbox"
+                           for="donation_custom_values_{{ custom_field.slug }}_custom">{{
+                      custom_field.name }}</label>
+                  </div>
+                  {% elsif custom_field.is_multiple_choice? %}
+                  <label for="donation_custom_values_{{ custom_field.slug }}_custom">{{
+                    custom_field.name }}</label>
+                  {% select_field custom_field_id,
+                  custom_fields.donation[custom_field.slug].multiple_choice_options,
+                  class:"select" %}
+                  {% endif %}
+                </div>
+                {% endfor %}
 
-                                <fieldset>
-                                    <h2 class="h-underline h-pink transition-delay">Your information</h2>
-                                    <div class="form-group">
-                                        <label for="donation_email">Email</label>
-                                        {% email_field "email", class:"form-control" %}
-                                    </div>
-                                    {% unless page.show_consent_form? %}
-                                    <div class="form-group">
-                                        <div class="custom-control custom-checkbox">
-                                            {% check_box "email_opt_in", class:"custom-control-input" %}
-                                            <label class="custom-control-label" for="donation_email_opt_in">Send email
-                                                updates</label>
-                                        </div>
-                                    </div>
-                                    {% endunless %}
-                                    <div class="form-row">
-                                        <div class="form-group col-md-6">
-                                            <label for="donation_first_name">First Name</label>
-                                            {% text_field "first_name", class:"form-control" %}
-                                        </div>
-                                        <div class="form-group col-md-6">
-                                            <label for="donation_last_name">Last Name</label>
-                                            {% text_field "last_name", class:"form-control" %}
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="donation_billing_address_country_code">Country</label>
-                                        {% select_field "billing_address.country_code", page.donation_v2.countries,
-                                        "code", "name", class:"form-control" %}
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="donation_billing_address_address1">Billing Address</label>
-                                        {% text_field "billing_address.address1", class:"form-control" %}
-                                        {% text_field "billing_address.address2", class:"form-control mt-2 text" %}
-                                        {% text_field "billing_address.address3", class:"form-control mt-2 text
-                                        not-us-or-canada hide" %}
-                                    </div>
-                                    <div class="form-row">
-                                        <div class="form-group col-md-8">
-                                            <label for="donation_billing_address_city">City</label>
-                                            {% text_field "billing_address.city", class:"form-control" %}
-                                        </div>
-                                        <div class="form-group col-md-4 us-or-canada us-only hide">
-                                            <label for="donation_state">State</label>
-                                            {% select_field "billing_address.state", page.donation_v2.us_states, "code",
-                                            "name", class:"form-control" %}
-                                        </div>
-                                        <div class="form-group col-md-4 us-or-canada canada-only hide">
-                                            <label for="donation_billing_address_state">State</label>
-                                            {% text_field "billing_address.state", class:"form-control" %}
-                                        </div>
-                                        <div class="form-group col-md-4">
-                                            <label for="donation_billing_address_zip">Postal code</label>
-                                            {% text_field "billing_address.zip", class:"form-control" %}
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="donation_billing_address_phone_number">Phone</label>
-                                        {% phone_field "billing_address.phone_number", class:"form-control" %}
-                                    </div>
-                                    {% if page.donation_v2.merchant_account.is_employer_and_occupation_required? %}
-                                    <div class="form-row">
-                                        <div class="form-group col-md-6">
-                                            <label for="donation_employer">Employer</label>
-                                            {% text_field "employer", class:"form-control", required:"required" %}
-                                        </div>
-                                        <div class="form-group col-md-6">
-                                            <label for="donation_occupation">Occupation</label>
-                                            {% text_field "occupation", class:"form-control", required:"required" %}
-                                        </div>
-                                    </div>
-                                    {% if page.donation_v2.merchant_account.is_employer_address_required? %}
-                                    <div class="form-group">
-                                        <label for="donation_work_address_country">Employer Country</label>
-                                        {% select_field "work_address.country_code", page.donation_v2.countries, "code",
-                                        "name", class:"select", required:"required" %}
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="donation_work_address_address1">Employer Address</label>
-                                        {% text_field "work_address.address1", class:"form-control", required:"required"
-                                        %}
-                                        {% text_field "work_address.address2", class:"form-control mt-2" %}
-                                        {% text_field "work_address.address3", class:"form-control mt-2
-                                        work-not-us-or-canada hide" %}
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="donation_work_address_city">Employer City</label>
-                                        {% text_field "work_address.city", class:"form-control", required:"required" %}
-                                    </div>
-                                    <div class="form-row">
-                                        <div class="form-group col-md-6 work-us-or-canada">
-                                            <label for="donation_work_address_state">State</label>
-                                            {% text_field "work_address.state", class:"form-control",
-                                            required:"required" %}
-                                        </div>
-                                        <div class="form-group col-md-6">
-                                            <label for="donation_work_address_zip">Postal code</label>
-                                            {% text_field "work_address.zip", class:"form-control", required:"required"
-                                            %}
-                                        </div>
-                                    </div>
-                                    {% elsif page.donation_v2.merchant_account.is_employer_city_required? %}
-                                    <div class="form-group">
-                                        <label for="donation_work_address_country">Employer Country</label>
-                                        {% select_field "work_address.country_code", page.donation_v2.countries, "code",
-                                        "name", class:"select", required:"required" %}
-                                    </div>
-                                    <div class="form-row">
-                                        <div class="form-group col-md-4">
-                                            <label for="donation_work_address_city">Employer City</label>
-                                            {% text_field "work_address.city", class:"form-control", required:"required"
-                                            %}
-                                        </div>
-                                        <div class="form-group col-md-5 work-us-or-canada hide">
-                                            <label for="donation_work_address_state">State</label>
-                                            {% text_field "work_address.state", class:"form-control",
-                                            required:"required" %}
-                                        </div>
-                                        <div class="form-group col-md-3">
-                                            <label for="donation_work_address_zip">Postal code</label>
-                                            {% text_field "work_address.zip", class:"form-control", required:"required"
-                                            %}
-                                        </div>
-                                    </div>
-                                    {% endif %}
-                                    <div class="form-group">
-                                        <p class="text-secondary">Law requires we ask for your employer and occupation.
-                                            If you don't have an employer or are retired, put N/A, and if you are
-                                            self-employed put "self-employed" in employer and describe your
-                                            occupation.</p>
-                                    </div>
-                                    {% endif %}
-
-                                    {% if page.donation_v2.merchant_account.is_corporate_contribution_required? %}
-                                    <div class="form-group">
-                                        <div class="custom-control custom-checkbox">
-                                            {% check_box "is_corporate_contribution", class:"custom-control-input
-                                            checkbox" %}
-                                            <label class="custom-control-label checkbox"
-                                                   for="donation_is_corporate_contribution">This is a contribution from
-                                                a business.</label>
-                                        </div>
-                                    </div>
-                                    {% endif %}
-
-                                    {% for cf in custom_fields.donation %}
-                                    {% assign custom_field = cf[1] %}
-                                    {% assign custom_field_id = 'custom_values.' | append: custom_field.slug %}
-
-                                    <div class="form-group">
-                                        {% if custom_field.is_text? %}
-                                        <label for="donation_custom_values_{{ custom_field.slug }}_custom">{{
-                                            custom_field.name }}</label>
-                                        {% text_field custom_field_id, class:"form-control" %}
-                                        {% elsif custom_field.is_number? %}
-                                        <label for="donation_custom_values_{{ custom_field.slug }}_custom">{{
-                                            custom_field.name }}</label>
-                                        {% number_field custom_field_id, class:"form-control" %}
-                                        {% elsif custom_field.is_boolean? %}
-                                        <div class="custom-control custom-checkbox">
-                                            {% check_box custom_field_id, class:"custom-control-input checkbox" %}
-                                            <label class="custom-control-label checkbox"
-                                                   for="donation_custom_values_{{ custom_field.slug }}_custom">{{
-                                                custom_field.name }}</label>
-                                        </div>
-                                        {% elsif custom_field.is_multiple_choice? %}
-                                        <label for="donation_custom_values_{{ custom_field.slug }}_custom">{{
-                                            custom_field.name }}</label>
-                                        {% select_field custom_field_id,
-                                        custom_fields.donation[custom_field.slug].multiple_choice_options,
-                                        class:"select" %}
-                                        {% endif %}
-                                    </div>
-                                    {% endfor %}
-
-                                    <div class="form-group">
-                    <span class="text-secondary">
+                <div class="form-group">
+                  <span class="text-secondary">
                     {% if page.donation_v2.merchant_account.is_taxable? %}
-                      Contributions are <i>not</i> tax deductible.
+                    Contributions are <i>not</i> tax deductible.
                     {% else %}
-                      Contributions are tax deductible.
+                    Contributions are tax deductible.
                     {% endif %}
-                    </span>
-                                    </div>
-
-                                </fieldset>
-
-                                <hr class="divider">
-
-                                <fieldset>
-                                    <h2 class="h-underline h-pink">Payment information</h2>
-
-                                    <div class="form-group">
-                                        <label>Credit Card</label>
-                                        {% payment_field 'card' %}
-                                    </div>
-
-                                    <div clas="form-group">
-                                        {% if page.donation_v2.merchant_account.has_contribution_rules? %}
-                                        <label for="is_confirmation_text"><strong>Contribution rules</strong></label>
-                                        {{ page.donation_v2.merchant_account.contribution_rules }}
-                                        <div class="custom-control custom-checkbox">
-                                            {% check_box "is_confirmed", class:"custom-control-input checkbox" %}
-                                            <label for="donation_is_confirmed" class="custom-control-label checkbox">I
-                                                confirm that the above statements are true and accurate.</label>
-                                        </div>
-                                        {% endif %}
-                                        {% if site.ask_to_publish_to_stream? %}
-                                        <div class="custom-control custom-checkbox">
-                                            {% check_box "is_private", class:"custom-control-input checkbox" %}
-                                            <label for="donation_is_private" class="custom-control-label checkbox">Don't
-                                                publish my donation on the website.</label>
-                                        </div>
-                                        {% endif %}
-                                    </div>
-
-                                    {% if page.show_consent_form? %}
-                                    <hr class="divider">
-                                    {% include "consent_form" %}
-                                    {% endif %}
-                                    <hr class="divider">
-                                    <div class="form-group">
-                                        <div class="submit-container">
-                                            <div class="donation-v2-amount d-flex align-items-center my-4 text-success">
-                                                {% if request.current_order %}
-                                                <span class="h2 mb-0 mr-1">{{ page.donation_v2.ticket_purchase_total }}</span>
-                                                {% else %}
-                                                {% if page.donation_v2.confirmation_amount %}
-                                                <span class="pt-1 align-self-start">{{ page.donation_v2.currency_symbol }}</span>
-                                                <span class="nb_donation_v2_amount h2 mb-0 mr-1">{{ page.donation_v2.confirmation_amount }}</span>
-                                                {% else %}
-                                                <span class="hidden hide pt-1 align-self-start">{{ page.donation_v2.currency_symbol }}</span>
-                                                <span class="nb_donation_v2_amount h2 mb-0 mr-1"><strong
-                                                        class="h6 text-danger">Total will show here after an amount has been selected</strong></span>
-                                                {% endif %}
-
-                                                {% if page.donation_v2.donation_frequency == "one-time" %}
-                                                {% elsif page.donation_v2.donation_frequency == "monthly" %}
-                                                <div class="text-muted nb_donation_v2_interval pt-1"
-                                                     data-placeholder="paid monthly">paid monthly
-                                                </div>
-                                                {% elsif page.donation_v2.donation_frequency == "annual" %}
-                                                <div class="text-muted nb_donation_v2_interval pt-1"
-                                                     data-placeholder="paid annually">paid annually
-                                                </div>
-                                                {% else %}
-                                                <div class="text-muted nb_donation_v2_interval pt-1"
-                                                     data-placeholder="paid monthly">{% if
-                                                    page.donation_v2.interval_monthly? %}paid monthly{% endif %}
-                                                </div>
-                                                {% endif %}
-                                                {% endif %}
-                                            </div>
-                                            <div class="mt-4">
-                                                {% if request.current_order %}
-                                                {% submit_tag "Process payment", class:"btn bg-pink btn-primary btn-lg
-                                                submit-button" %}
-                                                {% else %}
-                                                {% submit_tag "Donate now", class:"btn bg-pink btn-primary btn-lg
-                                                submit-button"
-                                                %}
-                                                {% endif %}
-                                            </div>
-                                        </div>
-                                        <div class="form-submit"></div>
-                                    </div>
-
-                                </fieldset>
-
-                            </div> <!--/.form -->
-
-                            {% endform_for %}
-                        </div> <!-- /.col -->
-                    </div> <!-- /.row -->
-                </div><!-- /.container -->
-
-            </div> <!--/.col -->
-
-            <div class="col-12 col-lg-5">
-                <div class="container" style="max-width:740px;">
-
-                    {% if page.donation_v2.content.size > 0 %}
-                    {{ page.donation_v2.content }}
-                    {% endif %}
+                  </span>
                 </div>
-            </div>
-        </div><!-- /.row -->
-    </div><!--/.container-fluid -->
 
-    <script>
-        NB.payments.elementOptions = {
-            style: {
-                base: {
-                    fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
-                    fontSize: '16px'
-                }
-            }
-        };
-        document.addEventListener('DOMContentLoaded', function () {
-            // Get the amount from the query parameter
-            var urlParams = new URLSearchParams(window.location.search);
-            var amount = urlParams.get('amount');
+              </fieldset>
 
-            if (amount) {
-                // Convert the amount to a number
-                const amountValue = parseFloat(amount);
+              <hr class="divider">
 
-                // Get all the predefined amount options
-                const predefinedAmountElements = document.querySelectorAll('.donation-v2-amounts input[name="donation[amount_option]"]');
-                const predefinedAmounts = Array.from(predefinedAmountElements).map(function (element) {
-                    return parseFloat(element.value);
-                });
+              <fieldset>
+                <h2 class="h-underline h-pink">Payment information</h2>
 
-                const matchedOption = predefinedAmounts.find(function (option) {
-                    return option === amountValue;
-                });
+                <div class="form-group">
+                  <label>Credit Card</label>
+                  {% payment_field 'card' %}
+                </div>
 
-                let checkedRadio;
-                if (matchedOption) {
-                    // Select the corresponding radio button
-                    checkedRadio = document.querySelector('input[name="donation[amount_option]"][value="' + matchedOption + '"]');
-                    if (checkedRadio) {
-                        checkedRadio.checked = true;
-                    }
-                } if (!checkedRadio) {
-                    // Set the custom amount
-                    var customRadioButton = document.getElementById('donation_amount_other');
-                    var customAmountInput = document.getElementById('donation_amount_other_input');
+                <div clas="form-group">
+                  {% if page.donation_v2.merchant_account.has_contribution_rules? %}
+                  <label for="is_confirmation_text"><strong>Contribution rules</strong></label>
+                  {{ page.donation_v2.merchant_account.contribution_rules }}
+                  <div class="custom-control custom-checkbox">
+                    {% check_box "is_confirmed", class:"custom-control-input checkbox" %}
+                    <label for="donation_is_confirmed" class="custom-control-label checkbox">I
+                      confirm that the above statements are true and accurate.</label>
+                  </div>
+                  {% endif %}
+                  {% if site.ask_to_publish_to_stream? %}
+                  <div class="custom-control custom-checkbox">
+                    {% check_box "is_private", class:"custom-control-input checkbox" %}
+                    <label for="donation_is_private" class="custom-control-label checkbox">Don't
+                      publish my donation on the website.</label>
+                  </div>
+                  {% endif %}
+                </div>
 
-                    if (customRadioButton && customAmountInput) {
-                        customRadioButton.checked = true;
-                        customAmountInput.value = amountValue.toFixed(2);
-                    } else {
-                        console.warn('Unable to find the custom input section');
-                    }
-                }
-            }
-        });
-    </script>
+                {% if page.show_consent_form? %}
+                <hr class="divider">
+                {% include "consent_form" %}
+                {% endif %}
+                <hr class="divider">
+                <div class="form-group">
+                  <div class="submit-container">
+                    <div class="donation-v2-amount d-flex align-items-center my-4 text-success">
+                      {% if request.current_order %}
+                      <span class="h2 mb-0 mr-1">{{ page.donation_v2.ticket_purchase_total }}</span>
+                      {% else %}
+                      {% if page.donation_v2.confirmation_amount %}
+                      <span class="pt-1 align-self-start">{{ page.donation_v2.currency_symbol }}</span>
+                      <span class="nb_donation_v2_amount h2 mb-0 mr-1">{{ page.donation_v2.confirmation_amount }}</span>
+                      {% else %}
+                      <span class="hidden hide pt-1 align-self-start">{{ page.donation_v2.currency_symbol }}</span>
+                      <span class="nb_donation_v2_amount h2 mb-0 mr-1"><strong
+                                                                               class="h6 text-danger">Total will show here after an amount has been selected</strong></span>
+                      {% endif %}
 
-    <script src="/assets/liquid/theme_donation_v2.js"></script>
-</div>
+                      {% if page.donation_v2.donation_frequency == "one-time" %}
+                      {% elsif page.donation_v2.donation_frequency == "monthly" %}
+                      <div class="text-muted nb_donation_v2_interval pt-1"
+                           data-placeholder="paid monthly">paid monthly
+                      </div>
+                      {% elsif page.donation_v2.donation_frequency == "annual" %}
+                      <div class="text-muted nb_donation_v2_interval pt-1"
+                           data-placeholder="paid annually">paid annually
+                      </div>
+                      {% else %}
+                      <div class="text-muted nb_donation_v2_interval pt-1"
+                           data-placeholder="paid monthly">{% if
+                        page.donation_v2.interval_monthly? %}paid monthly{% endif %}
+                      </div>
+                      {% endif %}
+                      {% endif %}
+                    </div>
+                    <div class="mt-4">
+                      {% if request.current_order %}
+                      {% submit_tag "Process payment", class:"btn bg-pink btn-primary btn-lg
+                      submit-button" %}
+                      {% else %}
+                      {% submit_tag "Donate now", class:"btn bg-pink btn-primary btn-lg
+                      submit-button"
+                      %}
+                      {% endif %}
+                    </div>
+                  </div>
+                  <div class="form-submit"></div>
+                </div>
+
+              </fieldset>
+
+            </div> <!--/.form -->
+            <br>
+            {% endform_for %}
+          </div>
+
+          
+          {%if show_candidate_blog_post %}
+          	{{ page.donation_v2.content }}
+          {% endif %}
+        </div> <!-- /.col -->
+      </div> <!-- /.row -->
+
+  </div> <!--/.col -->
+</div><!-- /.row -->
+
+<script>
+  NB.payments.elementOptions = {
+    style: {
+      base: {
+        fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
+        fontSize: '16px'
+      }
+    }
+  };
+  document.addEventListener('DOMContentLoaded', function () {
+    // Get the amount from the query parameter
+    var urlParams = new URLSearchParams(window.location.search);
+    var amount = urlParams.get('amount');
+
+    if (amount) {
+      // Convert the amount to a number
+      const amountValue = parseFloat(amount);
+
+      // Get all the predefined amount options
+      const predefinedAmountElements = document.querySelectorAll('.donation-v2-amounts input[name="donation[amount_option]"]');
+      const predefinedAmounts = Array.from(predefinedAmountElements).map(function (element) {
+        return parseFloat(element.value);
+      });
+
+      const matchedOption = predefinedAmounts.find(function (option) {
+        return option === amountValue;
+      });
+
+      let checkedRadio;
+      if (matchedOption) {
+        // Select the corresponding radio button
+        checkedRadio = document.querySelector('input[name="donation[amount_option]"][value="' + matchedOption + '"]');
+        if (checkedRadio) {
+          checkedRadio.checked = true;
+        }
+      } if (!checkedRadio) {
+        // Set the custom amount
+        var customRadioButton = document.getElementById('donation_amount_other');
+        var customAmountInput = document.getElementById('donation_amount_other_input');
+
+        if (customRadioButton && customAmountInput) {
+          customRadioButton.checked = true;
+          customAmountInput.value = amountValue.toFixed(2);
+        } else {
+          console.warn('Unable to find the custom input section');
+        }
+      }
+    }
+  });
+</script>
+
+<script src="/assets/liquid/theme_donation_v2.js"></script>
+
+

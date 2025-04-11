@@ -19,10 +19,24 @@
 {% assign hasValuesTag = false %}
 {% assign isVideoLanding = false %}
 {% assign wide = false %}
+{% assign party_id = "" %}
+{% assign electorate_tags = "nsw,qld,sa,vic,wa,act,tas,lower,upper" | split: "," %}
+{% assign states = "nsw,qld,sa,vic,wa,act,tas" | split: "," %}
+{% assign parties = "fusion,democracyfirst,progressives,pirate,science,secular,voteplanet" | split: "," %}
+{% assign state = "" %}
+
 {% for tag in page.tags %}
   {% if tag.name contains "_h-" %}
-    {% assign h_color = tag.name | replace: '_h-', '' %}
+   {% assign h_color = tag.name | replace: '_h-', '' %}
   {% endif %}
+	{% if states contains tag.name %}
+		{% assign state = tag.name %}
+		{% continue %}
+	{% endif %}
+	{% if parties contains tag.name %}
+		{% assign party_id = tag.name %}
+		{% continue %}
+	{% endif %}
   {% case tag.name %}
     {% when "ballots" %}
       {% assign hasBallotsTag = true %}
@@ -32,8 +46,6 @@
       {% assign hasClimateRescueTag = true %}
     {% when "conversion" %}
       {% assign hasConversionTag = true %}
-    {% when "democracy-first" %}
-      {% assign hasDemocracyFirstTag = true %}
     {% when "electorates" %}
       {% assign hasElectoratesTag = true %}
     {% when "events" %}
@@ -64,6 +76,61 @@
       {% assign wide = true %}
   {% endcase %}
 {% endfor %}
+
+{% comment %}if we couldn't find a valid party_id in the tags, see if our parent page was tagged with it instead{% endcomment %}
+{% if party_id == "" %}
+	{% for tag in page.parent.tags %}
+    {% if states contains tag.name %}
+      {% assign state = tag.name %}
+      {% continue %}
+    {% endif %}
+    {% if parties contains tag.name %}
+      {% assign party_id = tag.name %}
+      {% continue %}
+    {% endif %}
+	{% endfor %}
+{% endif %}
+
+{% comment %}some extra processing for party styling{% endcomment %}
+{% assign party_logo_url = "" %}
+{% if party_id != "" %}
+	{% case party_id %}
+    {% when "progressives" %}
+      {% assign h_color = "blue" %}
+    {% when "democracyfirst" %}
+      {% assign h_color = "blue" %}
+	{% endcase %}
+
+	{% comment %}if we have a party_id, lets see if we can find a party logo image{% endcomment %}
+  {% assign logo_file_name = "_logo.svg" | prepend: party_id %}
+	{% comment %}search through this page, its parent, and its grandparent{% endcomment %}
+	{% for i in (0..3) %}
+		{% case i %}
+			{% when 0 %}
+				{% assign cur_page = page %}
+			{% when 1 %}
+				{% assign cur_page = page.parent %}
+			{% when 2 %}
+				{% assign cur_page = page.parent.parent %}
+		{% endcase %}
+		{% if cur_page %}
+			{% comment %}search through all attachments for the current page{% endcomment %}
+			{% for attachment in cur_page.attachments %}
+				{% if attachment.file_name == logo_file_name %}
+					{% comment %}found it. lets finish here{% endcomment %}
+					{% assign party_logo_url = attachment.url %}
+					{% break %}
+				{% endif %}
+			{% endfor %}
+			{% if party_logo_url != "" %}
+      	{% break %}
+      {% endif %}
+		{% else %}
+			{% break %}
+		{% endif %}
+	{% endfor %}
+{% endif %}
+
 <html lang="en" id="bg-canvas" class="bg-gray-mist h-100">
   <head>
     <meta charset="utf-8" />
@@ -145,7 +212,6 @@
 
   </head>
   <body class="d-flex flex-column h-100 bg-transparent bg-viewport text-gray-900 relative bootstrap-theme v3-theme {%if page.is_homepage %}homepage{% endif %} {{ page.page_class_name }} page-{{ request.template | replace: '_', '-' }} js">
-    {% unless page.type_name contains "Donation" %}
       {% if hasRingsTag %}
         <!-- SVG Circle -->
         <div class="circle">
@@ -169,45 +235,46 @@
         {% else %}
           {% if wide %}
             <div class="container w-1600 mb-2 p-0">
-              {% include "header", h_color: h_color, wide: wide, hasDemocracyFirstTag: hasDemocracyFirstTag %}
+              {% include "header", h_color: h_color, party_id: party_id, party_logo_url: party_logo_url, state: state, wide: wide %}
             </div>
           {% else %}
             <div class="row d-block">
-              {% include "header", h_color: h_color, hasDemocracyFirstTag: hasDemocracyFirstTag %}
+              {% include "header", h_color: h_color, party_id: party_id, party_logo_url: party_logo_url, state: state %}
             </div>
           {% endif %}
         {% endif %}
         {% if isVideoLanding %}
-          {% include "content", sidebar: request.is_sidebar?, isVideoLanding: isVideoLanding, hasBallotsTag: hasBallotsTag, hasClimateRescueTag: hasClimateRescueTag, hasPeopleTag: hasPeopleTag, hasPoliciesTag: hasPoliciesTag, hasEventsTag: hasEventsTag, omitContents: omitContents, hasKwesTag: hasKwesTag, hasPhoneTag: hasPhoneTag, hasValuesTag: hasValuesTag, h_color: h_color %}
+          {% include "content", sidebar: request.is_sidebar?, isVideoLanding: isVideoLanding, hasBallotsTag: hasBallotsTag, hasClimateRescueTag: hasClimateRescueTag, hasPeopleTag: hasPeopleTag, hasPoliciesTag: hasPoliciesTag, hasEventsTag: hasEventsTag, omitContents: omitContents, hasKwesTag: hasKwesTag, hasPhoneTag: hasPhoneTag, hasValuesTag: hasValuesTag, h_color: h_color, party_id: party_id, party_logo_url: party_logo_url, state: state %}
           <script src="https://fusionparty.space/scripts/minified/video_injection.dba64f2f.min.js"></script>
         {% else %}
-          <div class="row {% if omitContents %}ml-0 ml-md-4 mt-3 mt-lg-4{% endif %}">
-            {% comment %}
-            If we're omitting the table of contents, we need a bit more horizontal margin to avoid the edge of the page.
-            {% endcomment %}
-            {% unless omitContents %}
-            <div class="d-none d-md-block col-0 col-md-3 col-xl-2 sidebar">
-                <nav id="toc" data-toggle="toc"></nav>
-            </div>
-            {% endunless %}
-            <div class="col-12 {% unless wide %}col-md-9 col-xl-8{% endunless %}">
+          <div class="row">
+        		
+            {% if omitContents %}
+            <div class="col-12 p0">
+            {%else%}
+	            <div class="d-none d-md-block col-0 col-md-3 col-xl-2 sidebar">
+	                <nav id="toc" data-toggle="toc"></nav>
+	            </div>
+            <div class="col-12 col-md-9 col-xl-10">
+            {% endif %}
+            
               {% if page.features_count > 0 %}
                 {% include "features" %}
               {% endif %}
               <main id="content" role="main" data-spy="scroll" data-target="#toc">
-                {% include "content", sidebar: request.is_sidebar?, wide: wide, hasValuesTag: hasValuesTag, hasPeopleTag: hasPeopleTag, h_color: h_color %}
+                {% include "content", sidebar: request.is_sidebar?, wide: wide, hasValuesTag: hasValuesTag, hasPeopleTag: hasPeopleTag, h_color: h_color, party_id: party_id, party_logo_url: party_logo_url, state: state %}
               </main>
             </div>
+            {% if omitContents %}
+            {% else %}
             <div class="d-none d-xl-block col-xl-2">
               <!-- If we wanted to bring back the sidebar, this is where it would go -->
             </div>
+            {% endif %}
           </div>
         {% endif %}
       </div>
       {% include "footer" %}
-    {% else %}
-      {% yield %}
-    {% endunless %}
 
     {{ content_for_notifications }}
 

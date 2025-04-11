@@ -10,6 +10,7 @@
     --z-body: 3;
     --z-nav: 10; /*  Always above any body content, but not modals */
     --container-max-width: 800px;
+  	--containerw-max-width: 1600px;
     --near-top: 300px; /* When should the nav bar always be visible? 5rem. */
     /* The panels are like accordions, except that they're slightly disconnected. */
     --panel-background-color: #f1f1f1;
@@ -93,6 +94,12 @@ h1, h2, h3, h4, h5, p {
     margin-left: auto;
 }
 
+.containerw {
+    max-width: var(--containerw-max-width);
+    margin-right: auto;
+    margin-left: auto;
+}
+
 .container, .container-fluid {
     z-index: var(--z-body);
     position: relative;
@@ -117,6 +124,10 @@ h1, h2, h3, h4, h5, p {
 
 .w-1600 {
     max-width: 1600px;
+}
+
+.w-800 {
+    max-width: 800px;
 }
 
 .w-inf {
@@ -757,6 +768,10 @@ button.bg-opal:hover {
     background-color: var(--fusion-gray);
 }
 
+.h-red::after {
+    background-color: var(--fusion-red);
+}
+
 .bg-blue {
     background-color: var(--fusion-blue);
 }
@@ -777,6 +792,12 @@ button.bg-opal:hover {
 
 .bg-pink {
     background-color: #ff7fff;
+    color: white;
+    border-color: #d249d2;
+}
+
+.bg-red {
+    background-color: #FF0000;
     color: white;
     border-color: #d249d2;
 }
@@ -827,6 +848,17 @@ blockquote {
     background-color: var(--aquamarine-transparent);
     padding: 0.5rem 0.5rem 0.5rem 1rem;
     border-radius: 0.25rem;
+}
+
+.badged-heading {
+    justify-content: flex-start;
+    display: flex;
+}
+
+.badge {
+    /* Nationbuilder was making these small and heavy */
+    font-size: inherit;
+    font-weight: inherit;
 }
 
 .badged-heading {
@@ -960,11 +992,6 @@ header .badge img {
     transition: opacity 0.3s ease-in-out;
     border-radius: 10px;
 }
-
-.page-pages-show-donation-v2-wide .progress-bar {
-    background-color: #ff7fff;
-}
-
 
 @keyframes jumbo {
     from {
