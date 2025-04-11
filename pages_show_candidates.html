@@ -5,11 +5,9 @@ edit the template without also updating GitHub.
 This code is intended for the /candidates page.
 {% endcomment %}
 {% assign electorate_tags = "nsw,qld,sa,vic,wa,act,tas,lower,upper" | split: "," %}
-{% assign branch_tags = "fusion,democracy-first" | split: "," %}
+{% assign parties = "fusion,democracyfirst,progressives,pirate,science,secular,voteplanet" | split: "," %}
+
 <div id="content">
-  {% comment %}
-  Drew, put your HTML here!
-  {% endcomment %}
   <h2 class="h-underline h-pink">Find Your Candidates</h2>
   <p>
     <a rel="noopener" href="https://check.aec.gov.au/" target="_blank">Visit the Australian Electoral Commission website</a><span>&nbsp;</span>to check your electorate, or use the map:
@@ -69,31 +67,62 @@ This code is intended for the /candidates page.
 
   <div class="isogrid">
     <ul class="list-unstyled mb-4" id="blog-page-{{ page.id }}">
+      {% comment %}here we loop over all child blog posts and give them special handling{% endcomment %}
       {% for post in page.blog.most_recent_blog_posts %}
-        {% assign h_color = 'aquamarine' %}
-        {% assign h_aquamarine = true %}
-        {% assign tag_classes = "" %}
-        {% assign branch_tag = "" %}
-        {% assign is_lower = false %}
+        {% assign h_color = 'pink' %}
+      	{% assign state = "" %}
+      	{% assign tag_classes = "" %}
+      	{% assign is_lower = false %}
+      	{% assign party_id = "fusion" %}
+
+      	{% comment %}loop over page tags for this blog post to see if there are any we need to know about{% endcomment %}
         {% for tag in post.tags %}
-            {% if tag.name contains "_h-" %}
-                {% assign h_color = tag.name | replace: '_h-', '' %}
-                {% unless tag.name contains "aquamarine" %}
-                  {% assign h_aquamarine = false %}
-                {% endunless %}
-            {% else %}
-              {% if electorate_tags contains tag.name %}
-                {% assign tag_classes = tag_classes | append: " " | append: tag.name %}
-                {% if tag.name == 'lower' %}
-                  {% assign is_lower = true %}
-                {% endif %}
-              {% endif %}
-              {% if branch_tags contains tag.name %}
-                {% assign branch_tag = tag.name %}
-              {% endif %}
-            {% endif %}
+
+          {% if parties contains tag.name %}
+            {% assign party_id = tag.name %}
+            {% continue %}
+          {% endif %}
+
+          {% if states contains tag.name %}
+            {% assign state = tag.name %}
+            {% continue %}
+          {% endif %}
+
+          {% if tag.name contains "_h-" %}
+            {% assign h_color = tag.name | replace: '_h-', '' %}
+            {% continue %}
+      		{% endif %}
+
+          {% if electorate_tags contains tag.name %}
+          	{% assign tag_classes = tag_classes | append: " " | append: tag.name %}
+      			{% if tag.name == 'lower' %}
+      				{% assign is_lower = true %}
+      			{% endif %}
+            {% continue %}
+          {% endif %}
+
         {% endfor %}
-        {% assign link_id = post.url | replace_first: "/", "" %}
+
+      	{% comment %}does this blog post have an associated donation page?{% endcomment %}
+      	{% assign post_url = post.url %}
+        {% for child in post.children %}
+          {% if child.type_name == "Donation (v2)" %}
+            {% assign post_url = child.url %}
+            {% break %}
+          {% endif %}
+        {% endfor %}
+
+      	{% comment %}extra handling for party styling{% endcomment %}
+        {% if party_id %}
+          {% case party_id%}
+            {% when "progressives" %}
+              {% assign h_color = "blue" %}
+            {% when "democracyfirst" %}
+              {% assign h_color = "blue" %}
+          {% endcase %}
+      	{% endif %}
+
+        {% assign link_id = post_url | replace_first: "/", "" %}
         {% assign candidate_name = post.headline | split: " for " | slice: 0 | first | strip %}
         {% assign electorate_name = post.headline | split: " for " | slice: 1 | first | strip | downcase | replace: " ", "_" %}
         {% assign img_src = "" %}
@@ -111,34 +140,32 @@ This code is intended for the /candidates page.
               </script>
       			{% endif %}
         {% endcase %}
+
         <li class="isogrid-item {{ tag_classes }} py-2 py-md-0 row w-100 thumbnail-blog-preview" id="{{ link_id }}">
           <div class="col-6 col-md-8 order-1 order-md-5 my-md-2" style="scroll-margin-top:120px;" {% if is_lower %}id="{{ electorate_name }}"{% endif %}>
-                <a href="{{ post.url }}">
+                <a href="{{ post_url }}">
                   <img class="rounded w-100" title="{{ post.headline }}" class="w-100 li-img" src={{ img_src }} alt="{{ candidate_name }}">
                 </a>
             </div>
             <div class="col-6 col-md-12 order-5 order-md-1 my-md-2 badged-heading flex-column flex-md-row">
-                <a href="{{ post.url }}" class="uncolored">
+                <a href="{{ post_url }}" class="uncolored">
                     <h3 class="mb-1 h-underline h-{{ h_color }} h-underline-animate">
                       {{ post.headline }}
                     </h3>
                 </a>
-                {% if tag_classes %}
-                  <div class="badges">
-                    {% comment %}
-                    On mobile, the badges will be under the h3, then on md, they'll transition to be next to it.
-                    {% endcomment %}
-                    {% assign visible_tag = tag_classes | replace: "lower", "" | replace: "upper", "" | strip | upcase %}
-                    <span class="badge badge-secondary ml-md-3">{{ visible_tag }}</span>
-                    {% unless branch_tag == "" %}
-                      {% if branch_tag == "fusion" %}
-                        <span class="badge ml-1"><img src="https://fusionparty.space/images/solo_colour.svg" alt="Fusion logo"/></span>
-                      {% else if "democracy-first %}
-                        <span class="badge ml-1"><img src="https://assets.nationbuilder.com/futureparty/pages/4215/attachments/original/1741591964/DF_Logo.svg?1741591964" alt="Democracy First logo"/></span>
-                      {% endif %}
-                    {% endunless %}
-                  </div>
-                {% endif %}
+                <div class="badges">
+                  {% comment %}
+                  On mobile, the badges will be under the h3, then on md, they'll transition to be next to it.
+                  {% endcomment %}
+                  {% assign visible_tag = tag_classes | replace: "lower", "" | replace: "upper", "" | strip | upcase %}
+                  <span class="badge badge-secondary ml-md-3">{{ visible_tag }}</span>
+                  {% assign party_logo_filename = party_id | append: "_logo.svg" %}
+                  {% assign party_logo_url = theme[party_logo_filename] %}
+                  <span class="badge"><a href="https://www.fusionparty.org.au/what_is_a_movement">
+                    <img width="100%" height="100%" src="{{party_logo_url}}" alt="{{party_id}} logo"/>
+                    </a></span>
+
+                </div>
             </div>
         </li>
       {% endfor %}
