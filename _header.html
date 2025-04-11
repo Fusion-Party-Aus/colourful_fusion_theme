@@ -186,9 +186,16 @@
                     {% endif %}
                 {% endif %}
             </h1>
-            {% if hasDemocracyFirstTag %}
-                <span class="badge ml-1 mt-3 mt-lg-4 py-1"><img src="https://assets.nationbuilder.com/futureparty/pages/4215/attachments/original/1741591964/DF_Logo.svg?1741591964" alt="Democracy First logo mark"/></span>
-            {% endif %}
+			 <div class="badges">
+			{% if party_id != "" %}
+				<span class="badge badge-secondary">{{state}}</span>
+			{% endif %}
+			{% if party_logo_url != "" %}
+				<span class="badge"><a href="https://www.fusionparty.org.au/what_is_a_movement">
+					<img src="{{party_logo_url}}" alt="{{party_id}} logo"/>
+				</a></span>
+			{% endif %}
+			</div>
         </div>
     {% endif %}
     </div>
