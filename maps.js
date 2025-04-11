@@ -7,7 +7,28 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-// @ts-ignore
+
+const getMarkerOptions = (targetElectorate, normalizedName, name) => {
+    if (targetElectorate) {
+        return {
+            icon: L.divIcon({
+                className: 'elect-div-label',
+                html: `<div style="font-size: 24px"><a href="#${targetElectorate ? normalizedName : ''}" class="elect-div-link">${name}</a></div>`,
+                iconSize: undefined,
+                iconAnchor: [0, 0]
+            })
+        }
+    } else {
+        return {
+            icon: L.divIcon({
+                className: 'elect-div-label',
+                html: `<div style="font-size: 22px">${name}</div>`,
+                iconSize: undefined,
+                iconAnchor: [0, 0]
+            })
+        }
+    }
+}
 
 function init() {
     return __awaiter(this, void 0, void 0, function* () {
@@ -61,7 +82,7 @@ function init() {
             fetch('https://fusionparty.space/geography/electorates_with_centroids.geojson')
                 .then(response => response.json())
                 .then(data => {
-                geoJsonLayer = L.geoJSON(data, {
+                    geoJsonLayer = L.geoJSON(data, {
                     style: { color: "#6e267b", weight: 5, opacity: 0.6, fill: false },
                     onEachFeature: (feature, layer) => {
                         var _a, _b;
@@ -69,14 +90,8 @@ function init() {
                         const normalizedName = getNormalizedName(feature.properties.Elect_div);
                         const targetElectorate = document.getElementById(normalizedName);
                         // Create a label for the feature
-                        const label = L.marker(centroid, {
-                            icon: L.divIcon({
-                                className: 'elect-div-label',
-                                html: `<div style="font-size: 24px"><a href="#${targetElectorate ? normalizedName : ''}" class="elect-div-link">${feature.properties.Elect_div}</a></div>`,
-                                iconSize: undefined,
-                                iconAnchor: [0, 0]
-                            })
-                        }).addTo(map);
+                        const markerOptions = getMarkerOptions(targetElectorate, normalizedName, feature.properties.Elect_div)
+                        const label = L.marker(centroid, markerOptions).addTo(map);
                         // Add click event listener to the link
                         (_b = (_a = label.getElement()) === null || _a === void 0 ? void 0 : _a.querySelector('.elect-div-link')) === null || _b === void 0 ? void 0 : _b.addEventListener('click', function (event) {
                             return __awaiter(this, void 0, void 0, function* () {
