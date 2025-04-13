@@ -918,8 +918,8 @@ header .badge-secondary {
     }
 
     header .badge-secondary {
-      padding: 1rem;
-      font-size: 3rem;
+      padding: 0.75rem;
+      font-size: 2rem;
     }
 }
 
