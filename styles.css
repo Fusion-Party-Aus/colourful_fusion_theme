@@ -899,6 +899,8 @@ header .badges {
 header .badge-secondary {
 	padding: 1rem;
 	font-size: 3rem;
+  max-width: 9rem;
+  text-transform: uppercase;
 }
 
 .page-pages-show-donation-v2-wide .donation-v2-amounts > div {
