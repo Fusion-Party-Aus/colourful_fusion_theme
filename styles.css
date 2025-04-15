@@ -882,7 +882,7 @@ blockquote {
 }
 
 .badge img {
-  height: 100%;
+  height: inherit;  /* Override the scaling of the hero image */
 }
 
 .badge {
@@ -915,6 +915,7 @@ header .badge-secondary {
 @media (min-width: 768px) {
     header .badges {
         flex-direction: row;
+        align-items: center;
     }
 
     header .badge-secondary {
