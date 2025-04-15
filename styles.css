@@ -916,7 +916,7 @@ header .badge-secondary {
     header .badges {
         flex-direction: row;
         align-items: center;
-        margin-left: 0;
+        margin-left: 0.5vw;
         margin-right: 2vw;
     }
 
