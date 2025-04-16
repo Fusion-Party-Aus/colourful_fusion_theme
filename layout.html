@@ -138,6 +138,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <!-- Owen is managing the Bing verification-->
     <meta name="msvalidate.01" content="7D866336EBF5D0BAD8327269CD856D25" />
+    
+    {% if page.slug.size > 9 %}
+      {% assign check_string = page.slug | slice: -9, 9 %}
+      {% if check_string == "candidate" %}
+        <meta name="robots" content="noindex, nofollow">
+      {% endif %}
+    {% endif %}
     <title>{{ page_title }}</title>
     <link href="theme.scss" rel="stylesheet" />
     <!-- By importing our own CSS last, it gives it more precedence -->
