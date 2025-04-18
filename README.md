@@ -158,6 +158,6 @@ So at the time of writing, the available UI tags which you might use are:
   distracted by armchair experts with no skin in this game. We need to be doing **_everything possible_** to increase
   our conversion rates, and we shouldn't be handicapping ourselves based on pure _speculation_ from someone with no
   expertise in the startup space and no insight into how any of these disabilities actually play out in practice.
-* kwes − should we include a Kwes form? These get sent to contact@fusionparty.org.au. The account is managed by Owen.
+* kwes − should we include a Kwes form? These get sent to owen.miller@fusionparty.org.au. The account is managed by Owen.
 * omit-contents − should we omit the table of contents (on the left of the screen)?
 * wide − should we allow the page to be displayed a bit wider than usual? Not all pages support this.
