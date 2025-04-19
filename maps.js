@@ -92,10 +92,11 @@ function init() {
         }
         // Load and render all features immediately
         function loadElectorateData() {
-            fetch('https://fusionparty.space/geography/electorates_with_centroids.geojson')
+            fetch('https://fusionparty.space/geography/electorates_with_centroids.topojson')
                 .then(response => response.json())
-                .then(data => {
-                    geoJsonLayer = L.geoJSON(data, {
+                .then(topology => {
+                    const geojson = topojson.feature(topology, topology.objects.electorates_with_centroids)
+                    geoJsonLayer = L.geoJSON(geojson, {
                     style: { color: "#6e267b", weight: 5, opacity: 0.6, fill: false },
                     onEachFeature: (feature, layer) => {
                         var _a, _b;
