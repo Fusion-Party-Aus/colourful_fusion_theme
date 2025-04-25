@@ -163,6 +163,7 @@ function init() {
         else {
             console.error("Location button not found in DOM");
         }
+        geoFindMe();
     });
 }
 document.addEventListener("DOMContentLoaded", init);
