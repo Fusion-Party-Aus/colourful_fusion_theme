@@ -127,7 +127,7 @@ h1, h2, h3, h4, h5, p {
     max-width: 100%;
 }
 
-.content-pages-show-basic-wide {
+.container.content-pages-show-basic-wide {
     margin-left: 0;
     margin-right: 0;
 }
