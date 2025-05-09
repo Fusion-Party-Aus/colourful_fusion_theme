@@ -186,8 +186,9 @@
                     {% endif %}
                 {% endif %}
             </h1>
+            {% if state or party_logo_url %}
 			 <div class="badges">
-			{% if party_id != "" %}
+			{% if state %}
 				<span class="badge badge-secondary">{{state}}</span>
 			{% endif %}
 			{% if party_logo_url != "" %}
@@ -196,6 +197,7 @@
 				</a></span>
 			{% endif %}
 			</div>
+            {%  endif %}
         </div>
     {% endif %}
     </div>

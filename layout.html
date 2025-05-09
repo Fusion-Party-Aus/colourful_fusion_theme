@@ -255,16 +255,16 @@
           <script src="https://fusionparty.space/scripts/minified/video_injection.dba64f2f.min.js"></script>
         {% else %}
           <div class="row">
-        		
+
             {% if omitContents %}
-            <div class="col-12 p0">
+            <div class="col-12 p0 omitted-contents">
             {%else%}
 	            <div class="d-none d-md-block col-0 col-md-3 col-xl-2 sidebar">
 	                <nav id="toc" data-toggle="toc"></nav>
 	            </div>
             <div class="col-12 col-md-9 col-xl-10">
             {% endif %}
-            
+
               {% if page.features_count > 0 %}
                 {% include "features" %}
               {% endif %}
@@ -324,11 +324,11 @@
       <script defer src="https://fusionparty.space/scripts/minified/spreading-cards.9bcff2b9.min.js"></script>
     {% endif %}
     {% if hasIsotopeFilteringTag %}
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js"
+      <script defer src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js"
               integrity="sha512-Zq2BOxyhvnRFXu0+WE6ojpZLOU2jdnqbrM1hmVdGzyeCa1DgM3X5Q4A/Is9xA1IkbUeDd7755dNNI/PzSf2Pew=="
               crossorigin="anonymous" referrerpolicy="no-referrer">
       </script>
-      <script src="isotope_filtering.js"></script>
+      <script defer src="isotope_filtering.js"></script>
     {% endif %}
     {% if stripes %}
       <script defer src="climateVideoInjection.js"></script>
@@ -344,9 +344,12 @@
              integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
              crossorigin="">
      </script>
-    <!-- https://github.com/hayeswise/Leaflet.PointInPolygon -->
-    <script defer src="https://cdn.rawgit.com/hayeswise/Leaflet.PointInPolygon/v1.0.0/wise-leaflet-pip.js"></script>
-    <script defer src="maps.js"></script>
+      <!-- https://github.com/hayeswise/Leaflet.PointInPolygon -->
+      <script defer src="https://cdn.rawgit.com/hayeswise/Leaflet.PointInPolygon/v1.0.0/wise-leaflet-pip.js"></script>
+      <script defer src="https://cdnjs.cloudflare.com/ajax/libs/topojson/3.0.2/topojson.min.js" integrity="sha512-4UKI/XKm3xrvJ6pZS5oTRvIQGIzZFoXR71rRBb1y2N+PbwAsKa5tPl2J6WvbEvwN3TxQCm8hMzsl/pO+82iRlg=="
+              crossorigin="anonymous" referrerpolicy="no-referrer">
+      </script>
+      <script defer src="maps.js"></script>
     {% endif %}
   </body>
 </html>

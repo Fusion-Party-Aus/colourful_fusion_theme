@@ -28,7 +28,20 @@ const getMarkerOptions = (targetElectorate, normalizedName, name) => {
             })
         }
     }
-}
+};
+
+const STATES = ["nsw", "qld", "sa", "vic", "wa", "nt", "tas"];
+
+const clickStateForTarget = (targetElement) => {
+    const parentClasses = targetElement.parentElement.classList.value.split(" ");
+    const stateClass = parentClasses.find(className => STATES.includes(className));
+    if (stateClass) {
+        const stateButton = document.querySelector(`button[data-filter=".${stateClass}"]`);
+        if (stateButton) {
+            stateButton.click();
+        }
+    }
+};
 
 function init() {
     return __awaiter(this, void 0, void 0, function* () {
@@ -79,10 +92,11 @@ function init() {
         }
         // Load and render all features immediately
         function loadElectorateData() {
-            fetch('https://fusionparty.space/geography/electorates_with_centroids.geojson')
+            fetch('https://fusionparty.space/geography/electorates_with_centroids.topojson')
                 .then(response => response.json())
-                .then(data => {
-                    geoJsonLayer = L.geoJSON(data, {
+                .then(topology => {
+                    const geojson = topojson.feature(topology, topology.objects.electorates_with_centroids)
+                    geoJsonLayer = L.geoJSON(geojson, {
                     style: { color: "#6e267b", weight: 5, opacity: 0.6, fill: false },
                     onEachFeature: (feature, layer) => {
                         var _a, _b;
@@ -98,7 +112,11 @@ function init() {
                                 event.preventDefault(); // Prevent default link behavior
                                 const targetElement = document.getElementById(normalizedName);
                                 if (targetElement) {
-                                    targetElement.scrollIntoView({ behavior: 'smooth' });
+                                    clickStateForTarget(targetElement);
+                                    // Wait for isotope filtering to finish readjusting the page.
+                                    setTimeout(() => {
+                                        targetElement.scrollIntoView({ behavior: 'smooth' });
+                                    }, 405);  // milliseconds
                                 }
                             });
                         });
@@ -145,6 +163,7 @@ function init() {
         else {
             console.error("Location button not found in DOM");
         }
+        geoFindMe();
     });
 }
 document.addEventListener("DOMContentLoaded", init);
