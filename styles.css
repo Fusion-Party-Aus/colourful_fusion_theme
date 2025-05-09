@@ -127,6 +127,11 @@ h1, h2, h3, h4, h5, p {
     max-width: 100%;
 }
 
+.container.content-pages-show-basic-wide {
+    margin-left: 0;
+    margin-right: 0;
+}
+
 .w-1600 {
     max-width: 1600px;
 }
@@ -383,6 +388,14 @@ header {
     min-height: 200px;
 }
 
+.header-container img {
+    /* Our header images are chosen to be 4:1, and we wish for it to be 2.25 × the line height used later. */
+    height: max(200px, calc(1.125 * 0.25 * 100vw));
+    max-height: 240px;
+    width: 100%;
+    object-fit: cover;
+}
+
 .header-content {
     position: absolute;
     top: 0;
@@ -403,7 +416,7 @@ header h1 {
 }
 
 header .fs-scale {
-    font-size: 3.15rem;
+    font-size: 2.25rem;
 }
 
 /* These media sizes are based on https://getbootstrap.com/docs/5.0/layout/breakpoints/ */
@@ -414,7 +427,7 @@ header .fs-scale {
 }
 
 header .fs-scale-3-lines {
-    font-size: 2.5rem;
+    font-size: 2.2rem;
 }
 
 header .fs-scale-extra-long {
@@ -874,7 +887,7 @@ blockquote {
 }
 
 .badge img {
-  height: 100%;
+  height: inherit;  /* Override the scaling of the hero image */
 }
 
 .badge {
@@ -889,18 +902,37 @@ blockquote {
 }
 
 header .badges {
-	display: flex;
-	flex-direction: row;
-	margin-top: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  margin-top: 1.5rem;
   gap: 1rem;
-  margin-left: 2rem;
+  margin-left: 2vw;
 }
 
 header .badge-secondary {
-	padding: 1rem;
-	font-size: 3rem;
+  padding: 0.5rem;
+  font-size: 1.5rem;
   max-width: 9rem;
   text-transform: uppercase;
+}
+
+
+@media (min-width: 768px) {
+    header .badges {
+        flex-direction: row;
+        align-items: center;
+        margin-left: 0.5vw;
+        margin-right: 2vw;
+    }
+
+    header .badge-secondary {
+      padding: 0.75rem;
+      font-size: 2rem;
+    }
+}
+
+.fakedonations{
+  min-height: 1500px;
 }
 
 .page-pages-show-donation-v2-wide .donation-v2-amounts > div {

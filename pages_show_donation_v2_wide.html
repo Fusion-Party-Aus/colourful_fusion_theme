@@ -4,6 +4,14 @@
   --container-max-width: 1600px;
   }</style>
 
+{% for tag in page.tags %}
+  {% case tag.name %}
+    {% when "donations_disabled" %}
+      {% assign donations_disabled = true %}
+			{% break %}
+		{% endcase %}
+{% endfor %}
+
 <div class="row">
   {% assign show_candidate_blog_post = false %}
   {% assign progress_bar_class = "bg-" | append: h_color %}
@@ -58,6 +66,14 @@
           {%endif%}
               
           <div class="d-md-block d-lg-block d-xl-block">
+            {% if donations_disabled %}
+            <div class="form bg-aquamarine-transparent rounded px-3 py-2 mx-1 fakedonations">
+              <h2 class="h-underline h-pink">Donations for this campaign have closed</h2>
+              <h3>Thank you for your interest</h3>
+            </div>
+            
+            {% else %}
+            
             {% form_for donation %}
             <div class="form bg-aquamarine-transparent rounded px-3 py-2 mx-1">
 
@@ -425,6 +441,7 @@
             </div> <!--/.form -->
             <br>
             {% endform_for %}
+            {% endif %}
           </div>
 
           
