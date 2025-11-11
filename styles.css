@@ -544,9 +544,13 @@ header.container-fluid {
     gap: 20px; /* Adjust gap as needed */
 }
 
+.card-body {
+    max-width: 70vw;
+}
+
 .card-body img {
     width: 100%;
-    height: 200px;
+    max-height: 59vw;
     object-fit: cover;
     overflow: hidden;
     margin-bottom: 0;
