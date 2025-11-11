@@ -220,7 +220,13 @@ https://github.com/Shopify/liquid/issues/138
   {% if hasHomepageTag %}
   <div class="col-4 col-md-6">
       <img src="https://fusionparty.space/images/reading_paper_370.webp"
-           alt="Australians looking through the glass ominously" class="rounded w-100">
+           alt="Australians looking through the glass ominously" class="rounded w-100"
+           {% if hasEmailTag %}
+           style="max-width: 17rem;"
+          {% else %}
+           style="max-width: 17rem;"
+          {% endif %}
+       >
   </div>
   {% endif %}
   {% if page.show_stream? %}
