@@ -6,6 +6,10 @@ This code is intended for the /candidates page.
 {% endcomment %}
 {% assign electorate_tags = "nsw,qld,sa,vic,wa,act,tas,lower,upper" | split: "," %}
 {% assign parties = "fusion,democracyfirst,progressives,pirate,science,secular,voteplanet" | split: "," %}
+{% comment %}
+If a post doesn't mention an election, we'll interpret it to be this one.
+{% endcomment %}
+{% assign election= "federal" %}
 
 <div id="content">
   <h2 class="h-underline h-pink">Find Your Candidates</h2>
@@ -74,6 +78,7 @@ This code is intended for the /candidates page.
       	{% assign tag_classes = "" %}
       	{% assign is_lower = false %}
       	{% assign party_id = "fusion" %}
+        {% assign electionForPost = election %}
 
       	{% comment %}loop over page tags for this blog post to see if there are any we need to know about{% endcomment %}
         {% for tag in post.tags %}
@@ -85,6 +90,10 @@ This code is intended for the /candidates page.
 
           {% if states contains tag.name %}
             {% assign state = tag.name %}
+            {% continue %}
+          {% endif %}
+          {% if tag.name contains "election-" %}
+            {% assign electionForPost = tag.name | remove: "election-" %}
             {% continue %}
           {% endif %}
 
@@ -141,33 +150,35 @@ This code is intended for the /candidates page.
       			{% endif %}
         {% endcase %}
 
-        <li class="isogrid-item {{ tag_classes }} py-2 py-md-0 row w-100 thumbnail-blog-preview" id="{{ link_id }}">
-          <div class="col-6 col-md-8 order-1 order-md-5 my-md-2" style="scroll-margin-top:120px;" {% if is_lower %}id="{{ electorate_name }}"{% endif %}>
-                <a href="{{ post_url }}">
-                  <img class="rounded w-100" title="{{ post.headline }}" class="w-100 li-img" src={{ img_src }} alt="{{ candidate_name }}">
-                </a>
-            </div>
-            <div class="col-6 col-md-12 order-5 order-md-1 my-md-2 badged-heading flex-column flex-md-row">
-                <a href="{{ post_url }}" class="uncolored">
-                    <h3 class="mb-1 h-underline h-{{ h_color }} h-underline-animate">
-                      {{ post.headline }}
-                    </h3>
-                </a>
-                <div class="badges">
-                  {% comment %}
-                  On mobile, the badges will be under the h3, then on md, they'll transition to be next to it.
-                  {% endcomment %}
-                  {% assign visible_tag = tag_classes | replace: "lower", "" | replace: "upper", "" | strip | upcase %}
-                  <span class="badge badge-secondary ml-md-3">{{ visible_tag }}</span>
-                  {% assign party_logo_filename = party_id | append: "_logo.svg" %}
-                  {% assign party_logo_url = theme[party_logo_filename] %}
-                  <span class="badge badge-small"><a href="https://www.fusionparty.org.au/what_is_a_movement">
-                    <img class="img-small" src="{{party_logo_url}}" alt="{{party_id}} logo"/>
-                    </a></span>
+        {% if electionForPost == election %}
+          <li class="isogrid-item {{ tag_classes }} py-2 py-md-0 row w-100 thumbnail-blog-preview" id="{{ link_id }}">
+            <div class="col-6 col-md-8 order-1 order-md-5 my-md-2" style="scroll-margin-top:120px;" {% if is_lower %}id="{{ electorate_name }}"{% endif %}>
+                  <a href="{{ post_url }}">
+                    <img class="rounded w-100" title="{{ post.headline }}" class="w-100 li-img" src={{ img_src }} alt="{{ candidate_name }}">
+                  </a>
+              </div>
+              <div class="col-6 col-md-12 order-5 order-md-1 my-md-2 badged-heading flex-column flex-md-row">
+                  <a href="{{ post_url }}" class="uncolored">
+                      <h3 class="mb-1 h-underline h-{{ h_color }} h-underline-animate">
+                        {{ post.headline }}
+                      </h3>
+                  </a>
+                  <div class="badges">
+                    {% comment %}
+                    On mobile, the badges will be under the h3, then on md, they'll transition to be next to it.
+                    {% endcomment %}
+                    {% assign visible_tag = tag_classes | replace: "lower", "" | replace: "upper", "" | strip | upcase %}
+                    <span class="badge badge-secondary ml-md-3">{{ visible_tag }}</span>
+                    {% assign party_logo_filename = party_id | append: "_logo.svg" %}
+                    {% assign party_logo_url = theme[party_logo_filename] %}
+                    <span class="badge badge-small"><a href="https://www.fusionparty.org.au/what_is_a_movement">
+                      <img class="img-small" src="{{party_logo_url}}" alt="{{party_id}} logo"/>
+                      </a></span>
 
-                </div>
-            </div>
-        </li>
+                  </div>
+              </div>
+          </li>
+        {% endif %}
       {% endfor %}
     </ul>
   </div>
