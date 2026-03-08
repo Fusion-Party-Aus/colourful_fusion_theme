@@ -1,21 +1,138 @@
 // On Donation v2 pages you will also need to update the JavaScript styles
 // For more information on how to do that visit https://nationbuilder.com/how_to_style_payment_fields
 
+// StripeElement styles
+// Base StripeElement reset - neutralizes styles from _stripe.scss
 .StripeElement {
+  // Reset form-control styles from _stripe.scss line 5 (@extend .form-control)
+  background-color: transparent;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+  transition: none;
+  padding: 0;
+  margin: 0;
+  outline: none;
+
+  &:focus {
+    background-color: transparent;
+    border: none;
+    box-shadow: none;
+    outline: none;
+  }
+
+  &--invalid {
+    border: none;
+    box-shadow: none;
+  }
+}
+
+.StripeElement[data-payments-element-type="payments"] {
+  background-color: transparent;
+  border: none;
+  height: auto;
+  padding: .6rem 0 0 0;
+}
+
+.StripeElement[data-payments-element-type="card"] {
   @extend .form-control;
   padding-top: 0.475rem; // fix for input alignment
+  .StripeElement--focus {
+    color: $input-focus-color;
+    background-color: $input-focus-bg;
+    border-color: $input-focus-border-color;
+    outline: 0;
+    box-shadow: $input-focus-box-shadow;
+  }
+  .StripeElement--invalid {
+    border-color: $danger;
+    box-shadow: 0 0 0 $input-focus-width rgba($danger, .25);
+  }
 }
-.StripeElement--empty {
 
+// Override the setting of border-radius to 0
+// Setting to 0 is done by child pseudo-selectors
+// Which assumes all the children are for the visual representation of the element
+// The new Stripe payment element has validations and we render that as
+// a hint paragraph below the input programmatically.
+.donation-other-input-container > .nb_donation_v2_amount {
+  border-top-right-radius: $input-border-radius-lg !important;
+  border-bottom-right-radius: $input-border-radius-lg !important;
 }
-.StripeElement--focus {
-  color: $input-focus-color;
-  background-color: $input-focus-bg;
-  border-color: $input-focus-border-color;
-  outline: 0;
-  box-shadow: $input-focus-box-shadow;
+
+.donation-other-input-container:has(input.is-invalid) {
+  .currency-symbol {
+    border-color: $form-feedback-invalid-color;
+    border-top-left-radius: $input-border-radius-lg;
+    border-bottom-left-radius: $input-border-radius-lg;
+  }
+  .nb_donation_v2_amount {
+    border-color: $form-feedback-invalid-color;
+    border-top-right-radius: $input-border-radius-lg;
+    border-bottom-right-radius: $input-border-radius-lg;
+  }
+
+  &:focus-within {
+    --shadow-left: -$input-btn-focus-width 0 0 $input-btn-focus-color;
+    --shadow-right: $input-btn-focus-width 0 0 $input-btn-focus-color;
+    --shadow-bottom: 0 $input-btn-focus-width 0 $input-btn-focus-color;
+    --shadow-top: 0 (-$input-btn-focus-width) 0 $input-btn-focus-color;
+
+    box-shadow: none;
+    .currency-symbol {
+      box-shadow:
+        var(--shadow-left),
+        var(--shadow-bottom),
+        var(--shadow-top);
+    }
+    .nb_donation_v2_amount {
+      box-shadow:
+        var(--shadow-right),
+        var(--shadow-bottom),
+        var(--shadow-top);
+    }
+  }
 }
-.StripeElement--invalid {
-  border-color: $danger;
-  box-shadow: 0 0 0 $input-focus-width rgba($danger, .25);
+
+.change-submitted-payment-method {
+  border: none;
+  padding: 0;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+  text-align: inherit;
+  vertical-align: inherit;
+}
+
+// Button link styles for donation v2
+.btn-link {
+  font-weight: $font-weight-normal;
+  color: $link-color;
+  text-decoration: $link-decoration;
+
+  @include hover {
+    color: $link-hover-color;
+    text-decoration: $link-hover-decoration;
+  }
+
+  &:focus,
+  &.focus {
+    color: $link-hover-color;
+    text-decoration: $link-hover-decoration;
+  }
+
+  &:active,
+  &.active {
+    color: $link-hover-color;
+    background-color: transparent;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+  }
+
+  &:disabled,
+  &.disabled {
+    color: $btn-link-disabled-color;
+    pointer-events: none;
+  }
 }
