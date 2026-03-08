@@ -362,11 +362,9 @@
                 <h2 class="h-underline h-pink">Payment information</h2>
 
                 <div class="form-group">
-                  <label>Payment</label>
-                  {% payment_field 'payments' %}
+                  <label>Credit Card</label>
+                  {% payment_field 'card' %}
                 </div>
-
-                <small id="apple-pay-notice">If you use Apple Pay, your confirmation prompt may refer to our payment processor, "NationBuilder"</small>
 
                 <div clas="form-group">
                   {% if page.donation_v2.merchant_account.has_contribution_rules? %}
@@ -392,7 +390,6 @@
                 {% include "consent_form" %}
                 {% endif %}
                 <hr class="divider">
-                <div id="recaptcha_checkbox"></div>
                 <div class="form-group">
                   <div class="submit-container">
                     <div class="donation-v2-amount d-flex align-items-center my-4 text-success">
