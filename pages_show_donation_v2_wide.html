@@ -42,7 +42,7 @@
         <div class="col form-wrap">
 
           {%if show_candidate_blog_post %}
-          <div class="d-block">   
+          <div class="d-block">
             {% if page.donation_v2.has_amount_goal? %}
             <div class="mb-3">
               {% include "progress"
@@ -60,20 +60,20 @@
           {%else%}
             <div class="d-lg-block">
           {%endif%}
-           
+
           {%if show_candidate_blog_post %}
           </div>
           {%endif%}
-              
+
           <div class="d-md-block d-lg-block d-xl-block">
             {% if donations_disabled %}
             <div class="form bg-aquamarine-transparent rounded px-3 py-2 mx-1 fakedonations">
               <h2 class="h-underline h-pink">Donations for this campaign have closed</h2>
               <h3>Thank you for your interest</h3>
             </div>
-            
+
             {% else %}
-            
+
             {% form_for donation %}
             <div class="form bg-aquamarine-transparent rounded px-3 py-2 mx-1">
 
@@ -112,19 +112,19 @@
                 </div>
               </div>
               {% else %}
-              <fieldset>
+              <fieldset aria-labelledby="cc-disclaimer">
                 {%if show_candidate_blog_post %}
                 	<h2 class="h-underline h-pink">Support my campaign</h2>
                 {% else %}
                 	<h2 class="h-underline h-pink">Support the party</h2>
                 {%endif %}
-                <div class="form-row">
+                <div class="form-row flex-column">
                   {% if page.donation_v2.amount_in_cents != 0 %}
-                  <div class="form-group col">
+                  <div class="form-group col-md-8">
                     <p class="h2 single-amount mb-0">{{ page.donation_v2.amount_formatted }}</p>
                   </div>
                   {% else %}
-                  <div class="form-group col">
+                  <div class="form-group col-md-8">
                     <div class="donation-v2-amounts">
                       {{ page.donation_v2.form_amount_options }}
                     </div>
@@ -135,23 +135,23 @@
                 page.donation_v2.donation_frequency == "any" %}
                 <div class="form-row align-items-center donation-v2-options {% if page.donation_v2.accepts_variable_amounts? == false %}single-amount-any-frequency{% endif %}">
                   {% if page.donation_v2.accepts_variable_amounts? %}
-                  <div class="form-group col-md-6">
+                  <div class="form-group">
                     {{ page.donation_v2.amount_other }}
                   </div>
                   {% endif %}
-                  {% if page.donation_v2.donation_frequency == "any" %}
-                  <div class="form-group {% if page.donation_v2.accepts_variable_amounts? == true %}col-md-6{%else%}col{% endif %}">
+                  {% if page.donation_v2.show_frequency_radio_buttons? %}
+                  <div class="form-group col">
                     <div class="donation-v2-occurence-radio radio-inline clearfix">
-                      {{ page.donation_v2.monthly_recurring_radio_buttons }}
+                      {{ page.donation_v2.recurring_radio_buttons }}
                     </div>
                   </div>
                   {% endif %}
                   {% if page.donation_v2.donation_frequency == "monthly" %}
-                  <div class="form-group col-md-6 card-monthly">
+                  <div class="form-group col card-monthly">
                     <span class="text-secondary">Paid monthly</span>
                   </div>
                   {% elsif page.donation_v2.donation_frequency == "annual" %}
-                  <div class="form-group col-md-6 card-monthly">
+                  <div class="form-group col card-monthly">
                     <span class="text-secondary">Paid annually</span>
                   </div>
                   {% endif %}
@@ -173,7 +173,7 @@
                 <h2 class="h-underline h-pink transition-delay">Your information</h2>
                 <div class="form-group">
                   <label for="donation_email">Email</label>
-                  {% email_field "email", class:"form-control" %}
+                  {% email_field "email", class:"form-control", required:"required" %}
                 </div>
                 {% unless page.show_consent_form? %}
                 <div class="form-group">
@@ -187,11 +187,11 @@
                 <div class="form-row">
                   <div class="form-group col-md-6">
                     <label for="donation_first_name">First Name</label>
-                    {% text_field "first_name", class:"form-control" %}
+                    {% text_field "first_name", class:"form-control", required:"required" %}
                   </div>
                   <div class="form-group col-md-6">
                     <label for="donation_last_name">Last Name</label>
-                    {% text_field "last_name", class:"form-control" %}
+                    {% text_field "last_name", class:"form-control", required:"required" %}
                   </div>
                 </div>
                 <div class="form-group">
@@ -230,6 +230,12 @@
                   {% phone_field "billing_address.phone_number", class:"form-control" %}
                 </div>
                 {% if page.donation_v2.merchant_account.is_employer_and_occupation_required? %}
+                <div class="form-group w-100">
+                  <div class="custom-control custom-checkbox">
+                    {% check_box "no_employer", class:"custom-control-input checkbox" %}
+                    <label class="custom-control-label" for="donation_no_employer">I do not have an employer</label>
+                  </div>
+                </div>
                 <div class="form-row">
                   <div class="form-group col-md-6">
                     <label for="donation_employer">Employer</label>
@@ -296,7 +302,7 @@
                 {% endif %}
                 <div class="form-group">
                   <p class="text-secondary">Law requires we ask for your employer and occupation.
-                    If you don't have an employer or are retired, put N/A, and if you are
+                    If you do not have an employer or are retired, check "I do not have an employer". If you are
                     self-employed put "self-employed" in employer and describe your
                     occupation.</p>
                 </div>
@@ -361,10 +367,16 @@
               <fieldset>
                 <h2 class="h-underline h-pink">Payment information</h2>
 
-                <div class="form-group">
-                  <label>Credit Card</label>
-                  {% payment_field 'card' %}
+                <div data-payment-disclaimer>
+                  <p id="cc-disclaimer">Please select or enter an amount</p>
                 </div>
+
+                <div class="form-group">
+                  <label>Payment</label>
+                  {% payment_field 'payments' %}
+                </div>
+
+                <small id="apple-pay-notice">If you use Apple Pay, your confirmation prompt may refer to our payment processor, "NationBuilder"</small>
 
                 <div clas="form-group">
                   {% if page.donation_v2.merchant_account.has_contribution_rules? %}
@@ -376,7 +388,7 @@
                       confirm that the above statements are true and accurate.</label>
                   </div>
                   {% endif %}
-                  {% if site.ask_to_publish_to_stream? %}
+                  {% if site.ask_to_publish_to_stream? and page.show_stream? %}
                   <div class="custom-control custom-checkbox">
                     {% check_box "is_private", class:"custom-control-input checkbox" %}
                     <label for="donation_is_private" class="custom-control-label checkbox">Don't
@@ -407,18 +419,17 @@
 
                       {% if page.donation_v2.donation_frequency == "one-time" %}
                       {% elsif page.donation_v2.donation_frequency == "monthly" %}
-                      <div class="text-muted nb_donation_v2_interval pt-1"
+                      <p class="text-muted nb_donation_v2_interval mb-0"
                            data-placeholder="paid monthly">paid monthly
-                      </div>
+                      </p>
                       {% elsif page.donation_v2.donation_frequency == "annual" %}
-                      <div class="text-muted nb_donation_v2_interval pt-1"
+                      <p class="text-muted nb_donation_v2_interval mb-0"
                            data-placeholder="paid annually">paid annually
-                      </div>
+                      </p>
                       {% else %}
-                      <div class="text-muted nb_donation_v2_interval pt-1"
-                           data-placeholder="paid monthly">{% if
-                        page.donation_v2.interval_monthly? %}paid monthly{% endif %}
-                      </div>
+                      <p class="text-muted nb_donation_v2_interval mb-0" data-placeholder="paid monthly">{% if
+                        page.donation_v2.interval_monthly? %}paid monthly{% endif %}</p>
+                      <p class="text-muted nb_donation_v2_interval mb-0" data-placeholder="paid annually">{% if page.donation_v2.interval_annual? %}paid annually{% endif %}</p>
                       {% endif %}
                       {% endif %}
                     </div>
@@ -433,7 +444,6 @@
                       {% endif %}
                     </div>
                   </div>
-                  <div class="form-submit"></div>
                 </div>
 
               </fieldset>
@@ -444,7 +454,7 @@
             {% endif %}
           </div>
 
-          
+
           {%if show_candidate_blog_post %}
           	{{ page.donation_v2.content }}
           {% endif %}
