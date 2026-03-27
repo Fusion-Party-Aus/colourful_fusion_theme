@@ -1,129 +1,332 @@
+<!-- FUSION PARTY REFINED GLASS NAVBAR -->
+<style>
+  /* --- 1. CORE NAVBAR GLASS STYLING --- */
+  #header-nav.bg-glass {
+    background: rgba(255, 255, 255, 0.4) !important;
+    backdrop-filter: blur(20px) !important;
+    -webkit-backdrop-filter: blur(20px) !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3) !important;
+    padding: 0.75rem 0;
+    transition: all 0.3s ease;
+    z-index: 1050;
+  }
+
+  .navbar-brand img.logo {
+    height: 45px;
+    transition: transform 0.3s ease;
+  }
+
+  .navbar-brand:hover img.logo {
+    transform: scale(1.05);
+  }
+
+  #header-nav .nav-link {
+    font-family: 'Archivo Black', sans-serif;
+    text-transform: uppercase;
+    font-weight: 900;
+    color: #000 !important;
+    letter-spacing: 0.05em;
+    padding: 0.5rem 1.25rem !important;
+    font-size: 0.95rem;
+    transition: color 0.2s ease;
+  }
+
+  #header-nav .nav-link:hover {
+    color: #c926f2 !important; /* Fusion Magenta */
+  }
+
+  /* --- 2. DROPDOWN STYLING --- */
+  #header-nav .dropdown-menu {
+    background: rgba(255, 255, 255, 0.97);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    border-radius: 1.25rem;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+    margin-top: 10px;
+    padding: 1rem;
+    overflow: hidden;
+  }
+
+  #header-nav .wide-dropdown {
+    width: 96vw !important;
+    max-width: 1140px !important;
+    padding: 2.5rem !important;
+    border-radius: 2rem !important;
+    border: 1px solid rgba(255, 255, 255, 0.8) !important;
+  }
+
+  /* --- 3. PILL BUTTONS (OVERVIEW/PRINCIPLES) --- */
+  .mega-menu-btn {
+    display: inline-block !important;
+    font-family: 'Archivo Black', sans-serif !important;
+    text-transform: uppercase !important;
+    font-size: 0.85rem !important;
+    padding: 0.6rem 1.5rem !important;
+    border-radius: 50px !important;
+    font-weight: 900 !important;
+    transition: all 0.2s ease !important;
+    margin-right: 1rem !important;
+    text-align: center !important;
+    letter-spacing: 0.05em !important;
+    text-decoration: none !important;
+  }
+
+  .btn-overview {
+    background: #c926f2 !important;
+    color: #fff !important;
+    box-shadow: 0 4px 15px rgba(201, 38, 242, 0.3) !important;
+  }
+
+  .btn-overview:hover {
+    background: #ffed00 !important;
+    color: #000 !important;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 237, 0, 0.4) !important;
+  }
+
+  .btn-principles {
+    background: transparent !important;
+    color: #c926f2 !important;
+    border: 2px solid #c926f2 !important;
+  }
+
+  .btn-principles:hover {
+    background: rgba(201, 38, 242, 0.05) !important;
+    transform: translateY(-2px);
+  }
+
+  /* --- 4. GRID LAYOUT --- */
+  .grid-list {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2.5rem;
+    list-style: none;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  .grid-list li strong {
+    color: #c926f2;
+    font-family: 'Archivo Black', sans-serif;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 0.02em;
+    margin-bottom: 0.75rem;
+    display: block;
+    border-bottom: 2px solid rgba(201, 38, 242, 0.1);
+    padding-bottom: 4px;
+  }
+
+  .grid-list .dropdown-item {
+    padding: 1rem !important;
+    white-space: normal;
+    background: transparent !important;
+    border-radius: 1rem;
+    transition: all 0.2s ease;
+  }
+
+  .grid-list .dropdown-item:hover {
+    background: rgba(255, 255, 255, 0.6) !important;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+  }
+
+  .grid-list .text-sm {
+    font-size: 0.8rem;
+    color: #555;
+    margin: 0.5rem 0 0 0;
+    padding: 0;
+    list-style: none;
+    line-height: 1.4;
+  }
+
+  .grid-list .text-sm li::before {
+    content: "•";
+    color: #5effd8;
+    margin-right: 6px;
+  }
+
+  /* --- 5. MOBILE REFINEMENTS --- */
+  @media (max-width: 991px) {
+    #header-nav .wide-dropdown {
+      position: static !important;
+      width: 100% !important;
+      max-width: none !important;
+      padding: 1.5rem !important;
+      box-shadow: none !important;
+      border: none !important;
+      max-height: 80vh;
+      overflow-y: auto;
+    }
+    
+    .grid-list {
+      grid-template-columns: 1fr;
+    }
+
+    .mega-menu-btn {
+      display: block !important;
+      margin-right: 0 !important;
+      margin-bottom: 0.75rem !important;
+    }
+
+    #header-nav .navbar-collapse {
+      background: rgba(255, 255, 255, 0.98);
+      border-radius: 1.5rem;
+      padding: 1.5rem;
+      margin-top: 1rem;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    }
+  }
+
+  .btn-involved-cta {
+    background: #c926f2 !important;
+    color: #fff !important;
+    border-radius: 0.75rem !important;
+    padding: 0.75rem 1.25rem !important;
+    margin: 0.5rem 0;
+    text-align: center;
+    border: none !important;
+    box-shadow: 0 4px 15px rgba(201, 38, 242, 0.3) !important;
+  }
+</style>
+
 <nav id="header-nav" class="w-100 navbar navbar-expand-lg navbar-light bg-glass">
-    <!-- todo: use the variables from NationBuilder -->
-    <div class="container-fluid px-3">
-        <a class="navbar-brand" href="/"><img class="logo navbar-brand active"
-                                              src="https://fusionparty.space/images/solo_colour.svg"
-                                              alt="Fusion logo"></a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggler"
-                aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+    <div class="container-fluid px-lg-5">
+        <a class="navbar-brand" href="/">
+            <img class="logo" src="https://fusionparty.space/images/solo_colour.svg" alt="Fusion logo">
+        </a>
+        
+        <button class="navbar-toggler border-0" type="button" data-toggle="collapse" data-target="#navbarToggler"
+                aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
+
         <div class="collapse navbar-collapse" id="navbarToggler">
             <ul class="navbar-nav mr-auto mb-2 mb-lg-0 nav-left">
+                <!-- POLICY MEGA MENU -->
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="policyDropdown" role="button"
                        data-toggle="dropdown" aria-expanded="false">Policy</a>
                     <div class="dropdown-menu wide-dropdown" aria-labelledby="policyDropdown">
-                        <ul>
-                            <li><a class="dropdown-item" href="/policy_overview">Policy Overview</a></li>
-                            <li><a class="dropdown-item" href="/policy-principles">Policy Principles</a></li>
-                            <li class="divider">
-                                <hr class="dropdown-divider my-0">
-                            </li>
-                        </ul>
+                        <!-- THE REFINED PILL BUTTONS -->
+                        <div class="d-flex flex-wrap border-bottom pb-4 mb-4" style="border-color: rgba(0,0,0,0.05) !important;">
+                            <a class="mega-menu-btn btn-overview" href="/policy_overview">Overview</a>
+                            <a class="mega-menu-btn btn-principles" href="/policy-principles">Principles</a>
+                        </div>
+                        
                         <ul class="grid-list">
                             <li>
-                                <a class="dropdown-item" href="/climate_rescue">Climate Rescue
-                                <ul class="text-sm d-none d-md-block">
-                                    <li>Climate Rescue Accord</li>
-                                    <li>Transition to negative emissions</li>
-                                    <li>Modernise transport networks</li>
-                                </ul>
+                                <a class="dropdown-item" href="/climate_rescue">
+                                    <strong>Climate Rescue</strong>
+                                    <ul class="text-sm d-none d-md-block">
+                                        <li>Accord + Negative Emissions</li>
+                                        <li>Modern Transport</li>
+                                    </ul>
                                 </a>
                             </li>
                             <li>
-                                <a class="dropdown-item" href="/future_focused">Future Focused
+                                <a class="dropdown-item" href="/future_focused">
+                                    <strong>Future Focused</strong>
                                     <ul class="text-sm d-none d-md-block">
-                                    <li>Long-term vision</li>
-                                    <li>Anti-ageing</li>
-                                    <li>High-speed rail</li>
-                                </ul>
+                                        <li>High-speed rail</li>
+                                        <li>Anti-ageing research</li>
+                                    </ul>
                                 </a>
                             </li>
-                            <li><a class="dropdown-item" href="/education_for_life">Education for Life
-                                <ul class="text-sm d-none d-md-block">
-                                    <li>Funding all stages</li>
-                                    <li>Improve university outcomes</li>
-                                </ul>
-                            </a></li>
-                            <li><a class="dropdown-item" href="/ethical_governance">Ethical Governance
-                                <ul class="text-sm d-none d-md-block">
-                                    <li>Transparency</li>
-                                    <li>Whistleblowing</li>
-                                    <li>Economic models</li>
-                                </ul>
+                            <li>
+                                <a class="dropdown-item" href="/education_for_life">
+                                    <strong>Education</strong>
+                                    <ul class="text-sm d-none d-md-block">
+                                        <li>Lifelong funding</li>
+                                        <li>Improved research</li>
+                                    </ul>
                                 </a>
                             </li>
-                            <li><a class="dropdown-item" href="/fair_inclusive_society">Fair + Inclusive
-                                Society
-                                <ul class="text-sm d-none d-md-block">
-                                    <li>Housing as a home</li>
-                                    <li>Preventative healthcare</li>
-                                    <li>Universal basic income</li>
-                                </ul>
-                            </a>
+                            <li>
+                                <a class="dropdown-item" href="/ethical_governance">
+                                    <strong>Ethics + Econ</strong>
+                                    <ul class="text-sm d-none d-md-block">
+                                        <li>Whistleblowing</li>
+                                        <li>Transparency</li>
+                                    </ul>
+                                </a>
                             </li>
-                            <li><a class="dropdown-item" href="/individual_freedoms">Individual Freedoms
-                                <ul class="text-sm d-none d-md-block">
-                                    <li>Freedom of speech</li>
-                                    <li>Bill of rights</li>
-                                    <li>Euthanasia</li>
-                                </ul>
-                            </a>
+                            <li>
+                                <a class="dropdown-item" href="/fair_inclusive_society">
+                                    <strong>Society</strong>
+                                    <ul class="text-sm d-none d-md-block">
+                                        <li>Universal Basic Income</li>
+                                        <li>Housing first</li>
+                                    </ul>
+                                </a>
                             </li>
-                            <li><a class="dropdown-item" href="/ecological_restoration">Ecological
-                                Restoration
-                                <ul class="text-sm d-none d-md-block">
-                                    <li>Native logging</li>
-                                    <li>Land rehabilitation</li>
-                                    <li>Biodiversity</li>
-                                </ul>
-                            </a></li>
-                            <li><a class="dropdown-item" href="/civil_digital_liberties">Civil + Digital
-                                Liberties
-                                <ul class="text-sm d-none d-md-block">
-                                    <li>Copyright</li>
-                                    <li>Privacy</li>
-                                    <li>Intellectual Property</li>
-                                </ul>
-                            </a></li>
-                            <li><a class="dropdown-item" href="/secular_humanism">Secular Humanism
-                                <ul class="text-sm d-none d-md-block">
-                                    <li>Church and state</li>
-                                    <li>Ethical education</li>
-                                </ul>
-                            </a></li>
-                            <li><a class="dropdown-item" href="/fair_foreign_policy">Fair Foreign Policy
-                                <ul class="text-sm d-none d-md-block">
-                                    <li>Global citizenship</li>
-                                    <li>Defence posture</li>
-                                </ul>
-                            </a>
+                            <li>
+                                <a class="dropdown-item" href="/individual_freedoms">
+                                    <strong>Freedoms</strong>
+                                    <ul class="text-sm d-none d-md-block">
+                                        <li>Bill of Rights</li>
+                                        <li>Speech + Euthanasia</li>
+                                    </ul>
+                                </a>
                             </li>
-                            <li><a class="dropdown-item" href="/policy_faq">Other positions and policy FAQ
-                                <ul class="text-sm d-none d-md-block">
-                                    <li>Nuclear power</li>
-                                    <li>Industrial relations</li>
-                                    <li>Drug reform</li>
-                                    <li>Media reform</li>
-                                </ul>
-                            </a></li>
-                            <li><a class="dropdown-item" href="/policy_intake">Policy Intake Form</a></li>
+                            <li>
+                                <a class="dropdown-item" href="/ecological_restoration">
+                                    <strong>Environment</strong>
+                                    <ul class="text-sm d-none d-md-block">
+                                        <li>Biodiversity</li>
+                                        <li>End Native Logging</li>
+                                    </ul>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="/civil_digital_liberties">
+                                    <strong>Digital Rights</strong>
+                                    <ul class="text-sm d-none d-md-block">
+                                        <li>Privacy + IP reform</li>
+                                    </ul>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="/secular_humanism">
+                                    <strong>Humanism</strong>
+                                    <ul class="text-sm d-none d-md-block">
+                                        <li>Separation of Church + State</li>
+                                    </ul>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="/fair_foreign_policy">
+                                    <strong>Foreign Affairs</strong>
+                                    <ul class="text-sm d-none d-md-block">
+                                        <li>Global citizenship</li>
+                                    </ul>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="/policy_faq">
+                                    <strong>Full Position FAQ</strong>
+                                    <ul class="text-sm d-none d-md-block">
+                                        <li>Nuclear, Drugs, Media</li>
+                                    </ul>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="/policy_intake" style="background: #ffed00 !important; color: #000; border-radius: 0.5rem; text-align: center; font-weight: 900;">Intake Form</a>
+                            </li>
                         </ul>
                     </div>
                 </li>
+
+                <!-- ABOUT -->
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="aboutDropdown" role="button"
                        data-toggle="dropdown" aria-expanded="false">About</a>
-                    <ul class="dropdown-menu" aria-labelledby="aboutDropdown" data-popper="static">
+                    <ul class="dropdown-menu" aria-labelledby="aboutDropdown">
                         <li><a class="dropdown-item" href="/our_party">Our Party</a></li>
-                        <li><a class="dropdown-item" href="/what_is_a_movement">Member parties</a></li>
+                        <li><a class="dropdown-item" href="/what_is_a_movement">Member Parties</a></li>
                         <li><a class="dropdown-item" href="/our_values">Values</a></li>
-                        <li><a class="dropdown-item" href="/candidates">Candidates</a></li>
-                        <li><a class="dropdown-item" href="/live">Livestreams</a></li>
                         <li><a class="dropdown-item" href="/contact">Contact</a></li>
                         <li><a class="dropdown-item" href="/faqs">FAQs</a></li>
-                        <li><a class="dropdown-item" href="/store">Merch</a></li>
                     </ul>
                 </li>
               	<li class="nav-item">
@@ -132,44 +335,38 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="newsDropdown" role="button"
                        data-toggle="dropdown" aria-expanded="false">News</a>
-                    <ul class="dropdown-menu" aria-labelledby="newsDropdown" data-popper="static">
+                    <ul class="dropdown-menu" aria-labelledby="newsDropdown">
                         <li><a class="dropdown-item" href="/blog">Blog</a></li>
-                        <li><a class="dropdown-item" href="/submissions_and_reports">Submissions and Reports</a></li>
-                        <li><a class="dropdown-item" href="/press_signup">Press</a></li>
+                        <li><a class="dropdown-item" href="/submissions_and_reports">Submissions</a></li>
                     </ul>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/events">Events</a>
                 </li>
             </ul>
-            <ul class="navbar-nav mb-2 mb-lg-0 nav-right justify-content-end">
+
+            <ul class="navbar-nav nav-right justify-content-end">
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="involvedDropdown" role="button"
-                       data-toggle="dropdown" aria-expanded="false">Get Involved</a>
-                    <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="involvedDropdown"
-                        data-popper="static">
+                       data-toggle="dropdown" aria-expanded="false" style="color: #c926f2 !important;">Get Involved</a>
+                    <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="involvedDropdown">
                         <li><a href="/volunteer" class="dropdown-item">Volunteer</a></li>
                         {% unless request.sorta_logged_in? %}
-                        <li><a href="/join" class="dropdown-item">Join</a></li>
+                        <li><a href="/join" class="dropdown-item btn-involved-cta">Join the Party</a></li>
                         {% endunless %}
                         <li><a href="/donate" class="dropdown-item">Donate 🪙</a></li>
-                        <li><a href="https://www.fusionparty.org.au/discord" class="dropdown-item">Discord</a></li>
-                        <li><a href="https://groups.io/g/FusionPartyOfAustralia-Discussion" class="dropdown-item">Mailing Group</a></li>
-                        <!--li><a href="/feedback" class="dropdown-item">Give Feedback</a></li-->
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="profileDropdown" role="button"
-                       data-toggle="dropdown" aria-expanded="false">👤</a>
-                    <ul class="dropdown-menu dropdown-menu-right" data-popper="static"
-                        aria-labelledby="profileDropdown">
+                    <a class="nav-link" href="#" id="profileDropdown" role="button"
+                       data-toggle="dropdown" aria-expanded="false" style="font-size: 1.2rem;">👤</a>
+                    <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="profileDropdown">
                         {% if request.sorta_logged_in? %}
-                        <li><a href="/enrollment_details" class="dropdown-item">Enrollment Details</a></li>
+                        <li><a href="/enrollment_details" class="dropdown-item">Enrollment</a></li>
                         <li><a href="/supporter_portal/memberships" class="dropdown-item">Membership</a></li>
                         <li><a href="{{ request.current_signup.logout_url }}" class="dropdown-item">Log Out</a></li>
                         {% else %}
                         <li><a href="/login" class="dropdown-item">Log in</a></li>
-                        <li><a href="/join" class="dropdown-item">Sign up</a></li>
                         {% endif %}
                     </ul>
                 </li>
