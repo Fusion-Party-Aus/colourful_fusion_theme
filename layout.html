@@ -138,7 +138,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <!-- Owen is managing the Bing verification-->
     <meta name="msvalidate.01" content="7D866336EBF5D0BAD8327269CD856D25" />
-    
+
+	{% comment %}
+      	Donation pages for federal 2025 are a hybrid combination of "Blog Post" and "Donation v2" types. 
+	  The host page is the "Donation v2" where the donation functionality is contained, whereas the "Blog Post" holds text+image content and links to the /candidates "Blog" page
+	  We want search engines to index on the host page (the Donation type) but not the blog page (which contains text+image but no donations)
+	{% endcomment %}
     {% if page.slug.size > 9 %}
       {% assign check_string = page.slug | slice: -9, 9 %}
       {% if check_string == "candidate" %}
