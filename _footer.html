@@ -1,177 +1,207 @@
-<div class="container-fluid px-3 py-4 bg-pink-glass mt-auto" id="footer-container">
-    <footer class="{% unless page.type_name contains 'Donation' %}mt-5{% endunless %} m-0 m-sm-3">
+<!-- FUSION PARTY PREMIUM GLASS FOOTER (FIXED ICONS) -->
+<style>
+  #footer-container.bg-refined-glass {
+    background: rgba(255, 255, 255, 0.3) !important;
+    backdrop-filter: blur(25px) !important;
+    -webkit-backdrop-filter: blur(25px) !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.4) !important;
+    color: #000 !important;
+    padding: 4rem 1.5rem 2rem 1.5rem !important;
+  }
+
+  .footer-header {
+    font-family: 'Archivo Black', sans-serif;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
+    color: #c926f2; /* Fusion Magenta */
+    margin-bottom: 1.25rem;
+    display: block;
+    border-bottom: 2px solid rgba(201, 38, 242, 0.1);
+    padding-bottom: 5px;
+  }
+
+  .footer-links-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .footer-links-list li { margin-bottom: 0.75rem; }
+
+  .footer-links-list a {
+    color: #000 !important;
+    font-weight: 700;
+    text-decoration: none !important;
+    transition: all 0.2s ease;
+    font-size: 0.95rem;
+    display: inline-block;
+  }
+
+  .footer-links-list a:hover {
+    color: #c926f2 !important;
+    transform: translateX(5px);
+  }
+
+  /* REFINED SOCIAL ICONS */
+  .social-footer-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+    margin-bottom: 2.5rem;
+  }
+
+  .social-footer-icon {
+    width: 2.8rem;
+    height: 2.8rem;
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #000;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    border: 1px solid rgba(255,255,255,0.4);
+    text-decoration: none !important;
+  }
+
+  .social-footer-icon:hover {
+    background: #c926f2;
+    color: #fff;
+    transform: scale(1.15) rotate(8deg);
+    box-shadow: 0 8px 20px rgba(201, 38, 242, 0.3);
+    border-color: #c926f2;
+  }
+
+  /* Ensure SVGs sized correctly */
+  .social-footer-icon svg {
+    width: 1.4rem;
+    height: 1.4rem;
+    fill: currentColor;
+  }
+
+  .footer-logo-box {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+
+  .footer-logo-box img {
+    max-width: 400px;
+    width: 100%;
+    filter: drop-shadow(0 0 10px rgba(201, 38, 242, 0.1));
+  }
+
+  .auth-line {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    font-weight: 900;
+    color: #666;
+    letter-spacing: 0.05em;
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(0,0,0,0.05);
+  }
+</style>
+
+<div class="container-fluid bg-refined-glass mt-auto" id="footer-container">
+    <footer class="container">
         {% if page.type_name contains 'Donation' %}
-        <div class="container {% if page.type_name contains 'Donation' %}px-md-5{% endif %}" {% if
-             site.has_background_image? %}style="{% if page.type_name contains 'Donation' %}max-width:740px;{% endif %}"
-             {% endif %}>
-            <div class="row justify-content-between">
-                <div class="col-12 col-md-8">
-                    {% if site.footer_content.size > 0 %}
-                    {{ site.footer_content }}
+        <!-- DONATION FOOTER VARIANT -->
+        <div class="row justify-content-between align-items-center">
+            <div class="col-12 col-md-8">
+                {% if site.footer_content.size > 0 %}{{ site.footer_content }}{% endif %}
+                <p class="mt-3 font-weight-bold">
+                    {% if request.logged_in? %}
+                    Hi <a href="{{ request.current_signup.settings_url }}">{{ request.current_signup.name_or_email }}</a>. 
+                    <a href="{{ request.current_signup.logout_url }}">Sign out</a>
+                    {% else %}
+                    <a href="/login">Sign in</a> to manage your membership.
                     {% endif %}
-                    {% if request.logged_in? %} Hi
-                    <a href="{{ request.current_signup.settings_url }}">{{
-                        request.current_signup.name_or_email
-                        }}</a
-                    >. View your {% if site.show_public_profiles? %}
-                    <a href="{{ request.current_signup.profile_url }}">public profile</a>, {%
-                    endif %}
-                    <a href="{{ request.current_signup.settings_url }}">account settings</a>,
-                    or <a href="{{ request.current_signup.logout_url }}">sign out</a>. {% else
-                    %} Sign in with <a href="{{ request.facebook_connect_url }}">Facebook</a> or
-                    <a href="/login">Email</a>. {% endif %}
-                    {% if site.has_facebook_page? or site.has_twitter? %}
-                    <div class="mt-2">
-                        {% if site.has_facebook_page? %}
-                        <div class="fb-page" data-href="{{ site.broadcaster.facebook_page_profile_url }}"
-                             data-small-header="true" data-adapt-container-width="true" data-hide-cover="false"
-                             data-show-facepile="true" data-show-posts="false">
-                            <div class="fb-xfbml-parse-ignore">
-                                <blockquote cite="{{ site.broadcaster.facebook_page_profile_url }}"><a
-                                        href="{{ site.broadcaster.facebook_page_profile_url }}">{{
-                                    site.broadcaster.facebook_page_username }}</a></blockquote>
-                            </div>
-                        </div>
-                        {% else %}
-                        <fb:like href="{{ site.full_url }}" colorscheme="{{ site.facebook_colorscheme }}"></fb:like>
-                        {% endif %}
-                        {% if site.has_twitter? %}
-                        <div class="pt-1">
-                            <a href="{{ site.broadcaster.twitter_profile_url }}" class="twitter-follow-button"
-                               data-show-count="false">Follow @{{ site.broadcaster.twitter_login }} on Twitter</a>
-                        </div>
-                        {% endif %}
-                    </div>
-                    {% endif %}
-                </div>
-                <div class="col-12 col-md-auto">
-                    <!-- The NationBuilder link below is required. If it is removed, we may add it back ourselves.
-                          You can style it or move it in different ways, but please leave it in the footer. -->
-                    Created with <a href="{{ site.attribution_url }}">NationBuilder</a>
-                </div>
+                </p>
+            </div>
+            <div class="col-12 col-md-auto">
+                <small>Created with <a href="{{ site.attribution_url }}" target="_blank">NationBuilder</a></small>
             </div>
         </div>
         {% else %}
-        <div class="row my-3">
-            <div class="col-6 col-sm-3 col-lg-2 pb-2">
-                <ul class="pl-sm-1 pl-md-2 pl-ls-3">
-                    <li><a href="/policy">Policy</a></li>
-                    <li><a href="/news">News</a></li>
-                    <li><a href="/store">Merch</a></li>
+        <!-- STANDARD FOOTER -->
+        <div class="row">
+            <div class="col-6 col-md-3 footer-col">
+                <span class="footer-header">Policies + News</span>
+                <ul class="footer-links-list">
+                    <li><a href="/policy">Policy Overview</a></li>
+                    <li><a href="/blog">Our Blog</a></li>
+                    <li><a href="/press_signup">Press Center</a></li>
+                    <li><a href="/store">Merch Store</a></li>
                 </ul>
             </div>
-            <div class="col-6 col-sm-3 col-lg-2">
-                <ul class="px-0">
-                    <li><a href="/our_party">About Us</a></li>
-                    <li><a href="/events">Events</a></li>
-                    <li><a href="/contact">Contact</a></li>
+            <div class="col-6 col-md-3 footer-col">
+                <span class="footer-header">The Party</span>
+                <ul class="footer-links-list">
+                    <li><a href="/our_party">Our Movement</a></li>
+                    <li><a href="/candidates">Meet Candidates</a></li>
+                    <li><a href="/events">Upcoming Events</a></li>
+                    <li><a href="/contact">Get in Touch</a></li>
                 </ul>
             </div>
-            <hr class="d-sm-none">
-            <div class="col-6 col-sm-3 col-lg-2">
-                <ul class="pl-sm-0">
-                    <li><a href="/code_of_conduct">Code of Conduct</a></li>
-                    <li><a href="/constitution">Constitution</a></li>
-                    <li><a href="/privacy_policy">Privacy Policy</a></li>
-                </ul>
-            </div>
-            <div class="col-6 col-sm-3 col-lg-2">
-                <ul class="px-0">
-                    <li><a href="/join">Join</a></li>
+            <div class="col-6 col-md-3 footer-col">
+                <span class="footer-header">Join the Fight</span>
+                <ul class="footer-links-list">
+                    <li><a href="/join" style="color: #c926f2 !important;">Become a Member</a></li>
                     <li><a href="/volunteer">Volunteer</a></li>
-                    <li><a href="/donate">Donate</a></li>
+                    <li><a href="/donate">Donate 🪙</a></li>
+                    <li><a href="https://fusionparty.org.au/discord">Discord Chat</a></li>
                 </ul>
             </div>
-            <hr class="d-sm-none">
-            <div class="col-12 col-md-5 col-lg-4 text-center order-5 order-md-last order-lg-5 mb-2">
-                <!-- At medium size, this appears after the Fusion logo. Otherwise, it's order 5-->
-                <div class="d-flex flex-wrap justify-content-center justify-content-lg-start align-items-center align-items-lg-start h-100">
-                    <ul class="icons d-flex flex-wrap justify-content-center mb-0 px-0">
-                        <!--https://icons.getbootstrap.com/-->
-                        <li class="mx-3 mb-2">
-                            <a href="https://www.instagram.com/fusionpartyaus/">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-instagram"
-                                     viewBox="0 0 16 16">
-                                    <path d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.9 3.9 0 0 0-1.417.923A3.9 3.9 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.9 3.9 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.9 3.9 0 0 0-.923-1.417A3.9 3.9 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599s.453.546.598.92c.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.5 2.5 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.5 2.5 0 0 1-.92-.598 2.5 2.5 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233s.008-2.388.046-3.231c.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92s.546-.453.92-.598c.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92m-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217m0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334"/>
-                                </svg>
-                            </a>
-                        </li>
-                        <li class="mx-3 mb-2">
-                            <a href="https://www.facebook.com/FusionPartyAus/">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-facebook"
-                                     viewBox="0 0 16 16">
-                                    <path d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951"/>
-                                </svg>
-                            </a>
-                        </li>
-                        <li class="mx-3 mb-2">
-                            <a href="https://www.youtube.com/c/fusionpartyaus">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-youtube"
-                                     viewBox="0 0 16 16">
-                                    <path d="M8.051 1.999h.089c.822.003 4.987.033 6.11.335a2.01 2.01 0 0 1 1.415 1.42c.101.38.172.883.22 1.402l.01.104.022.26.008.104c.065.914.073 1.77.074 1.957v.075c-.001.194-.01 1.108-.082 2.06l-.008.105-.009.104c-.05.572-.124 1.14-.235 1.558a2.01 2.01 0 0 1-1.415 1.42c-1.16.312-5.569.334-6.18.335h-.142c-.309 0-1.587-.006-2.927-.052l-.17-.006-.087-.004-.171-.007-.171-.007c-1.11-.049-2.167-.128-2.654-.26a2.01 2.01 0 0 1-1.415-1.419c-.111-.417-.185-.986-.235-1.558L.09 9.82l-.008-.104A31 31 0 0 1 0 7.68v-.123c.002-.215.01-.958.064-1.778l.007-.103.003-.052.008-.104.022-.26.01-.104c.048-.519.119-1.023.22-1.402a2.01 2.01 0 0 1 1.415-1.42c.487-.13 1.544-.21 2.654-.26l.17-.007.172-.006.086-.003.171-.007A100 100 0 0 1 7.858 2zM6.4 5.209v4.818l4.157-2.408z"/>
-                                </svg>
-                            </a>
-                        </li>
-                        <li class="mx-3 mb-2">
-                            <a href="https://bsky.app/profile/fusionparty.org.au">
-                            <svg fill="none" viewBox="0 0 64 57" width="28">
-                                <path fill="currentColor" d="M13.873 3.805C21.21 9.332 29.103 20.537 32 26.55v15.882c0-.338-.13.044-.41.867-1.512 4.456-7.418 21.847-20.923 7.944-7.111-7.32-3.819-14.64 9.125-16.85-7.405 1.264-15.73-.825-18.014-9.015C1.12 23.022 0 8.51 0 6.55 0-3.268 8.579-.182 13.873 3.805ZM50.127 3.805C42.79 9.332 34.897 20.537 32 26.55v15.882c0-.338.13.044.41.867 1.512 4.456 7.418 21.847 20.923 7.944 7.111-7.32 3.819-14.64-9.125-16.85 7.405 1.264 15.73-.825 18.014-9.015C62.88 23.022 64 8.51 64 6.55c0-9.818-8.578-6.732-13.873-2.745Z">
-                                </path>
-                            </svg>
-                            </a>
-                        </li>
-                        <li class="mx-3 mb-2">
-                            <a href="https://twitter.com/FusionPartyAus">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-twitter-x"
-                                     viewBox="0 0 16 16">
-                                    <path d="M12.6.75h2.454l-5.36 6.142L16 15.25h-4.937l-3.867-5.07-4.425 5.07H.316l5.733-6.57L0 .75h5.063l3.495 4.633L12.601.75Zm-.86 13.028h1.36L4.323 2.145H2.865z"/>
-                                </svg>
-                            </a>
-                        </li>
-                        <li class="mx-3 mb-2">
-                            <a href="https://www.tiktok.com/@fusionpartyaus">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-tiktok"
-                                     viewBox="0 0 16 16">
-                                    <path d="M9 0h1.98c.144.715.54 1.617 1.235 2.512C12.895 3.389 13.797 4 15 4v2c-1.753 0-3.07-.814-4-1.829V11a5 5 0 1 1-5-5v2a3 3 0 1 0 3 3z"/>
-                                </svg>
-                            </a>
-                        </li>
-                        <li class="mx-3 mb-2">
-                            <a href="https://mastodon.au/@FusionPartyAus">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-mastodon"
-                                     viewBox="0 0 16 16">
-                                    <path d="M11.19 12.195c2.016-.24 3.77-1.475 3.99-2.603.348-1.778.32-4.339.32-4.339 0-3.47-2.286-4.488-2.286-4.488C12.062.238 10.083.017 8.027 0h-.05C5.92.017 3.942.238 2.79.765c0 0-2.285 1.017-2.285 4.488l-.002.662c-.004.64-.007 1.35.011 2.091.083 3.394.626 6.74 3.78 7.57 1.454.383 2.703.463 3.709.408 1.823-.1 2.847-.647 2.847-.647l-.06-1.317s-1.303.41-2.767.36c-1.45-.05-2.98-.156-3.215-1.928a4 4 0 0 1-.033-.496s1.424.346 3.228.428c1.103.05 2.137-.064 3.188-.189zm1.613-2.47H11.13v-4.08c0-.859-.364-1.295-1.091-1.295-.804 0-1.207.517-1.207 1.541v2.233H7.168V5.89c0-1.024-.403-1.541-1.207-1.541-.727 0-1.091.436-1.091 1.296v4.079H3.197V5.522q0-1.288.66-2.046c.456-.505 1.052-.764 1.793-.764.856 0 1.504.328 1.933.983L8 4.39l.417-.695c.429-.655 1.077-.983 1.934-.983.74 0 1.336.259 1.791.764q.662.757.661 2.046z"/>
-                                </svg>
-                            </a>
-                        </li>
-                        <li class="mx-3 mb-2">
-                            <a href="https://www.fusionparty.org.au/discord">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-discord"
-                                     viewBox="0 0 16 16">
-                                    <path d="M13.545 2.907a13.2 13.2 0 0 0-3.257-1.011.05.05 0 0 0-.052.025c-.141.25-.297.577-.406.833a12.2 12.2 0 0 0-3.658 0 8 8 0 0 0-.412-.833.05.05 0 0 0-.052-.025c-1.125.194-2.22.534-3.257 1.011a.04.04 0 0 0-.021.018C.356 6.024-.213 9.047.066 12.032q.003.022.021.037a13.3 13.3 0 0 0 3.995 2.02.05.05 0 0 0 .056-.019q.463-.63.818-1.329a.05.05 0 0 0-.01-.059l-.018-.011a9 9 0 0 1-1.248-.595.05.05 0 0 1-.02-.066l.015-.019q.127-.095.248-.195a.05.05 0 0 1 .051-.007c2.619 1.196 5.454 1.196 8.041 0a.05.05 0 0 1 .053.007q.121.1.248.195a.05.05 0 0 1-.004.085 8 8 0 0 1-1.249.594.05.05 0 0 0-.03.03.05.05 0 0 0 .003.041c.24.465.515.909.817 1.329a.05.05 0 0 0 .056.019 13.2 13.2 0 0 0 4.001-2.02.05.05 0 0 0 .021-.037c.334-3.451-.559-6.449-2.366-9.106a.03.03 0 0 0-.02-.019m-8.198 7.307c-.789 0-1.438-.724-1.438-1.612s.637-1.613 1.438-1.613c.807 0 1.45.73 1.438 1.613 0 .888-.637 1.612-1.438 1.612m5.316 0c-.788 0-1.438-.724-1.438-1.612s.637-1.613 1.438-1.613c.807 0 1.451.73 1.438 1.613 0 .888-.631 1.612-1.438 1.612"/>
-                                </svg>
-                            </a>
-                        </li>
-                        <li class="mx-3 mb-2">
-                            <a href="https://github.com/Fusion-Party-Aus">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                                     class="bi bi-github" viewBox="0 0 16 16">
-                                    <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8"/>
-                                </svg>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <!--div class="col-0 col-lg-1"></div-->
-            <div class="col-12 col-md-7 col-lg-12 order-last order-md-5 order-lg-last d-flex justify-content-center">
-                <img class="d-lg-none w-100 mb-3 neon-pink" src="https://fusionparty.space/images/landscape-white-border-paths.svg" alt="Fusion logo"/>
-                <img class="d-none d-lg-block w-100 mb-2 neon-pink" src="https://fusionparty.space/images/landscape-white-border-paths.svg"
-                     alt="Fusion logo"/>
+            <div class="col-6 col-md-3 footer-col">
+                <span class="footer-header">Governance</span>
+                <ul class="footer-links-list">
+                    <li><a href="/constitution">Constitution</a></li>
+                    <li><a href="/code_of_conduct">Code of Conduct</a></li>
+                    <li><a href="/privacy_policy">Privacy Policy</a></li>
+                    <li><a href="/faqs">Party FAQs</a></li>
+                </ul>
             </div>
         </div>
-        <div class="my-4 px-4 w-100 text-center">
-            <span class="text-secondary mx-2">Authorised by O. Miller, FUSION | Planet Rescue | Whistleblower Protection | Innovation, Brunswick VIC</span>
+
+        <div class="footer-logo-box mt-5">
+            <img class="neon-pink" src="https://fusionparty.space/images/landscape-white-border-paths.svg" alt="Fusion Party Australia">
+        </div>
+
+        <div class="social-footer-grid">
+            <a href="https://www.facebook.com/FusionPartyAus/" class="social-footer-icon" title="Facebook">
+                <svg viewBox="0 0 16 16"><path d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951"/></svg>
+            </a>
+            <a href="https://twitter.com/FusionPartyAus" class="social-footer-icon" title="Twitter/X">
+                <svg viewBox="0 0 16 16"><path d="M12.6.75h2.454l-5.36 6.142L16 15.25h-4.937l-3.867-5.07-4.425 5.07H.316l5.733-6.57L0 .75h5.063l3.495 4.633L12.601.75Zm-.86 13.028h1.36L4.323 2.145H2.865z"/></svg>
+            </a>
+            <a href="https://www.youtube.com/c/fusionpartyaus" class="social-footer-icon" title="YouTube">
+                <svg viewBox="0 0 16 16"><path d="M8.051 1.999h.089c.822.003 4.987.033 6.11.335a2.01 2.01 0 0 1 1.415 1.42c.101.38.172.883.22 1.402l.01.104.022.26.008.104c.065.914.073 1.77.074 1.957v.075c-.001.194-.01 1.108-.082 2.06l-.008.105-.009.104c-.05.572-.124 1.14-.235 1.558a2.01 2.01 0 0 1-1.415 1.42c-1.16.312-5.569.334-6.18.335h-.142c-.309 0-1.587-.006-2.927-.052l-.17-.006-.087-.004-.171-.007-.171-.007c-1.11-.049-2.167-.128-2.654-.26a2.01 2.01 0 0 1-1.415-1.419c-.111-.417-.185-.986-.235-1.558L.09 9.82l-.008-.104A31 31 0 0 1 0 7.68v-.123c.002-.215.01-.958.064-1.778l.007-.103.003-.052.008-.104.022-.26.01-.104c.048-.519.119-1.023.22-1.402a2.01 2.01 0 0 1 1.415-1.42c.487-.13 1.544-.21 2.654-.26l.17-.007.172-.006.086-.003.171-.007A100 100 0 0 1 7.858 2zM6.4 5.209v4.818l4.157-2.408z"/></svg>
+            </a>
+            <a href="https://www.instagram.com/fusionpartyaus/" class="social-footer-icon" title="Instagram">
+                <svg viewBox="0 0 16 16"><path d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.9 3.9 0 0 0-1.417.923A3.9 3.9 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.9 3.9 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.9 3.9 0 0 0-.923-1.417A3.9 3.9 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599s.453.546.598.92c.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.5 2.5 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.5 2.5 0 0 1-.92-.598 2.5 2.5 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233s.008-2.388.046-3.231c.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92s.546-.453.92-.598c.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92m-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217m0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334"/></svg>
+            </a>
+            <a href="https://bsky.app/profile/fusionparty.org.au" class="social-footer-icon" title="Bluesky">
+                <svg viewBox="0 0 64 57"><path d="M13.873 3.805C21.21 9.332 29.103 20.537 32 26.55v15.882c0-.338-.13.044-.41.867-1.512 4.456-7.418 21.847-20.923 7.944-7.111-7.32-3.819-14.64 9.125-16.85-7.405 1.264-15.73-.825-18.014-9.015C1.12 23.022 0 8.51 0 6.55 0-3.268 8.579-.182 13.873 3.805ZM50.127 3.805C42.79 9.332 34.897 20.537 32 26.55v15.882c0-.338.13.044.41.867 1.512 4.456 7.418 21.847 20.923 7.944 7.111-7.32 3.819-14.64-9.125-16.85 7.405 1.264 15.73-.825 18.014-9.015C62.88 23.022 64 8.51 64 6.55c0-9.818-8.578-6.732-13.873-2.745Z"/></svg>
+            </a>
+            <a href="https://www.tiktok.com/@fusionpartyaus" class="social-footer-icon" title="TikTok">
+                <svg viewBox="0 0 16 16"><path d="M9 0h1.98c.144.715.54 1.617 1.235 2.512C12.895 3.389 13.797 4 15 4v2c-1.753 0-3.07-.814-4-1.829V11a5 5 0 1 1-5-5v2a3 3 0 1 0 3 3z"/></svg>
+            </a>
+            <a href="https://mastodon.au/@FusionPartyAus" class="social-footer-icon" title="Mastodon">
+                <svg viewBox="0 0 16 16"><path d="M11.19 12.195c2.016-.24 3.77-1.475 3.99-2.603.348-1.778.32-4.339.32-4.339 0-3.47-2.286-4.488-2.286-4.488C12.062.238 10.083.017 8.027 0h-.05C5.92.017 3.942.238 2.79.765c0 0-2.285 1.017-2.285 4.488l-.002.662c-.004.64-.007 1.35.011 2.091.083 3.394.626 6.74 3.78 7.57 1.454.383 2.703.463 3.709.408 1.823-.1 2.847-.647 2.847-.647l-.06-1.317s-1.303.41-2.767.36c-1.45-.05-2.98-.156-3.215-1.928a4 4 0 0 1-.033-.496s1.424.346 3.228.428c1.103.05 2.137-.064 3.188-.189zm1.613-2.47H11.13v-4.08c0-.859-.364-1.295-1.091-1.295-.804 0-1.207.517-1.207 1.541v2.233H7.168V5.89c0-1.024-.403-1.541-1.207-1.541-.727 0-1.091.436-1.091 1.296v4.079H3.197V5.522q0-1.288.66-2.046c.456-.505 1.052-.764 1.793-.764.856 0 1.504.328 1.933.983L8 4.39l.417-.695c.429-.655 1.077-.983 1.934-.983.74 0 1.336.259 1.791.764q.662.757.661 2.046z"/></svg>
+            </a>
+            <a href="https://www.fusionparty.org.au/discord" class="social-footer-icon" title="Discord">
+                <svg viewBox="0 0 16 16"><path d="M13.545 2.907a13.2 13.2 0 0 0-3.257-1.011.05.05 0 0 0-.052.025c-.141.25-.297.577-.406.833a12.2 12.2 0 0 0-3.658 0 8 8 0 0 0-.412-.833.05.05 0 0 0-.052-.025c-1.125.194-2.22.534-3.257 1.011a.04.04 0 0 0-.021.018C.356 6.024-.213 9.047.066 12.032q.003.022.021.037a13.3 13.3 0 0 0 3.995 2.02.05.05 0 0 0 .056-.019q.463-.63.818-1.329a.05.05 0 0 0-.01-.059l-.018-.011a9 9 0 0 1-1.248-.595.05.05 0 0 1-.02-.066l.015-.019q.127-.095.248-.195a.05.05 0 0 1 .051-.007c2.619 1.196 5.454 1.196 8.041 0a.05.05 0 0 1 .053.007q.121.1.248.195a.05.05 0 0 1-.004.085 8 8 0 0 1-1.249.594.05.05 0 0 0-.03.03.05.05 0 0 0 .003.041c.24.465.515.909.817 1.329a.05.05 0 0 0 .056.019 13.2 13.2 0 0 0 4.001-2.02.05.05 0 0 0 .021-.037c.334-3.451-.559-6.449-2.366-9.106a.03.03 0 0 0-.02-.019m-8.198 7.307c-.789 0-1.438-.724-1.438-1.612s.637-1.613 1.438-1.613c.807 0 1.45.73 1.438 1.613 0 .888-.637 1.612-1.438 1.612m5.316 0c-.788 0-1.438-.724-1.438-1.612s.637-1.613 1.438-1.613c.807 0 1.451.73 1.438 1.613 0 .888-.631 1.612-1.438 1.612"/></svg>
+            </a>
+            <a href="https://github.com/Fusion-Party-Aus" class="social-footer-icon" title="GitHub">
+                <svg viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8"/></svg>
+            </a>
+        </div>
+
+        <div class="auth-line text-center">
+            Authorised by K. Hunt, FUSION PARTY, 254 McLeod Ln, Mansfield VIC<br>
+            <small class="mt-2 d-block">Created with NationBuilder</small>
         </div>
         {% endif %}
     </footer>
