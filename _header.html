@@ -35,7 +35,11 @@
           {% break %}
       {%  else %}
           {% if att.file_name contains "splash" %}
-              {% assign splashImage = att.file_name %}
+              {% comment %}
+                The file name alone is a relative path, which only resolves to a missing image. The attachment's url is
+                the full assets.nationbuilder.com address.
+              {% endcomment %}
+              {% assign splashImage = att.url %}
               {% assign hasBackground = true %}
           {%  endif %}
       {% endif %}
